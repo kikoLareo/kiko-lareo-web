@@ -1,0 +1,29 @@
+---
+// Nav fijo. En portada lleva los enlaces de sección; en subpáginas,
+// vuelta a la portada + etiqueta contextual.
+interface Props {
+  variante?: 'portada' | 'subpagina';
+  etiqueta?: string;
+}
+
+const { variante = 'portada', etiqueta } = Astro.props;
+---
+
+<nav class="nav">
+  {variante === 'portada' ? (
+    <>
+      <a href="#top" class="nav-logo">KIKO LAREO®</a>
+      <div class="nav-links">
+        <a href="#trabajo">TRABAJO</a>
+        <a href="#sobre">SOBRE MÍ</a>
+        <a href="#servicios">SERVICIOS</a>
+        <a href="#contacto">CONTACTO</a>
+      </div>
+    </>
+  ) : (
+    <>
+      <a href="/" class="nav-logo">← KIKO LAREO®</a>
+      {etiqueta && <span class="nav-label">{etiqueta}</span>}
+    </>
+  )}
+</nav>

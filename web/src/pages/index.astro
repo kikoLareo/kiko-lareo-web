@@ -1,0 +1,210 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Slot from '../components/Slot.astro';
+import FlipCard from '../components/FlipCard.astro';
+import { CATEGORIAS } from '../lib/categorias';
+import { negocioLocal } from '../lib/seo';
+
+const [ajustes] = await getCollection('paginas');
+const g = ajustes.data;
+
+const jsonLd = [
+  negocioLocal(Astro.site!, {
+    email: g.email,
+    telefono: g.telefono,
+    direccion: g.direccion,
+    redes: g.redes,
+    imagen: g.seo.imagen_compartir ?? g.hero_imagen,
+  }),
+];
+
+const fotos = (await getCollection('fotos')).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+const proyectos = (await getCollection('proyectos')).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+
+// Por categoría: la tarjeta con historia más reciente + las 2 fotos más
+// recientes. Si faltan fotos, se muestran los huecos etiquetados.
+const secciones = CATEGORIAS.map((cat) => {
+  const propias = fotos.filter((f) => f.data.categoria === cat.id);
+  const card = propias.find((f) => f.data.historia);
+  const resto = propias.filter((f) => f !== card).slice(0, 2);
+  const ultimoProyecto = proyectos.find((p) => p.data.categoria === cat.id);
+
+  type Celda =
+    | { tipo: 'card'; foto: typeof card }
+    | { tipo: 'foto'; foto: (typeof resto)[number] }
+    | { tipo: 'hueco'; etiqueta: string };
+
+  const celdas: Celda[] = [];
+  const fotosPendientes = [...resto];
+  for (let i = 0; i < 3; i++) {
+    if (i === cat.cardPos) {
+      celdas.push({ tipo: 'card', foto: card });
+    } else if (fotosPendientes.length) {
+      celdas.push({ tipo: 'foto', foto: fotosPendientes.shift()! });
+    } else {
+      celdas.push({ tipo: 'hueco', etiqueta: cat.placeholders[i] });
+    }
+  }
+
+  return { cat, celdas, ultimoProyecto };
+});
+
+const marquesina = `${g.marquesina.trim()} `;
+---
+
+<Base
+  title="Kiko Lareo® — Fotógrafo y Videógrafo en A Coruña, Galicia"
+  description={g.seo.descripcion}
+  ogImage={g.seo.imagen_compartir ?? g.hero_imagen}
+  jsonLd={jsonLd}
+>
+
+<Nav />
+
+<!-- Hero -->
+<header id="top" class="hero">
+  <div class="hero-meta">
+    <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
+    <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
+  </div>
+  <h1 class="hero-title" style="margin:0">
+    <span>KIKO</span><span>LAREO<sup>®</sup></span>
+  </h1>
+  <div class="hero-media">
+    <div>
+      <Slot imagen={g.hero_imagen} etiqueta="Foto principal — súbela desde el panel (Páginas → Portada)" />
+    </div>
+  </div>
+</header>
+
+<!-- Marquesina -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>{marquesina}</span><span>{marquesina}</span>
+  </div>
+</div>
+
+<!-- Accesos rápidos -->
+<div class="quicklinks">
+  {CATEGORIAS.map((c) => (
+    <a href={`#${c.id}`}>({c.num}) {c.titulo}</a>
+  ))}
+</div>
+
+<main>
+<div id="trabajo"></div>
+
+{secciones.map(({ cat, celdas, ultimoProyecto }, i) => (
+  <section id={cat.id}>
+    <div class={`cat-header${i === 0 ? ' first' : ''}`}>
+      <span class="cat-num">({cat.num})</span>
+      <h2 class="cat-title" style="margin:0">{cat.titulo}</h2>
+      <div class="cat-aside-group">
+        {ultimoProyecto && (
+          <a href={`/proyectos/${ultimoProyecto.id}/`} class="link">
+            VER PROYECTO: {ultimoProyecto.data.titulo.toUpperCase()} →
+          </a>
+        )}
+        <a href={`/${cat.id}/`} class="link">VER TODO →</a>
+      </div>
+    </div>
+    <div class={`cat-grid ${cat.grid}${cat.tall ? ' tall' : ''}${i === secciones.length - 1 ? ' last' : ''}`}>
+      {celdas.map((celda, pos) =>
+        celda.tipo === 'card' ? (
+          celda.foto ? (
+            <FlipCard
+              class="cat-cell"
+              imagen={celda.foto.data.imagen}
+              alt={celda.foto.data.alt}
+              etiqueta={celda.foto.data.titulo}
+              historia={celda.foto.data.historia!}
+            />
+          ) : (
+            <div class="cat-cell"><Slot etiqueta={cat.placeholders[pos]} /></div>
+          )
+        ) : celda.tipo === 'foto' ? (
+          <div class="cat-cell">
+            <Slot imagen={celda.foto.data.imagen} alt={celda.foto.data.alt} etiqueta={celda.foto.data.titulo} />
+          </div>
+        ) : (
+          <div class="cat-cell"><Slot etiqueta={celda.etiqueta} /></div>
+        )
+      )}
+    </div>
+  </section>
+))}
+
+<!-- Reel -->
+<section class="reel">
+  <div class="reel-header">
+    <span class="reel-title">{g.reel.titulo}</span>
+    <span class="reel-label">{g.reel.etiqueta}</span>
+  </div>
+  <div class="reel-media">
+    <Slot imagen={g.reel.imagen} etiqueta="Fotograma del reel — aquí se incrusta el vídeo" />
+    <div class="play-overlay"><div class="play-btn">PLAY</div></div>
+  </div>
+</section>
+
+<!-- Sobre mí -->
+<section id="sobre" class="about">
+  <div class="about-photo"><Slot imagen={g.sobre_mi.retrato} etiqueta="Retrato de Kiko" /></div>
+  <div>
+    <h2 class="section-title" style="margin:0">SOBRE MÍ</h2>
+    {g.sobre_mi.parrafos.map((p) => <p>{p}</p>)}
+    <div class="about-stats">
+      {g.sobre_mi.stats.map((s) => (
+        <div>{s.linea1}<br>{s.linea2}</div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Servicios -->
+<section id="servicios" class="services">
+  <h2 class="section-title">SERVICIOS</h2>
+  {g.servicios.map((s) => (
+    <div class="service-row"><span>{s.nombre}</span><span class="tag">{s.tag}</span></div>
+  ))}
+</section>
+
+<!-- Clientes -->
+<section class="clients">
+  <div class="clients-label">HAN CONFIADO EN MÍ</div>
+  <div class="clients-list">
+    {g.clientes.map((c) => <span>{c}</span>)}
+  </div>
+</section>
+
+<!-- Contacto -->
+<section id="contacto" class="contact">
+  <h2 class="contact-title" style="margin:0">HABLEMOS</h2>
+  <div class="contact-grid">
+    <div>
+      <a href={`mailto:${g.email}`} class="contact-email">{g.email}</a>
+      <div class="contact-socials">
+        {g.redes.map((r) => (
+          <a href={r.url || '#'} target="_blank" rel="noopener">{r.nombre.toUpperCase()} ↗</a>
+        ))}
+      </div>
+    </div>
+    <form class="contact-form" id="contact-form" data-email={g.email}>
+      <input type="text" name="nombre" placeholder="Nombre" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <textarea name="mensaje" placeholder="Cuéntame tu proyecto" rows="3" required></textarea>
+      <button type="submit">ENVIAR →</button>
+    </form>
+  </div>
+  <div class="contact-footer">
+    <span>© {new Date().getFullYear()} KIKO LAREO®</span><span>{g.localizacion}</span>
+  </div>
+</section>
+</main>
+
+</Base>

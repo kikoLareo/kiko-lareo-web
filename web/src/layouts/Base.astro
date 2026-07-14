@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Imagen para compartir en redes (ruta relativa o absoluta) */
+  ogImage?: string | null;
+  /** Bloques JSON-LD (schema.org) a inyectar en el <head> */
+  jsonLd?: object[];
+}
+
+const { title, description, ogImage, jsonLd = [] } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kiko Lareo® — Fotógrafo y Videógrafo" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+{ogImg && <meta property="og:image" content={ogImg} />}
+<meta name="twitter:card" content={ogImg ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImg && <meta name="twitter:image" content={ogImg} />}
+
+{jsonLd.map((bloque) => (
+  <script type="application/ld+json" set:html={JSON.stringify(bloque)} />
+))}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+<slot />
+<script>
+  // Tarjetas con historia: HISTORIA ↻ gira la tarjeta
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest('.flip-btn');
+    if (btn) btn.closest('.flip')?.classList.toggle('flipped');
+  });
+
+  // Formulario de contacto: abre el correo redactado (sin backend).
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const subject = encodeURIComponent(`Proyecto — ${data.get('nombre')}`);
+    const body = encodeURIComponent(`${data.get('mensaje')}\n\n— ${data.get('nombre')} (${data.get('email')})`);
+    window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
+  });
+</script>
+</body>
+</html>

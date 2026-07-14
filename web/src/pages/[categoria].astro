@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Slot from '../components/Slot.astro';
+import FlipCard from '../components/FlipCard.astro';
+import { CATEGORIAS } from '../lib/categorias';
+import { migas } from '../lib/seo';
+
+export async function getStaticPaths() {
+  return CATEGORIAS.map((cat) => ({ params: { categoria: cat.id }, props: { cat } }));
+}
+
+const { cat } = Astro.props;
+
+const fotos = (await getCollection('fotos', (f) => f.data.categoria === cat.id)).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+const proyectos = (await getCollection('proyectos', (p) => p.data.categoria === cat.id)).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+
+const jsonLd = [
+  migas(Astro.site!, [
+    { nombre: 'Inicio', ruta: '/' },
+    { nombre: cat.titulo, ruta: `/${cat.id}/` },
+  ]),
+];
+
+const ogImage = proyectos.find((p) => p.data.portada)?.data.portada
+  ?? fotos.find((f) => f.data.imagen)?.data.imagen;
+---
+
+<Base title={cat.seo.titulo} description={cat.seo.descripcion} ogImage={ogImage} jsonLd={jsonLd}>
+
+<Nav variante="subpagina" etiqueta={`CATEGORÍA ${cat.num}`} />
+
+<main>
+<div class="cat-header first">
+  <span class="cat-num">({cat.num})</span>
+  <h1 class="cat-title" style="margin:0">{cat.titulo}</h1>
+  <span class="cat-aside">{cat.etiqueta}</span>
+</div>
+
+{proyectos.length > 0 && (
+  <>
+    <div class="subsection-label">PROYECTOS ({String(proyectos.length).padStart(2, '0')})</div>
+    <div class="project-list">
+      {proyectos.map((p) => (
+        <a href={`/proyectos/${p.id}/`} class="project-card">
+          <div class="cover">
+            <Slot imagen={p.data.portada} etiqueta={`Portada — ${p.data.titulo}`} />
+          </div>
+          <div class="info">
+            <span class="name">{p.data.titulo.toUpperCase()} →</span>
+            <span class="meta">{p.data.cliente} · {p.data.anio}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </>
+)}
+
+<div class="subsection-label">GALERÍA ({String(fotos.length).padStart(2, '0')})</div>
+{fotos.length > 0 ? (
+  <div class="photo-grid">
+    {fotos.map((f) =>
+      f.data.historia ? (
+        <FlipCard
+          imagen={f.data.imagen}
+          alt={f.data.alt}
+          etiqueta={f.data.titulo}
+          historia={f.data.historia}
+        />
+      ) : (
+        <div>
+          <Slot imagen={f.data.imagen} alt={f.data.alt} etiqueta={f.data.titulo} />
+        </div>
+      )
+    )}
+  </div>
+) : (
+  <div class="empty-note">Aún no hay fotos en esta categoría — súbelas desde el panel (Fotos → Nueva).</div>
+)}
+</main>
+
+<footer class="footer-bar">
+  <span>© {new Date().getFullYear()} KIKO LAREO®</span><a href="/#contacto">CONTACTO →</a>
+</footer>
+
+</Base>

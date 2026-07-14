@@ -1,0 +1,36 @@
+---
+import Slot from './Slot.astro';
+
+// Tarjeta con historia: foto delante, relato detrás, botón HISTORIA ↻.
+interface Props {
+  imagen?: string | null;
+  alt?: string;
+  etiqueta: string;
+  historia: {
+    titulo: string;
+    meta?: string;
+    texto: string;
+    proyecto?: string; // slug del proyecto enlazado
+  };
+  class?: string;
+}
+
+const { imagen, alt, etiqueta, historia, class: className = '' } = Astro.props;
+---
+
+<div class={`flip ${className}`}>
+  <div class="flip-inner">
+    <div class="flip-front">
+      <Slot imagen={imagen} alt={alt} etiqueta={etiqueta} />
+    </div>
+    <div class="flip-back">
+      <h3>{historia.titulo}</h3>
+      {historia.meta && <div class="meta">{historia.meta}</div>}
+      <p>{historia.texto}</p>
+      {historia.proyecto && (
+        <a href={`/proyectos/${historia.proyecto}/`} class="project-link">VER PROYECTO →</a>
+      )}
+    </div>
+  </div>
+  <button class="flip-btn" type="button" aria-label="Girar tarjeta y ver la historia">HISTORIA ↻</button>
+</div>

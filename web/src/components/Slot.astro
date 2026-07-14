@@ -1,0 +1,17 @@
+---
+// Hueco de imagen: muestra la foto si existe, o el recuadro punteado con
+// la etiqueta si aún no se ha subido (mismo comportamiento que el prototipo).
+interface Props {
+  imagen?: string | null;
+  alt?: string;
+  etiqueta: string;
+}
+
+const { imagen, alt, etiqueta } = Astro.props;
+---
+
+{imagen ? (
+  <div class="slot filled"><img src={imagen} alt={alt ?? etiqueta} loading="lazy" /></div>
+) : (
+  <div class="slot"><span>{etiqueta}</span></div>
+)}

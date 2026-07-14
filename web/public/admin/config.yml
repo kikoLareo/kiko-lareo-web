@@ -1,0 +1,174 @@
+# Panel de administración (Decap CMS) — https://decapcms.org/docs/
+#
+# Backend por defecto: Netlify (git-gateway). Al alojar la web en Netlify,
+# activa "Identity" y "Git Gateway" en el panel de Netlify e invítate como
+# usuario: el login de /admin funcionará con tu email.
+# NOTA: las rutas son relativas a la raíz del repositorio (por eso llevan "web/").
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Para probar el panel en local sin login: ejecuta `npx decap-server` en una
+# terminal y `npm run dev` en otra, y entra en http://localhost:4321/admin/
+local_backend: true
+
+locale: es
+site_url: /
+media_folder: "web/public/img/uploads"
+public_folder: "/img/uploads"
+
+collections:
+  - name: fotos
+    label: Fotos
+    label_singular: Foto
+    folder: "web/src/content/fotos"
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{fields.fecha}}-{{slug}}"
+    summary: "{{titulo}} ({{categoria}})"
+    sort_by: ["fecha"]
+    fields:
+      - { name: titulo, label: Título, widget: string, hint: "Se usa como pie y como etiqueta del hueco" }
+      - name: categoria
+        label: Categoría
+        widget: select
+        options:
+          - { label: Deportes, value: deportes }
+          - { label: Eventos, value: eventos }
+          - { label: Moda, value: moda }
+          - { label: Comida, value: comida }
+      - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false, hint: "Las más recientes salen en la portada" }
+      - { name: imagen, label: Imagen, widget: image }
+      - { name: alt, label: "Descripción de la imagen (SEO + accesibilidad)", widget: string, required: false, hint: "Describe qué se ve y dónde. Ej: Ciclista esprintando en la Copa Galicia, A Coruña. Google lee esto." }
+      - name: historia
+        label: "Historia (tarjeta que gira)"
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Rellénala solo si quieres que esta foto sea una tarjeta HISTORIA ↻"
+        fields:
+          - { name: titulo, label: Título de la historia, widget: string, required: false }
+          - { name: meta, label: "Datos técnicos (ej: COPA GALICIA · 2025 · f/2.8)", widget: string, required: false }
+          - { name: texto, label: Relato, widget: text, required: false }
+          - name: proyecto
+            label: Proyecto enlazado
+            widget: relation
+            collection: proyectos
+            value_field: "{{slug}}"
+            search_fields: [titulo]
+            display_fields: [titulo]
+            required: false
+
+  - name: proyectos
+    label: Proyectos
+    label_singular: Proyecto
+    folder: "web/src/content/proyectos"
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    summary: "{{titulo}} ({{anio}})"
+    sort_by: ["fecha"]
+    fields:
+      - { name: titulo, label: Título, widget: string }
+      - name: categoria
+        label: Categoría
+        widget: select
+        options:
+          - { label: Deportes, value: deportes }
+          - { label: Eventos, value: eventos }
+          - { label: Moda, value: moda }
+          - { label: Comida, value: comida }
+      - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { name: cliente, label: Cliente, widget: string }
+      - { name: anio, label: Año, widget: string }
+      - { name: servicios, label: Servicios, widget: string, hint: "Ej: Foto + Vídeo + Aftermovie" }
+      - { name: entrega, label: Entrega, widget: string, hint: "Ej: 400 fotos · 48 horas" }
+      - { name: titular, label: Titular de la historia, widget: text, hint: "Los saltos de línea se respetan (2-3 líneas quedan mejor)" }
+      - { name: localidad, label: "Localidad (SEO local)", widget: string, required: false, hint: "Dónde se hizo el trabajo. Ej: A Coruña, Santiago, Vigo…" }
+      - { name: descripcion_seo, label: "Descripción para Google", widget: text, required: false, hint: "1-2 frases con la localidad y el tipo de trabajo. Si se deja vacía, se genera sola." }
+      - { name: portada, label: Foto de portada, widget: image, required: false }
+      - { name: body, label: Historia, widget: markdown, hint: "Dos párrafos funcionan bien: el momento clave y cómo trabajaste" }
+      - name: galeria
+        label: Galería
+        widget: list
+        required: false
+        summary: "{{fields.etiqueta}}"
+        hint: "La 1ª foto sale grande, la 2ª y 3ª apiladas, el resto en filas de 3"
+        fields:
+          - { name: etiqueta, label: Etiqueta / pie, widget: string }
+          - { name: imagen, label: Imagen, widget: image, required: false }
+      - name: video
+        label: Vídeo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: titulo, label: Título, widget: string, default: AFTERMOVIE, required: false }
+          - { name: etiqueta, label: Etiqueta, widget: string, default: "90 SEG · 4K", required: false }
+          - { name: url, label: "URL de embed (YouTube/Vimeo)", widget: string, required: false, hint: "Ej: https://player.vimeo.com/video/XXXX o https://www.youtube.com/embed/XXXX" }
+          - { name: imagen, label: "Fotograma (si aún no hay URL)", widget: image, required: false }
+
+  - name: paginas
+    label: Páginas
+    files:
+      - name: general
+        label: "Portada y textos generales"
+        file: "web/src/content/paginas/general.json"
+        fields:
+          - { name: claim_izquierda, label: "Hero — texto izquierda", widget: text }
+          - { name: claim_derecha, label: "Hero — texto derecha", widget: text }
+          - { name: hero_imagen, label: "Hero — foto principal", widget: image, required: false }
+          - { name: marquesina, label: Marquesina, widget: string }
+          - name: reel
+            label: Reel
+            widget: object
+            fields:
+              - { name: titulo, label: Título, widget: string }
+              - { name: etiqueta, label: Etiqueta, widget: string }
+              - { name: imagen, label: Fotograma, widget: image, required: false }
+          - name: sobre_mi
+            label: Sobre mí
+            widget: object
+            fields:
+              - { name: retrato, label: Retrato, widget: image, required: false }
+              - { name: parrafos, label: Párrafos, widget: list, field: { name: parrafo, label: Párrafo, widget: text } }
+              - name: stats
+                label: Cifras
+                widget: list
+                fields:
+                  - { name: linea1, label: Línea 1, widget: string }
+                  - { name: linea2, label: Línea 2, widget: string }
+          - name: servicios
+            label: Servicios
+            widget: list
+            fields:
+              - { name: nombre, label: Servicio, widget: string }
+              - { name: tag, label: Etiqueta, widget: string }
+          - { name: clientes, label: Clientes, widget: list, field: { name: cliente, label: Cliente, widget: string } }
+          - { name: email, label: Email de contacto, widget: string }
+          - { name: telefono, label: "Teléfono (opcional, ayuda al SEO local)", widget: string, required: false }
+          - { name: localizacion, label: Localización, widget: string }
+          - name: redes
+            label: Redes sociales
+            widget: list
+            fields:
+              - { name: nombre, label: Red, widget: string }
+              - { name: url, label: URL del perfil, widget: string, required: false }
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: descripcion, label: "Descripción de la web para Google", widget: text, hint: "Lo que sale bajo el título en los resultados de búsqueda. Incluye A Coruña / Galicia." }
+              - { name: imagen_compartir, label: "Imagen al compartir (WhatsApp, redes)", widget: image, required: false }
+          - name: direccion
+            label: "Dirección (SEO local)"
+            widget: object
+            fields:
+              - { name: ciudad, label: Ciudad, widget: string }
+              - { name: region, label: Región, widget: string }
+              - { name: pais, label: "País (código, ej: ES)", widget: string }
+              - { name: lat, label: Latitud, widget: number, value_type: float, required: false }
+              - { name: lng, label: Longitud, widget: number, value_type: float, required: false }

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; } body { margin: 0; background: #DDD8CC; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { opacity: 0.6; }
+    @keyframes kl-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Climate+Crisis&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&family=Anybody:wdth,wght@50..150,400..900&display=swap" rel="stylesheet">
+  <script src="image-slot.js"></script>
+</helmet>
+
+<section style="display:flex; gap:60px; align-items:flex-start; padding:60px 60px 0">
+
+  <!-- ============ 4 — PRUEBAS DE TIPOGRAFÍA PARA 1A ============ -->
+  <div id="4a" style="width:700px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">4A — UNBOUNDED · ancha, tecnológica-artística</div>
+    <div style="background:#F3EEE3; color:#141414; padding:40px; border:2px solid #141414">
+      <div style="font-family:'Unbounded',sans-serif; font-weight:900; font-size:88px; line-height:0.95; letter-spacing:-0.02em">KIKO<br>LAREO<span style="font-size:32px; vertical-align:super">®</span></div>
+      <div style="display:flex; align-items:baseline; gap:16px; border-top:2px solid #141414; margin-top:32px; padding-top:20px">
+        <span style="font-family:'Space Mono',monospace; font-size:13px">(01)</span>
+        <span style="font-family:'Unbounded',sans-serif; font-weight:700; font-size:44px">DEPORTES</span>
+      </div>
+      <div style="background:#141414; color:#F3EEE3; font-family:'Unbounded',sans-serif; font-weight:500; font-size:17px; padding:10px 16px; margin-top:24px; white-space:nowrap; overflow:hidden">DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO</div>
+    </div>
+  </div>
+
+  <div id="4b" style="width:700px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">4B — CLIMATE CRISIS · masiva, casi un logo</div>
+    <div style="background:#F3EEE3; color:#141414; padding:40px; border:2px solid #141414">
+      <div style="font-family:'Climate Crisis',sans-serif; font-size:88px; line-height:1; letter-spacing:0.01em">KIKO<br>LAREO<span style="font-size:32px; vertical-align:super">®</span></div>
+      <div style="display:flex; align-items:baseline; gap:16px; border-top:2px solid #141414; margin-top:32px; padding-top:20px">
+        <span style="font-family:'Space Mono',monospace; font-size:13px">(01)</span>
+        <span style="font-family:'Climate Crisis',sans-serif; font-size:42px">DEPORTES</span>
+      </div>
+      <div style="background:#141414; color:#F3EEE3; font-family:'Climate Crisis',sans-serif; font-size:15px; padding:10px 16px; margin-top:24px; white-space:nowrap; overflow:hidden">DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO</div>
+    </div>
+  </div>
+
+  <div id="4c" style="width:700px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">4C — BRICOLAGE GROTESQUE · editorial con carácter</div>
+    <div style="background:#F3EEE3; color:#141414; padding:40px; border:2px solid #141414">
+      <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-optical-sizing:auto; font-size:110px; line-height:0.92; letter-spacing:-0.04em">KIKO<br>LAREO<span style="font-size:38px; vertical-align:super">®</span></div>
+      <div style="display:flex; align-items:baseline; gap:16px; border-top:2px solid #141414; margin-top:32px; padding-top:20px">
+        <span style="font-family:'Space Mono',monospace; font-size:13px">(01)</span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:52px; letter-spacing:-0.02em">DEPORTES</span>
+      </div>
+      <div style="background:#141414; color:#F3EEE3; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:19px; padding:10px 16px; margin-top:24px; white-space:nowrap; overflow:hidden">DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO</div>
+    </div>
+  </div>
+
+  <div id="4d" style="width:700px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">4D — ANYBODY EXPANDED · rotunda, de cartel</div>
+    <div style="background:#F3EEE3; color:#141414; padding:40px; border:2px solid #141414">
+      <div style="font-family:'Anybody',sans-serif; font-weight:900; font-stretch:150%; font-size:96px; line-height:0.95; letter-spacing:-0.01em">KIKO<br>LAREO<span style="font-size:34px; vertical-align:super">®</span></div>
+      <div style="display:flex; align-items:baseline; gap:16px; border-top:2px solid #141414; margin-top:32px; padding-top:20px">
+        <span style="font-family:'Space Mono',monospace; font-size:13px">(01)</span>
+        <span style="font-family:'Anybody',sans-serif; font-weight:900; font-stretch:150%; font-size:46px">DEPORTES</span>
+      </div>
+      <div style="background:#141414; color:#F3EEE3; font-family:'Anybody',sans-serif; font-weight:700; font-stretch:150%; font-size:13px; padding:12px 16px; margin-top:24px; white-space:nowrap; overflow:hidden">DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO</div>
+    </div>
+  </div>
+
+</section>
+
+<section style="display:flex; gap:80px; align-items:flex-start; padding:60px 60px 0">
+
+  <!-- ============ 3A — SUBPÁGINA DE PROYECTO ============ -->
+  <div id="3a" style="width:1440px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:8px">3A — SUBPÁGINA DE PROYECTO · estilo <a href="#1a" style="text-decoration:underline">1a</a></div>
+    <div style="font-family:'Space Mono',monospace; font-size:12px; color:#333; margin-bottom:16px">Plantilla de caso: cada proyecto tendrá su propia página con historia, más fotos y vídeo. Se enlaza desde las tarjetas de la portada.</div>
+    <div style="background:#F3EEE3; color:#141414; font-family:'Archivo',sans-serif; overflow:hidden">
+
+      <!-- Nav de subpágina -->
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 40px; border-bottom:2px solid #141414">
+        <a href="#1a" style="font-family:'Space Mono',monospace; font-size:13px">← KIKO LAREO®</a>
+        <span style="font-family:'Space Mono',monospace; font-size:12px">EVENTOS / PROYECTO 02</span>
+      </div>
+
+      <!-- Hero del proyecto -->
+      <div style="position:relative; height:680px">
+        <image-slot id="p-hero" shape="rect" placeholder="Imagen de portada del proyecto — o fotograma del aftermovie"></image-slot>
+        <div style="position:absolute; left:0; right:0; bottom:0; pointer-events:none; padding:32px 40px">
+          <div style="color:#F3EEE3; font-family:'Anton',sans-serif; font-size:150px; line-height:0.92; text-shadow:0 2px 28px rgba(0,0,0,0.5)">FESTIVAL NORTE</div>
+        </div>
+      </div>
+
+      <!-- Meta -->
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); border-bottom:2px solid #141414">
+        <div style="padding:24px 40px; border-right:2px solid #141414"><div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.6">CLIENTE</div><div style="font-size:19px; font-weight:600; margin-top:6px">Festival Norte</div></div>
+        <div style="padding:24px 40px; border-right:2px solid #141414"><div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.6">AÑO</div><div style="font-size:19px; font-weight:600; margin-top:6px">2025</div></div>
+        <div style="padding:24px 40px; border-right:2px solid #141414"><div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.6">SERVICIOS</div><div style="font-size:19px; font-weight:600; margin-top:6px">Foto + Vídeo + Aftermovie</div></div>
+        <div style="padding:24px 40px"><div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.6">ENTREGA</div><div style="font-size:19px; font-weight:600; margin-top:6px">400 fotos · 48 horas</div></div>
+      </div>
+
+      <!-- Historia -->
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); gap:56px; padding:72px 40px">
+        <div style="font-family:'Anton',sans-serif; font-size:48px; line-height:1.05">TRES DÍAS,<br>DOCE ESCENARIOS,<br>UNA TORMENTA.</div>
+        <div style="font-size:19px; line-height:1.65; max-width:720px">
+          <p style="margin:0; text-wrap:pretty">El viernes a las 20:14 cayó la tormenta que casi apaga el festival. A las 21:00 el escenario principal volvía a encenderse y el público no se había movido. Esa media hora es el corazón del aftermovie.</p>
+          <p style="margin:18px 0 0; text-wrap:pretty">Trabajamos con dos cuerpos de cámara y un equipo de vídeo en escenario, foso y backstage. Cobertura de los tres días, entrega diaria para redes y pieza final de 90 segundos.</p>
+        </div>
+      </div>
+
+      <!-- Galería: ritmo variado -->
+      <div style="padding:0 40px 16px; display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:16px">
+        <div style="height:560px"><image-slot id="p-g1" shape="rect" placeholder="Escenario principal — gran angular"></image-slot></div>
+        <div style="display:grid; gap:16px">
+          <div style="height:272px"><image-slot id="p-g2" shape="rect" placeholder="Público — detalle"></image-slot></div>
+          <div style="height:272px"><image-slot id="p-g3" shape="rect" placeholder="Backstage"></image-slot></div>
+        </div>
+      </div>
+      <div style="padding:0 40px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:16px">
+        <div style="height:420px"><image-slot id="p-g4" shape="rect" placeholder="Retrato artista"></image-slot></div>
+        <div style="height:420px"><image-slot id="p-g5" shape="rect" placeholder="Luces — larga exposición"></image-slot></div>
+        <div style="height:420px"><image-slot id="p-g6" shape="rect" placeholder="La tormenta"></image-slot></div>
+      </div>
+
+      <!-- Vídeo del proyecto -->
+      <div style="background:#141414; color:#F3EEE3; padding:64px 40px; margin-top:56px">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24px">
+          <span style="font-family:'Anton',sans-serif; font-size:72px; line-height:1">AFTERMOVIE</span>
+          <span style="font-family:'Space Mono',monospace; font-size:12px">90 SEG · 4K</span>
+        </div>
+        <div style="height:600px; position:relative">
+          <image-slot id="p-video" shape="rect" placeholder="Fotograma del aftermovie — aquí se incrusta el vídeo"></image-slot>
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none">
+            <div style="width:100px; height:100px; border-radius:50%; background:#F3EEE3; color:#141414; display:flex; align-items:center; justify-content:center; font-family:'Anton',sans-serif; font-size:20px">PLAY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Siguiente proyecto -->
+      <a href="#1a-trabajo" style="display:flex; justify-content:space-between; align-items:center; padding:48px 40px; border-top:2px solid #141414">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:12px; opacity:0.6">SIGUIENTE PROYECTO</div>
+          <div style="font-family:'Anton',sans-serif; font-size:80px; line-height:1; margin-top:8px">COPA GALICIA →</div>
+        </div>
+        <div style="width:280px; height:180px; flex:none"><image-slot id="p-next" shape="rect" placeholder="Miniatura siguiente"></image-slot></div>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<section style="display:flex; gap:80px; align-items:flex-start; padding:60px 60px 0">
+
+  <!-- ============ 2A — TARJETAS CON HISTORIA (estilo brutal 1a) ============ -->
+  <div id="2a" style="width:760px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:8px">2A — TARJETAS QUE GIRAN · estilo <a href="#1a" style="text-decoration:underline">1a</a></div>
+    <div style="font-family:'Space Mono',monospace; font-size:12px; color:#333; margin-bottom:16px">Pulsa "HISTORIA ↻" y la foto gira mostrando el relato detrás.</div>
+    <div style="background:#F3EEE3; color:#141414; font-family:'Archivo',sans-serif; padding:32px">
+      <div style="display:flex; align-items:baseline; gap:16px; border-bottom:2px solid #141414; padding-bottom:12px; margin-bottom:20px">
+        <span style="font-family:'Space Mono',monospace; font-size:14px">(01)</span>
+        <span style="font-family:'Anton',sans-serif; font-size:56px; line-height:1">DEPORTES</span>
+      </div>
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px">
+
+        <div style="position:relative; height:440px; perspective:1400px">
+          <div style="position:absolute; inset:0; transition:transform 0.7s cubic-bezier(.4,.1,.2,1); transform-style:preserve-3d; transform:{{ rot.a1 }}">
+            <div style="position:absolute; inset:0; backface-visibility:hidden">
+              <image-slot id="fc-a1" shape="rect" placeholder="Deportes — sprint final"></image-slot>
+            </div>
+            <div style="position:absolute; inset:0; backface-visibility:hidden; transform:rotateY(180deg); background:#141414; color:#F3EEE3; padding:26px; display:flex; flex-direction:column; gap:12px">
+              <div style="font-family:'Anton',sans-serif; font-size:30px; line-height:1.05">SPRINT FINAL</div>
+              <div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.7">COPA GALICIA · 2025 · 1/1000s · f/2.8</div>
+              <p style="font-size:15px; line-height:1.55; margin:0; text-wrap:pretty">Última vuelta. El líder llevaba 40 km en fuga y el pelotón le comía dos segundos por kilómetro. Esta foto es el metro exacto en que supo que llegaba.</p>
+            </div>
+          </div>
+          <button onClick="{{ flip.a1 }}" style="position:absolute; bottom:12px; right:12px; z-index:5; background:#141414; color:#F3EEE3; border:none; font-family:'Space Mono',monospace; font-size:11px; padding:8px 12px; cursor:pointer">HISTORIA ↻</button>
+        </div>
+
+        <div style="position:relative; height:440px; perspective:1400px">
+          <div style="position:absolute; inset:0; transition:transform 0.7s cubic-bezier(.4,.1,.2,1); transform-style:preserve-3d; transform:{{ rot.a2 }}">
+            <div style="position:absolute; inset:0; backface-visibility:hidden">
+              <image-slot id="fc-a2" shape="rect" placeholder="Deportes — vestuario"></image-slot>
+            </div>
+            <div style="position:absolute; inset:0; backface-visibility:hidden; transform:rotateY(180deg); background:#141414; color:#F3EEE3; padding:26px; display:flex; flex-direction:column; gap:12px">
+              <div style="font-family:'Anton',sans-serif; font-size:30px; line-height:1.05">EL SILENCIO DE ANTES</div>
+              <div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.7">VESTUARIO · 2024 · LUZ NATURAL</div>
+              <p style="font-size:15px; line-height:1.55; margin:0; text-wrap:pretty">Diez minutos antes de salir al campo nadie habla. Me dejaron entrar con una condición: ser invisible. Esta es la foto que salió de serlo.</p>
+            </div>
+          </div>
+          <button onClick="{{ flip.a2 }}" style="position:absolute; bottom:12px; right:12px; z-index:5; background:#141414; color:#F3EEE3; border:none; font-family:'Space Mono',monospace; font-size:11px; padding:8px 12px; cursor:pointer">HISTORIA ↻</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2B — TARJETAS CON HISTORIA (estilo revista 1b) ============ -->
+  <div id="2b" style="width:760px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F6F1E7; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:8px">2B — TARJETAS QUE GIRAN · estilo <a href="#1b" style="text-decoration:underline">1b</a></div>
+    <div style="font-family:'Space Mono',monospace; font-size:12px; color:#333; margin-bottom:16px">Misma idea, tono editorial: la trasera es una página de revista.</div>
+    <div style="background:#F6F1E7; color:#1A1712; font-family:'Space Grotesk',sans-serif; padding:32px">
+      <div style="text-align:center; border-bottom:1px solid #1A1712; padding-bottom:14px; margin-bottom:20px">
+        <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.2em">CAPÍTULO 03</div>
+        <div style="font-family:'Instrument Serif',serif; font-size:52px; line-height:1">Moda</div>
+      </div>
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px">
+
+        <div style="position:relative; height:460px; perspective:1400px">
+          <div style="position:absolute; inset:0; transition:transform 0.7s cubic-bezier(.4,.1,.2,1); transform-style:preserve-3d; transform:{{ rot.b1 }}">
+            <div style="position:absolute; inset:0; backface-visibility:hidden">
+              <image-slot id="fc-b1" shape="rect" placeholder="Moda — look seda"></image-slot>
+            </div>
+            <div style="position:absolute; inset:0; backface-visibility:hidden; transform:rotateY(180deg); background:#1A1712; color:#F6F1E7; padding:28px; display:flex; flex-direction:column; justify-content:center; gap:14px; text-align:center">
+              <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:32px; line-height:1.1">La seda no perdona</div>
+              <div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.7">ATELIER MODA · FW25 · ESTUDIO</div>
+              <p style="font-size:14px; line-height:1.6; margin:0; text-wrap:pretty">Cuarenta minutos ajustando un solo pliegue. La seda marca cada error de luz, y cuando por fin cae bien, la foto ya estaba hecha antes de disparar.</p>
+            </div>
+          </div>
+          <button onClick="{{ flip.b1 }}" style="position:absolute; bottom:12px; right:12px; z-index:5; background:#F6F1E7; color:#1A1712; border:1px solid #1A1712; font-family:'Instrument Serif',serif; font-style:italic; font-size:14px; padding:7px 14px; cursor:pointer">historia ↻</button>
+        </div>
+
+        <div style="position:relative; height:460px; perspective:1400px">
+          <div style="position:absolute; inset:0; transition:transform 0.7s cubic-bezier(.4,.1,.2,1); transform-style:preserve-3d; transform:{{ rot.b2 }}">
+            <div style="position:absolute; inset:0; backface-visibility:hidden">
+              <image-slot id="fc-b2" shape="rect" placeholder="Moda — calle"></image-slot>
+            </div>
+            <div style="position:absolute; inset:0; backface-visibility:hidden; transform:rotateY(180deg); background:#1A1712; color:#F6F1E7; padding:28px; display:flex; flex-direction:column; justify-content:center; gap:14px; text-align:center">
+              <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:32px; line-height:1.1">Asfalto y tacones</div>
+              <div style="font-family:'Space Mono',monospace; font-size:11px; opacity:0.7">LOOKBOOK · SS26 · EXTERIOR</div>
+              <p style="font-size:14px; line-height:1.6; margin:0; text-wrap:pretty">Sacamos el lookbook del estudio a la calle un martes de lluvia. Lo que iba a arruinar la sesión acabó siendo su identidad.</p>
+            </div>
+          </div>
+          <button onClick="{{ flip.b2 }}" style="position:absolute; bottom:12px; right:12px; z-index:5; background:#F6F1E7; color:#1A1712; border:1px solid #1A1712; font-family:'Instrument Serif',serif; font-style:italic; font-size:14px; padding:7px 14px; cursor:pointer">historia ↻</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2C — MEDIA DE FONDO A PANTALLA COMPLETA ============ -->
+  <div id="2c" style="width:760px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#EFEAE0; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:8px">2C — FOTO/VÍDEO DE FONDO</div>
+    <div style="font-family:'Space Mono',monospace; font-size:12px; color:#333; margin-bottom:16px">Hero o portada de categoría con la imagen (o fotograma de vídeo) a sangre completa y el texto encima.</div>
+    <div style="position:relative; height:900px; background:#161512; overflow:hidden">
+      <image-slot id="bg-hero" shape="rect" placeholder="Foto o fotograma de vídeo — fondo a pantalla completa"></image-slot>
+      <div style="position:absolute; inset:0; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; padding:32px">
+        <div style="display:flex; justify-content:space-between; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:12px; text-shadow:0 1px 8px rgba(0,0,0,0.5)">
+          <span>KIKO LAREO®</span><span>02 / EVENTOS</span>
+        </div>
+        <div>
+          <div style="color:#F3EEE3; font-family:'Anton',sans-serif; font-size:110px; line-height:0.95; text-shadow:0 2px 24px rgba(0,0,0,0.45)">FESTIVAL<br>NORTE</div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:20px">
+            <p style="color:#F3EEE3; font-family:'Archivo',sans-serif; font-size:16px; line-height:1.55; max-width:400px; margin:0 0 0 130px; text-shadow:0 1px 12px rgba(0,0,0,0.6); text-wrap:pretty">Tres días, doce escenarios y una tormenta que casi lo apaga todo. Aftermovie + 400 fotos entregadas en 48 horas.</p>
+            <span style="pointer-events:auto; color:#F3EEE3; border:1px solid #F3EEE3; font-family:'Space Mono',monospace; font-size:12px; padding:10px 16px; cursor:pointer; background:rgba(0,0,0,0.25)">VER PROYECTO →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section style="display:flex; gap:80px; align-items:flex-start; padding:60px">
+
+  <!-- ============ OPTION 1A — BRUTAL EDITORIAL ============ -->
+  <div id="1a" style="width:1440px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F3EEE3; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">1A — BRUTAL EDITORIAL · Anton + Archivo</div>
+    <div style="background:#F3EEE3; color:#141414; font-family:'Archivo',sans-serif; overflow:hidden">
+
+      <!-- Hero -->
+      <div style="padding:28px 40px 0; display:flex; justify-content:space-between; align-items:flex-start">
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.08em">FOTÓGRAFO &amp; VIDEÓGRAFO<br>GALICIA, ESPAÑA</div>
+        <div style="display:flex; gap:28px; font-size:13px; font-weight:600; letter-spacing:0.06em">
+          <a href="#1a-trabajo">TRABAJO</a><a href="#1a-sobre">SOBRE MÍ</a><a href="#1a-servicios">SERVICIOS</a><a href="#1a-contacto">CONTACTO</a>
+        </div>
+      </div>
+      <div style="position:relative; padding:0 12px">
+        <div style="display:flex; justify-content:space-between; font-family:'Anton',sans-serif; font-size:160px; line-height:0.92; letter-spacing:-0.01em">
+          <span>KIKO</span><span>LAREO<span style="font-size:56px; vertical-align:super">®</span></span>
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:-60px">
+          <div style="width:560px; height:400px; position:relative; z-index:1">
+            <image-slot id="a-hero" shape="rect" placeholder="Foto principal — retrato o acción"></image-slot>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marquee -->
+      <div style="background:#141414; color:#F3EEE3; overflow:hidden; white-space:nowrap; padding:14px 0; margin-top:48px">
+        <div style="display:inline-block; animation:kl-marquee 18s linear infinite; font-family:'Anton',sans-serif; font-size:34px; letter-spacing:0.04em">
+          <span style="padding-right:40px">DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO ✦ </span><span style="padding-right:40px">DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO ✦ </span>
+        </div>
+      </div>
+
+      <!-- Acceso rápido a categorías -->
+      <div style="display:flex; justify-content:center; gap:48px; padding:20px 40px; border-bottom:2px solid #141414; font-family:'Space Mono',monospace; font-size:14px">
+        <a href="#1a-deportes">(01) DEPORTES</a><a href="#1a-eventos">(02) EVENTOS</a><a href="#1a-moda">(03) MODA</a><a href="#1a-comida">(04) COMIDA</a>
+      </div>
+
+      <!-- Categorías -->
+      <div id="1a-trabajo" data-screen-label="1a Categorías">
+        <div style="padding:64px 40px 20px; border-bottom:2px solid #141414; display:flex; align-items:baseline; gap:24px">
+          <span style="font-family:'Space Mono',monospace; font-size:16px">(01)</span>
+          <span id="1a-deportes" style="font-family:'Anton',sans-serif; font-size:96px; line-height:1">DEPORTES</span>
+          <span style="margin-left:auto; font-family:'Space Mono',monospace; font-size:12px">FOTO + VÍDEO</span>
+        </div>
+        <div style="display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr); gap:16px; padding:24px 40px 56px">
+          <div style="height:420px"><image-slot id="a-dep-1" shape="rect" placeholder="Deportes — acción principal"></image-slot></div>
+          <div style="height:420px"><image-slot id="a-dep-2" shape="rect" placeholder="Deportes — detalle"></image-slot></div>
+          <div style="height:420px"><image-slot id="a-dep-3" shape="rect" placeholder="Deportes — ambiente"></image-slot></div>
+        </div>
+
+        <div style="padding:40px 40px 20px; border-top:2px solid #141414; border-bottom:2px solid #141414; display:flex; align-items:baseline; gap:24px">
+          <span style="font-family:'Space Mono',monospace; font-size:16px">(02)</span>
+          <span id="1a-eventos" style="font-family:'Anton',sans-serif; font-size:96px; line-height:1">EVENTOS</span>
+          <span style="margin-left:auto; font-family:'Space Mono',monospace; font-size:12px">FOTO + VÍDEO</span>
+        </div>
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr); gap:16px; padding:24px 40px 56px">
+          <div style="height:420px"><image-slot id="a-eve-1" shape="rect" placeholder="Eventos — momento clave"></image-slot></div>
+          <div style="height:420px"><image-slot id="a-eve-2" shape="rect" placeholder="Eventos — público"></image-slot></div>
+          <div style="height:420px"><image-slot id="a-eve-3" shape="rect" placeholder="Eventos — escenario"></image-slot></div>
+        </div>
+
+        <div style="padding:40px 40px 20px; border-top:2px solid #141414; border-bottom:2px solid #141414; display:flex; align-items:baseline; gap:24px">
+          <span style="font-family:'Space Mono',monospace; font-size:16px">(03)</span>
+          <span id="1a-moda" style="font-family:'Anton',sans-serif; font-size:96px; line-height:1">MODA</span>
+          <span style="margin-left:auto; font-family:'Space Mono',monospace; font-size:12px">EDITORIAL / LOOKBOOK</span>
+        </div>
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr); gap:16px; padding:24px 40px 56px">
+          <div style="height:480px"><image-slot id="a-mod-1" shape="rect" placeholder="Moda — look 1"></image-slot></div>
+          <div style="height:480px"><image-slot id="a-mod-2" shape="rect" placeholder="Moda — editorial"></image-slot></div>
+          <div style="height:480px"><image-slot id="a-mod-3" shape="rect" placeholder="Moda — detalle"></image-slot></div>
+        </div>
+
+        <div style="padding:40px 40px 20px; border-top:2px solid #141414; border-bottom:2px solid #141414; display:flex; align-items:baseline; gap:24px">
+          <span style="font-family:'Space Mono',monospace; font-size:16px">(04)</span>
+          <span id="1a-comida" style="font-family:'Anton',sans-serif; font-size:96px; line-height:1">COMIDA</span>
+          <span style="margin-left:auto; font-family:'Space Mono',monospace; font-size:12px">RESTAURANTES / PRODUCTO</span>
+        </div>
+        <div style="display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr); gap:16px; padding:24px 40px 64px">
+          <div style="height:420px"><image-slot id="a-com-1" shape="rect" placeholder="Comida — plato estrella"></image-slot></div>
+          <div style="height:420px"><image-slot id="a-com-2" shape="rect" placeholder="Comida — sala / ambiente"></image-slot></div>
+          <div style="height:420px"><image-slot id="a-com-3" shape="rect" placeholder="Comida — proceso"></image-slot></div>
+        </div>
+      </div>
+
+      <!-- Reel -->
+      <div data-screen-label="1a Reel" style="background:#141414; color:#F3EEE3; padding:72px 40px">
+        <div style="display:flex; align-items:baseline; justify-content:space-between">
+          <span style="font-family:'Anton',sans-serif; font-size:120px; line-height:1">REEL 2026</span>
+          <span style="font-family:'Space Mono',monospace; font-size:13px">VÍDEO · 60 SEG</span>
+        </div>
+        <div style="height:640px; margin-top:32px; position:relative">
+          <image-slot id="a-reel" shape="rect" placeholder="Fotograma del reel — el vídeo se enlaza aquí"></image-slot>
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none">
+            <div style="width:110px; height:110px; border-radius:50%; background:#F3EEE3; color:#141414; display:flex; align-items:center; justify-content:center; font-family:'Anton',sans-serif; font-size:22px">PLAY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sobre mí -->
+      <div id="1a-sobre" data-screen-label="1a Sobre mí" style="display:grid; grid-template-columns:420px 1fr; gap:56px; padding:80px 40px; border-bottom:2px solid #141414">
+        <div style="width:420px; height:520px"><image-slot id="a-retrato" shape="rect" placeholder="Retrato de Kiko"></image-slot></div>
+        <div>
+          <div style="font-family:'Anton',sans-serif; font-size:72px; line-height:1">SOBRE MÍ</div>
+          <p style="font-size:22px; line-height:1.5; max-width:640px; margin:28px 0 0; text-wrap:pretty">Soy Kiko Lareo, fotógrafo y videógrafo. Cuento historias con luz: la tensión de un sprint, el caos bonito de un concierto, la actitud de un lookbook y el vapor que sale de un plato recién servido.</p>
+          <p style="font-size:22px; line-height:1.5; max-width:640px; margin:20px 0 0; text-wrap:pretty">Trabajo en toda España. Cámara en mano, sin poses forzadas y con obsesión por el detalle.</p>
+          <div style="display:flex; gap:40px; margin-top:40px; font-family:'Space Mono',monospace; font-size:13px">
+            <div>+8 AÑOS<br>DE OFICIO</div>
+            <div>+120<br>PROYECTOS</div>
+            <div>FOTO + VÍDEO<br>+ EDICIÓN</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <div id="1a-servicios" data-screen-label="1a Servicios" style="padding:72px 40px; border-bottom:2px solid #141414">
+        <div style="font-family:'Anton',sans-serif; font-size:72px; line-height:1; margin-bottom:36px">SERVICIOS</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-top:2px solid #141414; font-size:26px; font-weight:600" style-hover="padding-left:16px">
+          <span>Cobertura de eventos deportivos</span><span style="font-family:'Space Mono',monospace; font-size:14px; font-weight:400">FOTO + VÍDEO</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-top:2px solid #141414; font-size:26px; font-weight:600" style-hover="padding-left:16px">
+          <span>Eventos, conciertos y directos</span><span style="font-family:'Space Mono',monospace; font-size:14px; font-weight:400">FOTO + VÍDEO + AFTERMOVIE</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-top:2px solid #141414; font-size:26px; font-weight:600" style-hover="padding-left:16px">
+          <span>Editorial de moda y lookbooks</span><span style="font-family:'Space Mono',monospace; font-size:14px; font-weight:400">DIRECCIÓN + FOTO</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:26px 0; border-top:2px solid #141414; border-bottom:2px solid #141414; font-size:26px; font-weight:600" style-hover="padding-left:16px">
+          <span>Gastronomía y restaurantes</span><span style="font-family:'Space Mono',monospace; font-size:14px; font-weight:400">FOTO + CONTENIDO RRSS</span>
+        </div>
+      </div>
+
+      <!-- Clientes -->
+      <div style="padding:64px 40px; border-bottom:2px solid #141414">
+        <div style="font-family:'Space Mono',monospace; font-size:13px; margin-bottom:24px">HAN CONFIADO EN MÍ</div>
+        <div style="display:flex; flex-wrap:wrap; gap:20px 48px; font-family:'Anton',sans-serif; font-size:40px; color:#141414; opacity:0.85">
+          <span>CLUB DEPORTIVO ★</span><span>FESTIVAL NORTE</span><span>ATELIER MODA</span><span>GRUPO GASTRO</span><span>MARCA LOCAL</span>
+        </div>
+        <div style="font-family:'Space Mono',monospace; font-size:11px; margin-top:16px; opacity:0.6">— sustituir por logos / nombres reales —</div>
+      </div>
+
+      <!-- Contacto -->
+      <div id="1a-contacto" data-screen-label="1a Contacto" style="background:#141414; color:#F3EEE3; padding:80px 40px 48px">
+        <div style="font-family:'Anton',sans-serif; font-size:180px; line-height:0.95">HABLEMOS</div>
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:64px; margin-top:48px">
+          <div>
+            <a href="mailto:hola@kikolareo.com" style="font-size:30px; font-weight:600; border-bottom:2px solid #F3EEE3; padding-bottom:4px">hola@kikolareo.com</a>
+            <div style="display:flex; gap:24px; margin-top:40px; font-family:'Space Mono',monospace; font-size:14px">
+              <a href="#1a">INSTAGRAM ↗</a><a href="#1a">VIMEO ↗</a><a href="#1a">YOUTUBE ↗</a><a href="#1a">TIKTOK ↗</a>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px">
+            <input placeholder="Nombre" style="background:transparent; border:none; border-bottom:1px solid #F3EEE3; color:#F3EEE3; font-family:'Archivo',sans-serif; font-size:18px; padding:12px 0; outline:none">
+            <input placeholder="Email" style="background:transparent; border:none; border-bottom:1px solid #F3EEE3; color:#F3EEE3; font-family:'Archivo',sans-serif; font-size:18px; padding:12px 0; outline:none">
+            <textarea placeholder="Cuéntame tu proyecto" rows="3" style="background:transparent; border:none; border-bottom:1px solid #F3EEE3; color:#F3EEE3; font-family:'Archivo',sans-serif; font-size:18px; padding:12px 0; outline:none; resize:none"></textarea>
+            <button style="background:#F3EEE3; color:#141414; border:none; font-family:'Anton',sans-serif; font-size:20px; padding:16px; cursor:pointer; margin-top:8px">ENVIAR →</button>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:72px; font-family:'Space Mono',monospace; font-size:12px; opacity:0.7">
+          <span>© 2026 KIKO LAREO®</span><span>GALICIA, ESPAÑA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ OPTION 1B — REVISTA SERIF ============ -->
+  <div id="1b" style="width:1440px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#F6F1E7; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">1B — REVISTA SERIF · Instrument Serif + Space Grotesk</div>
+    <div style="background:#F6F1E7; color:#1A1712; font-family:'Space Grotesk',sans-serif; overflow:hidden">
+
+      <!-- Hero -->
+      <div style="padding:24px 48px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1A1712">
+        <span style="font-family:'Instrument Serif',serif; font-size:22px; font-style:italic">Kiko Lareo</span>
+        <div style="display:flex; gap:32px; font-size:13px; letter-spacing:0.12em">
+          <a href="#1b-trabajo">TRABAJO</a><a href="#1b-sobre">SOBRE MÍ</a><a href="#1b-servicios">SERVICIOS</a><a href="#1b-contacto">CONTACTO</a>
+        </div>
+      </div>
+      <div style="position:relative; padding:72px 48px 96px; text-align:center">
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.24em; margin-bottom:20px">FOTÓGRAFO &amp; VIDEÓGRAFO — Nº 01 — GALICIA</div>
+        <div style="font-family:'Instrument Serif',serif; font-size:200px; line-height:0.9; position:relative; z-index:2">Kiko <em style="font-style:italic">Lareo</em></div>
+        <div style="display:flex; justify-content:center; gap:24px; margin-top:-48px">
+          <div style="width:300px; height:400px; transform:rotate(-2deg)"><image-slot id="b-hero-1" shape="rect" placeholder="Foto — vertical 1"></image-slot></div>
+          <div style="width:300px; height:400px; margin-top:48px; transform:rotate(1.5deg); z-index:3"><image-slot id="b-hero-2" shape="rect" placeholder="Foto — vertical 2"></image-slot></div>
+          <div style="width:300px; height:400px; transform:rotate(-1deg)"><image-slot id="b-hero-3" shape="rect" placeholder="Foto — vertical 3"></image-slot></div>
+        </div>
+        <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:26px; margin-top:48px">— historias con luz, desde 2018 —</div>
+      </div>
+
+      <!-- Marquee -->
+      <div style="border-top:1px solid #1A1712; border-bottom:1px solid #1A1712; overflow:hidden; white-space:nowrap; padding:12px 0">
+        <div style="display:inline-block; animation:kl-marquee 22s linear infinite; font-family:'Instrument Serif',serif; font-size:30px; font-style:italic">
+          <span style="padding-right:32px">Deportes · Eventos · Moda · Comida · Vídeo · </span><span style="padding-right:32px">Deportes · Eventos · Moda · Comida · Vídeo · </span>
+        </div>
+      </div>
+
+      <!-- Acceso rápido a categorías -->
+      <div style="display:flex; justify-content:center; gap:16px; padding:18px 48px; border-bottom:1px solid #1A1712; font-family:'Instrument Serif',serif; font-style:italic; font-size:22px">
+        <a href="#1b-deportes">Deportes</a><span>·</span><a href="#1b-eventos">Eventos</a><span>·</span><a href="#1b-moda">Moda</a><span>·</span><a href="#1b-comida">Comida</a>
+      </div>
+
+      <!-- Categorías: spreads alternados -->
+      <div id="1b-trabajo" data-screen-label="1b Categorías">
+        <div style="display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:48px; padding:88px 48px; align-items:center">
+          <div style="height:560px"><image-slot id="b-dep-1" shape="rect" placeholder="Deportes — imagen principal"></image-slot></div>
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.2em">CAPÍTULO 01</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:96px; line-height:1; margin:12px 0 20px" id="1b-deportes">Deportes</div>
+            <p style="font-size:17px; line-height:1.6; text-wrap:pretty">Velocidad, sudor y el instante exacto. Cobertura de partidos, carreras y competiciones en foto y vídeo.</p>
+            <div style="width:100%; height:220px; margin-top:28px"><image-slot id="b-dep-2" shape="rect" placeholder="Deportes — detalle"></image-slot></div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.5fr); gap:48px; padding:0 48px 88px; align-items:center">
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.2em">CAPÍTULO 02</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:96px; line-height:1; margin:12px 0 20px" id="1b-eventos">Eventos</div>
+            <p style="font-size:17px; line-height:1.6; text-wrap:pretty">Conciertos, festivales y celebraciones. Aftermovies y fotografía que guardan cómo se sintió, no solo cómo se vio.</p>
+            <div style="width:100%; height:220px; margin-top:28px"><image-slot id="b-eve-2" shape="rect" placeholder="Eventos — detalle"></image-slot></div>
+          </div>
+          <div style="height:560px"><image-slot id="b-eve-1" shape="rect" placeholder="Eventos — imagen principal"></image-slot></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:48px; padding:0 48px 88px; align-items:center">
+          <div style="height:560px"><image-slot id="b-mod-1" shape="rect" placeholder="Moda — editorial principal"></image-slot></div>
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.2em">CAPÍTULO 03</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:96px; line-height:1; margin:12px 0 20px" id="1b-moda">Moda</div>
+            <p style="font-size:17px; line-height:1.6; text-wrap:pretty">Editoriales, lookbooks y campaña. Dirección de arte y actitud, del estudio a la calle.</p>
+            <div style="width:100%; height:220px; margin-top:28px"><image-slot id="b-mod-2" shape="rect" placeholder="Moda — detalle"></image-slot></div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.5fr); gap:48px; padding:0 48px 88px; align-items:center">
+          <div>
+            <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.2em">CAPÍTULO 04</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:96px; line-height:1; margin:12px 0 20px" id="1b-comida">Comida</div>
+            <p style="font-size:17px; line-height:1.6; text-wrap:pretty">Restaurantes, producto y proceso. Fotografía gastronómica que abre el apetito y contenido para redes.</p>
+            <div style="width:100%; height:220px; margin-top:28px"><image-slot id="b-com-2" shape="rect" placeholder="Comida — detalle"></image-slot></div>
+          </div>
+          <div style="height:560px"><image-slot id="b-com-1" shape="rect" placeholder="Comida — imagen principal"></image-slot></div>
+        </div>
+      </div>
+
+      <!-- Reel -->
+      <div data-screen-label="1b Reel" style="padding:0 48px 88px; text-align:center">
+        <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.24em; margin-bottom:12px">EN MOVIMIENTO</div>
+        <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:110px; line-height:1; margin-bottom:36px">Reel 2026</div>
+        <div style="height:620px; position:relative">
+          <image-slot id="b-reel" shape="rect" placeholder="Fotograma del reel — el vídeo se enlaza aquí"></image-slot>
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none">
+            <div style="width:120px; height:120px; border-radius:50%; border:1px solid #F6F1E7; background:rgba(26,23,18,0.35); color:#F6F1E7; display:flex; align-items:center; justify-content:center; font-family:'Instrument Serif',serif; font-style:italic; font-size:24px">play</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sobre mí -->
+      <div id="1b-sobre" data-screen-label="1b Sobre mí" style="border-top:1px solid #1A1712; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:64px; padding:88px 48px; align-items:center">
+        <div style="width:100%; height:560px"><image-slot id="b-retrato" shape="rect" placeholder="Retrato de Kiko"></image-slot></div>
+        <div>
+          <div style="font-family:'Instrument Serif',serif; font-size:80px; line-height:1">Sobre <em>mí</em></div>
+          <p style="font-size:18px; line-height:1.7; margin:28px 0 0; text-wrap:pretty">Soy Kiko Lareo, fotógrafo y videógrafo afincado en Galicia. Me interesa lo que pasa entre pose y pose: el gesto real, la luz que no se repite.</p>
+          <p style="font-size:18px; line-height:1.7; margin:18px 0 0; text-wrap:pretty">Ocho años de oficio entre estadios, escenarios, estudios y cocinas. Foto, vídeo y edición, de principio a fin.</p>
+          <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:24px; margin-top:32px">"La mejor foto es la que no se posó."</div>
+        </div>
+      </div>
+
+      <!-- Servicios + clientes -->
+      <div id="1b-servicios" data-screen-label="1b Servicios" style="border-top:1px solid #1A1712; padding:80px 48px">
+        <div style="font-family:'Instrument Serif',serif; font-size:80px; line-height:1; margin-bottom:40px">Servicios</div>
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:24px">
+          <div style="border:1px solid #1A1712; padding:28px 24px">
+            <div style="font-family:'Space Mono',monospace; font-size:12px">01</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:30px; margin:14px 0 10px">Deporte</div>
+            <div style="font-size:14px; line-height:1.55">Partidos, carreras y competiciones. Foto y vídeo de acción.</div>
+          </div>
+          <div style="border:1px solid #1A1712; padding:28px 24px">
+            <div style="font-family:'Space Mono',monospace; font-size:12px">02</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:30px; margin:14px 0 10px">Eventos</div>
+            <div style="font-size:14px; line-height:1.55">Conciertos y celebraciones. Cobertura completa y aftermovie.</div>
+          </div>
+          <div style="border:1px solid #1A1712; padding:28px 24px">
+            <div style="font-family:'Space Mono',monospace; font-size:12px">03</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:30px; margin:14px 0 10px">Moda</div>
+            <div style="font-size:14px; line-height:1.55">Editorial, lookbook y campaña con dirección de arte.</div>
+          </div>
+          <div style="border:1px solid #1A1712; padding:28px 24px">
+            <div style="font-family:'Space Mono',monospace; font-size:12px">04</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:30px; margin:14px 0 10px">Gastro</div>
+            <div style="font-size:14px; line-height:1.55">Restaurantes y producto. Foto y contenido para redes.</div>
+          </div>
+        </div>
+        <div style="margin-top:64px; text-align:center">
+          <div style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.24em; margin-bottom:20px">HAN CONFIADO EN MÍ</div>
+          <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:16px 40px; font-family:'Instrument Serif',serif; font-style:italic; font-size:32px">
+            <span>Club Deportivo</span><span>·</span><span>Festival Norte</span><span>·</span><span>Atelier Moda</span><span>·</span><span>Grupo Gastro</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div id="1b-contacto" data-screen-label="1b Contacto" style="background:#1A1712; color:#F6F1E7; padding:88px 48px 48px; text-align:center">
+        <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:130px; line-height:1">¿Hablamos?</div>
+        <a href="mailto:hola@kikolareo.com" style="display:inline-block; font-size:24px; margin-top:24px; border-bottom:1px solid #F6F1E7; padding-bottom:2px">hola@kikolareo.com</a>
+        <div style="display:flex; flex-direction:column; gap:14px; max-width:520px; margin:48px auto 0; text-align:left">
+          <input placeholder="Nombre" style="background:transparent; border:none; border-bottom:1px solid #F6F1E7; color:#F6F1E7; font-family:'Space Grotesk',sans-serif; font-size:17px; padding:12px 0; outline:none">
+          <input placeholder="Email" style="background:transparent; border:none; border-bottom:1px solid #F6F1E7; color:#F6F1E7; font-family:'Space Grotesk',sans-serif; font-size:17px; padding:12px 0; outline:none">
+          <textarea placeholder="Cuéntame tu proyecto" rows="3" style="background:transparent; border:none; border-bottom:1px solid #F6F1E7; color:#F6F1E7; font-family:'Space Grotesk',sans-serif; font-size:17px; padding:12px 0; outline:none; resize:none"></textarea>
+          <button style="background:#F6F1E7; color:#1A1712; border:none; font-family:'Instrument Serif',serif; font-style:italic; font-size:22px; padding:14px; cursor:pointer; margin-top:8px">Enviar →</button>
+        </div>
+        <div style="display:flex; justify-content:center; gap:32px; margin-top:48px; font-family:'Space Mono',monospace; font-size:13px">
+          <a href="#1b">INSTAGRAM ↗</a><a href="#1b">VIMEO ↗</a><a href="#1b">YOUTUBE ↗</a><a href="#1b">TIKTOK ↗</a>
+        </div>
+        <div style="margin-top:56px; font-family:'Space Mono',monospace; font-size:12px; opacity:0.6">© 2026 Kiko Lareo — Galicia, España</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ OPTION 1C — PÓSTER GRÁFICO ============ -->
+  <div id="1c" style="width:1440px; flex:none">
+    <div style="display:inline-block; background:#141414; color:#EFEAE0; font-family:'Space Mono',monospace; font-size:13px; padding:6px 14px; margin-bottom:16px">1C — PÓSTER GRÁFICO · Syne + Space Mono · acento rojo</div>
+    <div style="background:#EFEAE0; color:#161512; font-family:'Space Mono',monospace; overflow:hidden">
+
+      <!-- Hero -->
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) 1fr; border-bottom:2px solid #161512">
+        <div style="padding:20px 24px; border-right:2px solid #161512; font-size:12px">KIKO LAREO®<br>FOTO / VÍDEO</div>
+        <div style="padding:20px 24px; border-right:2px solid #161512; font-size:12px; text-align:center">GALICIA, ESPAÑA<br>DESDE 2018</div>
+        <div style="padding:20px 24px; font-size:12px; text-align:right"><a href="#1c-trabajo">TRABAJO</a> / <a href="#1c-sobre">BIO</a> / <a href="#1c-contacto">CONTACTO</a></div>
+      </div>
+      <div style="position:relative; padding:48px 32px 0">
+        <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:190px; line-height:0.88; letter-spacing:-0.04em; text-transform:uppercase">Kiko<br><span style="color:#B93A21">Lareo</span></div>
+        <div style="position:absolute; right:32px; top:48px; width:480px; height:600px">
+          <image-slot id="c-hero" shape="rect" placeholder="Foto principal"></image-slot>
+        </div>
+        <div style="max-width:520px; font-size:15px; line-height:1.7; margin:40px 0 56px">CAZO MOMENTOS QUE NO SE REPITEN. FOTOGRAFÍA Y VÍDEO PARA DEPORTE, EVENTOS, MODA Y GASTRONOMÍA.</div>
+      </div>
+
+      <!-- Marquee -->
+      <div style="background:#B93A21; color:#EFEAE0; overflow:hidden; white-space:nowrap; padding:12px 0; border-top:2px solid #161512; border-bottom:2px solid #161512">
+        <div style="display:inline-block; animation:kl-marquee 16s linear infinite; font-family:'Syne',sans-serif; font-weight:800; font-size:28px; text-transform:uppercase">
+          <span style="padding-right:36px">Deportes → Eventos → Moda → Comida → Vídeo → </span><span style="padding-right:36px">Deportes → Eventos → Moda → Comida → Vídeo → </span>
+        </div>
+      </div>
+
+      <!-- Acceso rápido a categorías -->
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); border-bottom:2px solid #161512; font-size:13px; text-align:center">
+        <a href="#1c-deportes" style="padding:16px 0; border-right:2px solid #161512">01 / DEPORTES</a>
+        <a href="#1c-eventos" style="padding:16px 0; border-right:2px solid #161512">02 / EVENTOS</a>
+        <a href="#1c-moda" style="padding:16px 0; border-right:2px solid #161512">03 / MODA</a>
+        <a href="#1c-comida" style="padding:16px 0">04 / COMIDA</a>
+      </div>
+
+      <!-- Categorías: rejilla 2x2 -->
+      <div id="1c-trabajo" data-screen-label="1c Categorías" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+        <div style="border-right:2px solid #161512; border-bottom:2px solid #161512; padding:32px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px">
+            <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:56px; text-transform:uppercase" id="1c-deportes">Deportes</span>
+            <span style="font-size:12px; color:#B93A21">01 →</span>
+          </div>
+          <div style="height:520px"><image-slot id="c-dep-1" shape="rect" placeholder="Deportes — imagen principal"></image-slot></div>
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:16px">
+            <div style="height:180px"><image-slot id="c-dep-2" shape="rect" placeholder="Detalle"></image-slot></div>
+            <div style="height:180px"><image-slot id="c-dep-3" shape="rect" placeholder="Detalle"></image-slot></div>
+          </div>
+        </div>
+        <div style="border-bottom:2px solid #161512; padding:32px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px">
+            <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:56px; text-transform:uppercase" id="1c-eventos">Eventos</span>
+            <span style="font-size:12px; color:#B93A21">02 →</span>
+          </div>
+          <div style="height:520px"><image-slot id="c-eve-1" shape="rect" placeholder="Eventos — imagen principal"></image-slot></div>
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:16px">
+            <div style="height:180px"><image-slot id="c-eve-2" shape="rect" placeholder="Detalle"></image-slot></div>
+            <div style="height:180px"><image-slot id="c-eve-3" shape="rect" placeholder="Detalle"></image-slot></div>
+          </div>
+        </div>
+        <div style="border-right:2px solid #161512; border-bottom:2px solid #161512; padding:32px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px">
+            <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:56px; text-transform:uppercase" id="1c-moda">Moda</span>
+            <span style="font-size:12px; color:#B93A21">03 →</span>
+          </div>
+          <div style="height:520px"><image-slot id="c-mod-1" shape="rect" placeholder="Moda — imagen principal"></image-slot></div>
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:16px">
+            <div style="height:180px"><image-slot id="c-mod-2" shape="rect" placeholder="Detalle"></image-slot></div>
+            <div style="height:180px"><image-slot id="c-mod-3" shape="rect" placeholder="Detalle"></image-slot></div>
+          </div>
+        </div>
+        <div style="border-bottom:2px solid #161512; padding:32px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px">
+            <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:56px; text-transform:uppercase" id="1c-comida">Comida</span>
+            <span style="font-size:12px; color:#B93A21">04 →</span>
+          </div>
+          <div style="height:520px"><image-slot id="c-com-1" shape="rect" placeholder="Comida — imagen principal"></image-slot></div>
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:16px">
+            <div style="height:180px"><image-slot id="c-com-2" shape="rect" placeholder="Detalle"></image-slot></div>
+            <div style="height:180px"><image-slot id="c-com-3" shape="rect" placeholder="Detalle"></image-slot></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reel -->
+      <div data-screen-label="1c Reel" style="background:#161512; color:#EFEAE0; padding:64px 32px">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:28px">
+          <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:96px; text-transform:uppercase; line-height:1">Reel <span style="color:#B93A21">2026</span></span>
+          <span style="font-size:12px">VÍDEO / 60 SEG</span>
+        </div>
+        <div style="height:620px; position:relative">
+          <image-slot id="c-reel" shape="rect" placeholder="Fotograma del reel — el vídeo se enlaza aquí"></image-slot>
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none">
+            <div style="width:110px; height:110px; background:#B93A21; color:#EFEAE0; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:18px; text-transform:uppercase">Play</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sobre mí + servicios -->
+      <div id="1c-sobre" data-screen-label="1c Sobre mí" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); border-bottom:2px solid #161512">
+        <div style="padding:56px 32px; border-right:2px solid #161512">
+          <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:64px; text-transform:uppercase; line-height:1">Sobre mí</div>
+          <div style="width:280px; height:340px; margin:28px 0"><image-slot id="c-retrato" shape="rect" placeholder="Retrato de Kiko"></image-slot></div>
+          <p style="font-size:15px; line-height:1.7; margin:0; max-width:560px">SOY KIKO LAREO. OCHO AÑOS CONTANDO HISTORIAS CON LUZ: ESTADIOS, ESCENARIOS, ESTUDIOS Y COCINAS. FOTO, VÍDEO Y EDICIÓN DE PRINCIPIO A FIN.</p>
+        </div>
+        <div style="padding:56px 32px">
+          <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:64px; text-transform:uppercase; line-height:1">Servicios</div>
+          <div style="margin-top:28px">
+            <div style="display:flex; justify-content:space-between; padding:18px 0; border-bottom:2px solid #161512; font-size:15px"><span>COBERTURA DEPORTIVA</span><span style="color:#B93A21">FOTO+VÍDEO</span></div>
+            <div style="display:flex; justify-content:space-between; padding:18px 0; border-bottom:2px solid #161512; font-size:15px"><span>EVENTOS Y AFTERMOVIES</span><span style="color:#B93A21">FOTO+VÍDEO</span></div>
+            <div style="display:flex; justify-content:space-between; padding:18px 0; border-bottom:2px solid #161512; font-size:15px"><span>EDITORIAL DE MODA</span><span style="color:#B93A21">DIRECCIÓN+FOTO</span></div>
+            <div style="display:flex; justify-content:space-between; padding:18px 0; border-bottom:2px solid #161512; font-size:15px"><span>GASTRONOMÍA Y RRSS</span><span style="color:#B93A21">FOTO+CONTENIDO</span></div>
+          </div>
+          <div style="margin-top:36px; font-size:12px">HAN CONFIADO EN MÍ:</div>
+          <div style="display:flex; flex-wrap:wrap; gap:12px 28px; margin-top:14px; font-family:'Syne',sans-serif; font-weight:700; font-size:22px; text-transform:uppercase">
+            <span>Club Deportivo</span><span>Festival Norte</span><span>Atelier Moda</span><span>Grupo Gastro</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div id="1c-contacto" data-screen-label="1c Contacto" style="padding:64px 32px 40px">
+        <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:132px; text-transform:uppercase; line-height:0.9">Hable<span style="color:#B93A21">mos</span></div>
+        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px; margin-top:40px">
+          <div>
+            <a href="mailto:hola@kikolareo.com" style="font-size:24px; border-bottom:2px solid #161512; padding-bottom:4px">HOLA@KIKOLAREO.COM</a>
+            <div style="display:flex; gap:24px; margin-top:36px; font-size:13px">
+              <a href="#1c" style="color:#B93A21">INSTAGRAM ↗</a><a href="#1c" style="color:#B93A21">VIMEO ↗</a><a href="#1c" style="color:#B93A21">YOUTUBE ↗</a><a href="#1c" style="color:#B93A21">TIKTOK ↗</a>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px">
+            <input placeholder="NOMBRE" style="background:transparent; border:2px solid #161512; color:#161512; font-family:'Space Mono',monospace; font-size:14px; padding:14px; outline:none">
+            <input placeholder="EMAIL" style="background:transparent; border:2px solid #161512; color:#161512; font-family:'Space Mono',monospace; font-size:14px; padding:14px; outline:none">
+            <textarea placeholder="CUÉNTAME TU PROYECTO" rows="3" style="background:transparent; border:2px solid #161512; color:#161512; font-family:'Space Mono',monospace; font-size:14px; padding:14px; outline:none; resize:none"></textarea>
+            <button style="background:#161512; color:#EFEAE0; border:none; font-family:'Syne',sans-serif; font-weight:800; font-size:18px; text-transform:uppercase; padding:16px; cursor:pointer">Enviar →</button>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:64px; font-size:12px; opacity:0.7">
+          <span>© 2026 KIKO LAREO®</span><span>GALICIA, ESPAÑA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { flipped: {} };
+  renderVals() {
+    const keys = ['a1', 'a2', 'b1', 'b2'];
+    const flip = {}, rot = {};
+    keys.forEach((k) => {
+      flip[k] = () => this.setState((s) => ({ flipped: { ...s.flipped, [k]: !s.flipped[k] } }));
+      rot[k] = this.state.flipped[k] ? 'rotateY(180deg)' : 'rotateY(0deg)';
+    });
+    return { flip, rot };
+  }
+}
+</script>
+</body>
+</html>

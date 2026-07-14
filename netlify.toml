@@ -1,0 +1,7 @@
+# Configuración de despliegue en Netlify.
+# Al crear el sitio en Netlify, selecciona este repositorio; esta
+# configuración le dice que la web vive en la carpeta web/.
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = "dist"

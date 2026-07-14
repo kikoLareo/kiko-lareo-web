@@ -1,0 +1,151 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Slot from '../../components/Slot.astro';
+import { CATEGORIAS } from '../../lib/categorias';
+import { migas, persona } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const proyectos = (await getCollection('proyectos')).sort(
+    (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+  );
+  return proyectos.map((proyecto, i) => ({
+    params: { slug: proyecto.id },
+    // Encadena los proyectos: el "siguiente" es el anterior en el tiempo
+    // (y el último vuelve al más reciente).
+    props: { proyecto, siguiente: proyectos[(i + 1) % proyectos.length] },
+  }));
+}
+
+const { proyecto, siguiente } = Astro.props;
+const d = proyecto.data;
+const { Content } = await render(proyecto);
+
+const cat = CATEGORIAS.find((c) => c.id === d.categoria)!;
+const haySiguiente = siguiente.id !== proyecto.id;
+
+// Galería con el ritmo del diseño: 1 grande + 2 apiladas, luego filas de 3
+const [g1, g2, g3, ...resto] = d.galeria;
+
+const lugar = d.localidad ?? 'Galicia';
+const descripcion =
+  d.descripcion_seo ??
+  `${d.titulo} (${d.anio}): ${d.servicios.toLowerCase()} para ${d.cliente} en ${lugar}. Proyecto de Kiko Lareo, fotógrafo y videógrafo en A Coruña.`;
+
+const jsonLd = [
+  migas(Astro.site!, [
+    { nombre: 'Inicio', ruta: '/' },
+    { nombre: cat.titulo, ruta: `/${d.categoria}/` },
+    { nombre: d.titulo, ruta: `/proyectos/${proyecto.id}/` },
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: d.titulo,
+    description: descripcion,
+    dateCreated: d.fecha.toISOString().slice(0, 10),
+    creator: persona(Astro.site!),
+    contentLocation: { '@type': 'Place', name: lugar },
+    ...(d.portada ? { image: new URL(d.portada, Astro.site).toString() } : {}),
+  },
+];
+---
+
+<Base title={`${d.titulo} — ${cat.titulo.toLowerCase()} en ${lugar} | Kiko Lareo®`} description={descripcion} ogImage={d.portada} jsonLd={jsonLd}>
+
+<Nav variante="subpagina" etiqueta={`${cat.titulo} / PROYECTO`} />
+
+<main>
+<!-- Hero -->
+<header class="project-hero">
+  <Slot imagen={d.portada} etiqueta="Portada del proyecto" />
+  <h1 class="project-hero-title" style="margin:0">{d.titulo.toUpperCase()}</h1>
+</header>
+
+<!-- Ficha -->
+<section class="project-meta">
+  <div><div class="label">CLIENTE</div><div class="value">{d.cliente}</div></div>
+  <div><div class="label">AÑO</div><div class="value">{d.anio}</div></div>
+  <div><div class="label">SERVICIOS</div><div class="value">{d.servicios}</div></div>
+  <div><div class="label">ENTREGA</div><div class="value">{d.entrega}</div></div>
+</section>
+
+<!-- Historia -->
+<section class="project-story">
+  <h2 set:html={d.titular.trim().replace(/\n/g, '<br>')} />
+  <div class="project-story-text">
+    <Content />
+  </div>
+</section>
+
+<!-- Galería -->
+{d.galeria.length > 0 && (
+  <>
+    <section class="gallery-top">
+      <div class="big">{g1 && <Slot imagen={g1.imagen} etiqueta={g1.etiqueta} />}</div>
+      <div class="stack">
+        <div>{g2 && <Slot imagen={g2.imagen} etiqueta={g2.etiqueta} />}</div>
+        <div>{g3 && <Slot imagen={g3.imagen} etiqueta={g3.etiqueta} />}</div>
+      </div>
+    </section>
+    {resto.length > 0 && (
+      <section class="gallery-row">
+        {resto.map((foto) => (
+          <div><Slot imagen={foto.imagen} etiqueta={foto.etiqueta} /></div>
+        ))}
+      </section>
+    )}
+  </>
+)}
+
+<!-- Vídeo -->
+{d.video && (
+  <section class="aftermovie">
+    <div class="aftermovie-header">
+      <span class="aftermovie-title">{d.video.titulo}</span>
+      <span class="aftermovie-label">{d.video.etiqueta}</span>
+    </div>
+    <div class="aftermovie-media">
+      {d.video.url ? (
+        <iframe
+          src={d.video.url}
+          style="width:100%; height:100%; border:none"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          title={d.video.titulo}
+        ></iframe>
+      ) : (
+        <>
+          <Slot imagen={d.video.imagen} etiqueta="Fotograma del vídeo — añade la URL desde el panel" />
+          <div class="play-overlay"><div class="play-btn">PLAY</div></div>
+        </>
+      )}
+    </div>
+  </section>
+)}
+
+<!-- Siguiente proyecto / volver -->
+{haySiguiente ? (
+  <a href={`/proyectos/${siguiente.id}/`} class="next-project">
+    <div>
+      <div class="label">SIGUIENTE PROYECTO</div>
+      <div class="title">{siguiente.data.titulo.toUpperCase()} →</div>
+    </div>
+    <div class="thumb"><Slot imagen={siguiente.data.portada} etiqueta="Miniatura siguiente" /></div>
+  </a>
+) : (
+  <a href={`/${d.categoria}/`} class="next-project">
+    <div>
+      <div class="label">VOLVER A LA CATEGORÍA</div>
+      <div class="title">{cat.titulo} →</div>
+    </div>
+  </a>
+)}
+</main>
+
+<footer class="footer-bar">
+  <span>© {new Date().getFullYear()} KIKO LAREO®</span><a href="/#contacto">CONTACTO →</a>
+</footer>
+
+</Base>
