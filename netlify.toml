@@ -5,3 +5,15 @@
   base = "web"
   command = "npm run build"
   publish = "dist"
+# kikolareo.es redirige al dominio principal (SEO: una sola web canónica)
+[[redirects]]
+  from = "https://kikolareo.es/*"
+  to = "https://kikolareo.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.kikolareo.es/*"
+  to = "https://kikolareo.com/:splat"
+  status = 301
+  force = true
