@@ -24,6 +24,7 @@ collections:
     label_singular: Foto
     folder: "web/src/content/fotos"
     create: true
+    editor: { preview: false }
     extension: md
     format: frontmatter
     slug: "{{fields.fecha}}-{{slug}}"
@@ -66,6 +67,7 @@ collections:
     label_singular: Proyecto
     folder: "web/src/content/proyectos"
     create: true
+    editor: { preview: false }
     extension: md
     format: frontmatter
     slug: "{{slug}}"
@@ -113,6 +115,7 @@ collections:
 
   - name: paginas
     label: Páginas
+    editor: { preview: false }
     files:
       - name: general
         label: "Portada y textos generales"
@@ -121,6 +124,13 @@ collections:
           - { name: claim_izquierda, label: "Hero — texto izquierda", widget: text }
           - { name: claim_derecha, label: "Hero — texto derecha", widget: text }
           - { name: hero_imagen, label: "Hero — foto principal", widget: image, required: false }
+          - name: hero_estilo
+            label: "Hero — estilo de la foto"
+            widget: select
+            default: fondo
+            options:
+              - { label: "De fondo, a pantalla completa", value: fondo }
+              - { label: "Tarjeta centrada sobre el crema", value: tarjeta }
           - { name: marquesina, label: Marquesina, widget: string }
           - name: reel
             label: Reel

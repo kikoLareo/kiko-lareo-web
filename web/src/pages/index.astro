@@ -67,21 +67,37 @@ const marquesina = `${g.marquesina.trim()} `;
 
 <Nav />
 
-<!-- Hero -->
-<header id="top" class="hero">
-  <div class="hero-meta">
-    <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
-    <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
-  </div>
-  <h1 class="hero-title" style="margin:0">
-    <span>KIKO</span><span>LAREO<sup>®</sup></span>
-  </h1>
-  <div class="hero-media">
-    <div>
-      <Slot imagen={g.hero_imagen} etiqueta="Foto principal — súbela desde el panel (Páginas → Portada)" />
+<!-- Hero: con foto de fondo a sangre completa, o con la foto en tarjeta -->
+{g.hero_estilo === 'fondo' && g.hero_imagen ? (
+  <header id="top" class="hero-bg">
+    <div class="bg"><Slot imagen={g.hero_imagen} etiqueta="" /></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="contenido">
+      <div class="hero-meta">
+        <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
+        <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
+      </div>
+      <h1 class="hero-title" style="margin:0">
+        <span>KIKO</span><span>LAREO<sup>®</sup></span>
+      </h1>
     </div>
-  </div>
-</header>
+  </header>
+) : (
+  <header id="top" class="hero">
+    <div class="hero-meta">
+      <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
+      <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
+    </div>
+    <h1 class="hero-title" style="margin:0">
+      <span>KIKO</span><span>LAREO<sup>®</sup></span>
+    </h1>
+    <div class="hero-media">
+      <div>
+        <Slot imagen={g.hero_imagen} etiqueta="Foto principal — súbela desde el panel (Páginas → Portada)" />
+      </div>
+    </div>
+  </header>
+)}
 
 <!-- Marquesina -->
 <div class="marquee" aria-hidden="true">

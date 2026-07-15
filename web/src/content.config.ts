@@ -69,6 +69,9 @@ const paginas = defineCollection({
     claim_derecha: z.string(),
     marquesina: z.string(),
     hero_imagen: z.string().optional(),
+    // 'fondo': foto a sangre completa con el logotipo encima;
+    // 'tarjeta': foto centrada sobre el crema (diseño original)
+    hero_estilo: z.enum(['fondo', 'tarjeta']).default('fondo'),
     reel: z.object({
       titulo: z.string(),
       etiqueta: z.string(),
