@@ -1,28 +1,35 @@
 {
-  "claim_izquierda": "FOTÓGRAFO & VIDEÓGRAFO\nA CORUÑA · GALICIA",
-  "claim_derecha": "HISTORIAS CON LUZ\nDESDE 2018",
-  "marquesina": "DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO ✦",
-  "reel": {
-    "titulo": "REEL 2026",
-    "etiqueta": "VÍDEO · 60 SEG"
-  },
   "sobre_mi": {
     "parrafos": [
       "Soy Kiko Lareo, fotógrafo y videógrafo. Cuento historias con luz: la tensión de un sprint, el caos bonito de un concierto, la actitud de un lookbook y el vapor que sale de un plato recién servido.",
       "Trabajo desde A Coruña para toda Galicia y España. Cámara en mano, sin poses forzadas y con obsesión por el detalle."
     ],
     "stats": [
-      { "linea1": "+8 AÑOS", "linea2": "DE OFICIO" },
-      { "linea1": "+120", "linea2": "PROYECTOS" },
-      { "linea1": "FOTO + VÍDEO", "linea2": "+ EDICIÓN" }
+      {
+        "linea1": "+8 AÑOS",
+        "linea2": "DE OFICIO"
+      },
+      {
+        "linea1": "+120",
+        "linea2": "PROYECTOS"
+      },
+      {
+        "linea1": "FOTO + VÍDEO",
+        "linea2": "+ EDICIÓN"
+      }
     ]
   },
-  "servicios": [
-    { "nombre": "Cobertura de eventos deportivos", "tag": "FOTO + VÍDEO" },
-    { "nombre": "Eventos, conciertos y directos", "tag": "FOTO + VÍDEO + AFTERMOVIE" },
-    { "nombre": "Editorial de moda y lookbooks", "tag": "DIRECCIÓN + FOTO" },
-    { "nombre": "Gastronomía y restaurantes", "tag": "FOTO + CONTENIDO RRSS" }
-  ],
+  "claim_derecha": "HISTORIAS CON LUZ\nDESDE 2018",
+  "localizacion": "A CORUÑA · GALICIA, ESPAÑA",
+  "marquesina": "DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO ✦",
+  "direccion": {
+    "ciudad": "A Coruña",
+    "region": "Galicia",
+    "pais": "ES",
+    "lat": 43.3623,
+    "lng": -8.4115
+  },
+  "hero_imagen": "/img/uploads/ad31dfde-3a4f-4c98-9475-a30ab89f2e9c.jpeg",
   "clientes": [
     "CLUB DEPORTIVO ★",
     "FESTIVAL NORTE",
@@ -30,22 +37,49 @@
     "GRUPO GASTRO",
     "MARCA LOCAL"
   ],
+  "reel": {
+    "titulo": "REEL 2026",
+    "etiqueta": "VÍDEO · 60 SEG"
+  },
+  "claim_izquierda": "FOTÓGRAFO & VIDEÓGRAFO\nA CORUÑA · GALICIA",
   "email": "hola@kikolareo.com",
-  "localizacion": "A CORUÑA · GALICIA, ESPAÑA",
-  "redes": [
-    { "nombre": "Instagram", "url": "" },
-    { "nombre": "Vimeo", "url": "" },
-    { "nombre": "YouTube", "url": "" },
-    { "nombre": "TikTok", "url": "" }
-  ],
   "seo": {
     "descripcion": "Kiko Lareo, fotógrafo y videógrafo en A Coruña. Fotografía de deportes, eventos y conciertos, moda y gastronomía en toda Galicia. Foto + vídeo + aftermovie."
   },
-  "direccion": {
-    "ciudad": "A Coruña",
-    "region": "Galicia",
-    "pais": "ES",
-    "lat": 43.3623,
-    "lng": -8.4115
-  }
+  "servicios": [
+    {
+      "nombre": "Cobertura de eventos deportivos",
+      "tag": "FOTO + VÍDEO"
+    },
+    {
+      "nombre": "Eventos, conciertos y directos",
+      "tag": "FOTO + VÍDEO + AFTERMOVIE"
+    },
+    {
+      "nombre": "Editorial de moda y lookbooks",
+      "tag": "DIRECCIÓN + FOTO"
+    },
+    {
+      "nombre": "Gastronomía y restaurantes",
+      "tag": "FOTO + CONTENIDO RRSS"
+    }
+  ],
+  "redes": [
+    {
+      "nombre": "Instagram",
+      "url": ""
+    },
+    {
+      "nombre": "Vimeo",
+      "url": ""
+    },
+    {
+      "nombre": "YouTube",
+      "url": ""
+    },
+    {
+      "nombre": "TikTok",
+      "url": ""
+    }
+  ]
 }
