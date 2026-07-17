@@ -8,9 +8,11 @@ interface Props {
   ogImage?: string | null;
   /** Bloques JSON-LD (schema.org) a inyectar en el <head> */
   jsonLd?: object[];
+  /** true en páginas que Google no debe indexar (ej: /gracias) */
+  noindex?: boolean;
 }
 
-const { title, description, ogImage, jsonLd = [] } = Astro.props;
+const { title, description, ogImage, jsonLd = [], noindex = false } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
@@ -23,6 +25,22 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex" />}
+
+<script is:inline>
+  // Los correos de Netlify Identity (invitación al panel, recuperación de
+  // contraseña) traen un token en el enlace y aterrizan en la portada;
+  // el panel vive en /admin, así que reenviamos el token allí.
+  (function () {
+    var h = window.location.hash;
+    if (
+      /^#(invite_token|recovery_token|confirmation_token|email_change_token)=/.test(h) &&
+      window.location.pathname.indexOf('/admin') !== 0
+    ) {
+      window.location.replace('/admin/' + h);
+    }
+  })();
+</script>
 <link rel="canonical" href={canonical} />
 
 <meta property="og:type" content="website" />
@@ -46,22 +64,13 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
+<a href="#contenido" class="skip">SALTAR AL CONTENIDO →</a>
 <slot />
 <script>
   // Tarjetas con historia: HISTORIA ↻ gira la tarjeta
   document.addEventListener('click', (e) => {
     const btn = (e.target as Element).closest('.flip-btn');
     if (btn) btn.closest('.flip')?.classList.toggle('flipped');
-  });
-
-  // Formulario de contacto: abre el correo redactado (sin backend).
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const subject = encodeURIComponent(`Proyecto — ${data.get('nombre')}`);
-    const body = encodeURIComponent(`${data.get('mensaje')}\n\n— ${data.get('nombre')} (${data.get('email')})`);
-    window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
   });
 </script>
 </body>

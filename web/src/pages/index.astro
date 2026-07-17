@@ -174,7 +174,7 @@ const heroLineas = g.hero_titular
   ))}
 </div>
 
-<main>
+<main id="contenido">
 <div id="trabajo"></div>
 
 <!-- Selección de proyectos: numerados como archivo y con su frase propia -->
@@ -318,11 +318,47 @@ const heroLineas = g.hero_titular
         ))}
       </div>
     </div>
-    <form class="contact-form" id="contact-form" data-email={g.email}>
-      <input type="text" name="nombre" placeholder="Nombre" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <textarea name="mensaje" placeholder="Cuéntame tu proyecto" rows="3" required></textarea>
-      <button type="submit">ENVIAR →</button>
+    <form
+      class="contact-form"
+      name="brief"
+      method="POST"
+      action="/gracias/"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+    >
+      <input type="hidden" name="form-name" value="brief" />
+      <p class="oculto" aria-hidden="true">
+        <label>No rellenes este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
+
+      <fieldset class="brief-grupo">
+        <legend>¿QUÉ QUIERES HACER?</legend>
+        <div class="chips">
+          {['LANZAR ALGO', 'CREAR CONTENIDO', 'ORGANIZAR UN EVENTO', 'MEJORAR MI MARCA', 'TODAVÍA NO LO SÉ'].map((op) => (
+            <label class="chip">
+              <input type="radio" name="objetivo" value={op} />
+              <span>{op}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset class="brief-grupo">
+        <legend>¿EN QUÉ PUNTO ESTÁ?</legend>
+        <div class="chips">
+          {['ES SOLO UNA IDEA', 'YA ESTAMOS EN ELLO', 'LO NECESITAMOS PRONTO'].map((op) => (
+            <label class="chip">
+              <input type="radio" name="momento" value={op} />
+              <span>{op}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+      <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+      <textarea name="mensaje" placeholder="Cuéntamelo como te salga" aria-label="Cuéntamelo como te salga" rows="3" required></textarea>
+      <button type="submit">VAMOS A DARLE FORMA →</button>
     </form>
   </div>
   <a href={`mailto:${g.email}`} class="cierre-cta">

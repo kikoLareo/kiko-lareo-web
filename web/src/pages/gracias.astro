@@ -3,14 +3,18 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 ---
 
-<Base title="Página no encontrada — Kiko Lareo®" description="Esta página no existe. Vuelve a la portada de Kiko Lareo, fotógrafo y videógrafo en A Coruña.">
+<Base
+  title="Mensaje recibido — Kiko Lareo®"
+  description="Tu mensaje ya está en camino. Te respondo en cuanto lo lea."
+  noindex
+>
 
-<Nav variante="subpagina" etiqueta="ERROR 404" />
+<Nav variante="subpagina" etiqueta="MENSAJE RECIBIDO" />
 
 <main id="contenido" style="padding:72px 40px; min-height:60vh">
-  <h1 class="contact-title" style="margin:0; color:var(--negro)">NADA POR AQUÍ</h1>
+  <h1 class="contact-title" style="margin:0; color:var(--negro)">RECIBIDO.</h1>
   <p style="font-size:21px; line-height:1.55; max-width:640px; margin:28px 0 0">
-    Esta página no existe o se movió. Como un disparo desenfocado: se borra y se vuelve a encuadrar.
+    Tu mensaje ya está en mi bandeja. Lo leo y te escribo — sin plantillas y sin hacerte esperar de más.
   </p>
   <a href="/" class="link" style="margin-top:32px; font-family:var(--mono); font-size:13px">← VOLVER A LA PORTADA</a>
 </main>

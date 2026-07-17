@@ -6,6 +6,11 @@ export default defineConfig({
   // (p. ej. https://kikolareo.com). El sitemap, las canonical y el
   // robots.txt se generan a partir de esta URL.
   site: 'https://kikolareo.com',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // La página de "gracias" del formulario no debe salir en Google
+      filter: (page) => !page.includes('/gracias'),
+    }),
+  ],
   trailingSlash: 'ignore',
 });

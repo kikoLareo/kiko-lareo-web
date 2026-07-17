@@ -8,6 +8,15 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## ✅ Hecho
 
+- **Fase 4 — Contacto y conversión** (17/07/2026): contacto como
+  mini-brief con Netlify Forms ("¿Qué quieres hacer?" + "¿En qué punto
+  está?" + "Cuéntamelo como te salga" + VAMOS A DARLE FORMA →), con
+  honeypot antispam y página /gracias (noindex, fuera del sitemap);
+  redirect de tokens de Netlify Identity a /admin (recuperación de
+  contraseña del panel, pendiente desde la sesión inicial); enlace
+  "saltar al contenido" y foco accesible en las opciones del brief.
+  ⚠️ Pendiente de Kiko: activar la notificación por email de los envíos
+  en Netlify (Site → Forms → Form notifications).
 - **Fase 3 — Proyectos como casos de estudio** (17/07/2026): página de
   proyecto en secuencia EL RETO → LA IDEA → LA EJECUCIÓN → historia →
   EL RESULTADO (campos opcionales: vacíos, la página funciona como antes);
@@ -63,15 +72,6 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 > Prioridad de contenido tras la Fase 3: montar los casos reales
 > (Estrella Galicia, HC Liceo, presentación de fichajes…) con su reto,
 > idea, pasos y fotos desde el panel.
-
-### Fase 4 — Contacto y conversión
-- Contacto como mini-brief con Netlify Forms: "¿Qué quieres hacer?" +
-  "¿En qué punto está?" + campo libre "Cuéntamelo como te salga" +
-  botón "VAMOS A DARLE FORMA →".
-- Pasada completa de accesibilidad (alt útiles, contraste sobre foto,
-  jerarquía idéntica en móvil).
-- Arreglo pendiente: redirect de tokens de Netlify Identity a `/admin`
-  (recuperación de contraseña del panel).
 
 ### Fase 5 — "Ideas en busca de marca"
 - Nueva colección en el panel (título + concepto breve), claramente

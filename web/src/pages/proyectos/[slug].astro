@@ -63,7 +63,7 @@ const jsonLd = [
 
 <Nav variante="subpagina" etiqueta={`${cat.titulo} / ${codigo}`} />
 
-<main style={`--acento:${acento}`}>
+<main id="contenido" style={`--acento:${acento}`}>
 <!-- Hero: la portada llega "creciendo" desde la tarjeta (view transition) -->
 <header class="project-hero" style={`view-transition-name: proyecto-${proyecto.id}`}>
   <Slot imagen={d.portada} etiqueta="Portada del proyecto" />
