@@ -8,7 +8,14 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## ✅ Hecho
 
-- **Fase 1 — Sistema visual base** (PR #1, pendiente de fusionar):
+- **Fase 2 — Portada editorial** (17/07/2026): hero con titular
+  "HISTORIAS CON LUZ" en tres estilos (fondo / tarjeta / **letras-máscara**,
+  elegible desde el panel), Selección de proyectos con código de archivo
+  autogenerado y casilla "Destacado", menú como índice editorial numerado,
+  manifiesto con tipografía que se revela al hacer scroll, sección
+  "PUEDO ENTRAR EN UN PROYECTO PARA…" (editable, con la lista antigua de
+  servicios como respaldo) y pie vivo "¿ACABAMOS? O EMPEZAMOS ALGO.".
+- **Fase 1 — Sistema visual base** (fusionada en `main`, 17/07/2026):
   tipografías Bricolage Grotesque + IBM Plex Mono, paleta del manual
   (negro carbón, blanco papel, rojo flash, gris técnico), botones editoriales
   texto + flecha con línea roja, línea roja en cabecera, firma gráfica en el
@@ -17,16 +24,15 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
   operativo, SEO por categoría, sitemap, robots, JSON-LD y página 404.
 - Redirects 301 de kikolareo.es → kikolareo.com confirmados.
 
-## 🔴 Decisiones pendientes (las toma Kiko)
+## ✔️ Decisiones tomadas
 
-1. **Frase de portada / posicionamiento**: ¿"HISTORIAS CON LUZ" (lo que hoy
-   se puede demostrar) o "UNA IDEA. MUCHAS FORMAS." (hacia dónde va la
-   marca)? Acordado: se puede empezar con la primera y cambiar cuando haya
-   ~6 casos de estudio publicados. El resto de la web se construye
-   compatible con ambas.
-2. **Entregas a clientes**: recomendación de usar Pixieset/Pic-Time para las
-   galerías privadas; opcionalmente una sección "Entregas" en la web con
-   páginas ocultas que enlacen a Drive/Vimeo. Sin decidir.
+1. **Frase de portada** (17/07/2026): se sigue con **"HISTORIAS CON LUZ"**.
+   "UNA IDEA. MUCHAS FORMAS." queda en reserva para cuando haya ~6 casos de
+   estudio publicados (ver Fase 6).
+2. **Entregas a clientes** (17/07/2026): se usa **Pixieset** para las
+   galerías privadas. La sección "Entregas" propia queda aparcada.
+3. **Despliegue**: mientras la web no esté anunciada se puede desplegar
+   directamente a `main` para probar en producción.
 
 ## 🧭 Principios acordados (no se negocian sin hablarlo)
 
@@ -43,21 +49,6 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
   `public/admin/config.yml`, con `hint` en español.
 
 ## 📅 Fases pendientes
-
-### Fase 2 — Portada editorial
-- Hero tipográfico: letras gigantes como máscara con contenido que rota
-  dentro (FOTO → VÍDEO → EVENTO → CAMPAÑA), versión CSS ligera, sin
-  librerías pesadas. *(La versión "morphing" completo de letras queda
-  descartada por coste/fragilidad.)*
-- Bloque "Selección de proyectos" (4–6) con casilla "Destacado" en el panel;
-  sin marcar nada, salen los más recientes.
-- Menú como índice editorial (01 PROYECTOS / 02 FORMA DE TRABAJAR / …).
-- Sección "PUEDO ENTRAR EN UN PROYECTO PARA… PENSARLO / DARLE FORMA /
-  PRODUCIRLO / HACER QUE SE VEA" en lugar de la lista cerrada de servicios,
-  con la frase de cierre sobre reunir al equipo necesario.
-- Pie vivo: "¿ACABAMOS? O EMPEZAMOS ALGO." con cambio de color al pasar.
-- Un momento de tipografía cinética máximo ("NO EMPIEZO POR LA CÁMARA /
-  EMPIEZO POR LA IDEA" al hacer scroll).
 
 ### Fase 3 — Proyectos como casos de estudio
 - Página de proyecto como secuencia: EL RETO → LA IDEA → LA EJECUCIÓN

@@ -84,6 +84,7 @@ collections:
           - { label: Moda, value: moda }
           - { label: Comida, value: comida }
       - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { name: destacado, label: "Destacado en portada", widget: boolean, default: false, required: false, hint: "Márcalo para que salga en la Selección de proyectos de la portada. Si no marcas ninguno, salen los más recientes." }
       - { name: cliente, label: Cliente, widget: string }
       - { name: anio, label: Año, widget: string }
       - { name: servicios, label: Servicios, widget: string, hint: "Ej: Foto + Vídeo + Aftermovie" }
@@ -130,7 +131,8 @@ collections:
             default: fondo
             options:
               - { label: "De fondo, a pantalla completa", value: fondo }
-              - { label: "Tarjeta centrada sobre el crema", value: tarjeta }
+              - { label: "Tarjeta centrada sobre el blanco", value: tarjeta }
+              - { label: "Dentro de las letras gigantes (máscara)", value: letras }
           - { name: marquesina, label: Marquesina, widget: string }
           - name: reel
             label: Reel
@@ -151,12 +153,22 @@ collections:
                 fields:
                   - { name: linea1, label: Línea 1, widget: string }
                   - { name: linea2, label: Línea 2, widget: string }
-          - name: servicios
-            label: Servicios
-            widget: list
+          - name: manifiesto
+            label: "Manifiesto (frase que se revela al bajar)"
+            widget: object
+            collapsed: true
             fields:
-              - { name: nombre, label: Servicio, widget: string }
-              - { name: tag, label: Etiqueta, widget: string }
+              - { name: antes, label: "Primera línea", widget: string, hint: "Ej: NO EMPIEZO POR LA CÁMARA." }
+              - { name: despues, label: "Segunda línea (la última palabra sale en rojo)", widget: string, hint: "Ej: EMPIEZO POR LA HISTORIA." }
+          - name: aportes
+            label: "Puedo entrar en un proyecto para…"
+            widget: list
+            hint: "Las 4 maneras de entrar en un proyecto: PENSARLO, DARLE FORMA, PRODUCIRLO, HACER QUE SE VEA"
+            fields:
+              - { name: titulo, label: "Verbo (ej: PENSARLO)", widget: string }
+              - { name: texto, label: Explicación, widget: text }
+          - { name: aportes_cierre, label: "Frase de cierre de la sección", widget: text, required: false, hint: "Ej: Puedo desarrollar personalmente una parte del proyecto o reunir a los perfiles necesarios para hacerlo realidad." }
+          - { name: cierre, label: "Frase final del pie (con salto de línea)", widget: text, hint: "Ej: ¿ACABAMOS? + salto de línea + O EMPEZAMOS ALGO." }
           - { name: clientes, label: Clientes, widget: list, field: { name: cliente, label: Cliente, widget: string } }
           - { name: email, label: Email de contacto, widget: string }
           - { name: telefono, label: "Teléfono (opcional, ayuda al SEO local)", widget: string, required: false }

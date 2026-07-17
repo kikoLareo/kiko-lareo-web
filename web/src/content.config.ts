@@ -34,6 +34,9 @@ const proyectos = defineCollection({
     titulo: z.string(),
     categoria,
     fecha: z.coerce.date(),
+    // Los destacados llenan la "Selección de proyectos" de portada;
+    // si no hay ninguno marcado, salen los más recientes.
+    destacado: z.boolean().default(false),
     cliente: z.string(),
     anio: z.coerce.string(),
     servicios: z.string(),
@@ -69,9 +72,10 @@ const paginas = defineCollection({
     claim_derecha: z.string(),
     marquesina: z.string(),
     hero_imagen: z.string().optional(),
-    // 'fondo': foto a sangre completa con el logotipo encima;
-    // 'tarjeta': foto centrada sobre el crema (diseño original)
-    hero_estilo: z.enum(['fondo', 'tarjeta']).default('fondo'),
+    // 'fondo': foto a sangre completa con el titular encima;
+    // 'tarjeta': foto centrada sobre el blanco papel (diseño original);
+    // 'letras': la foto se ve DENTRO de las letras gigantes (máscara)
+    hero_estilo: z.enum(['fondo', 'tarjeta', 'letras']).default('fondo'),
     reel: z.object({
       titulo: z.string(),
       etiqueta: z.string(),
@@ -82,7 +86,23 @@ const paginas = defineCollection({
       parrafos: z.array(z.string()),
       stats: z.array(z.object({ linea1: z.string(), linea2: z.string() })),
     }),
-    servicios: z.array(z.object({ nombre: z.string(), tag: z.string() })),
+    // Manifiesto: el momento de tipografía cinética de la portada
+    manifiesto: z
+      .object({ antes: z.string(), despues: z.string() })
+      .default({
+        antes: 'NO EMPIEZO POR LA CÁMARA.',
+        despues: 'EMPIEZO POR LA HISTORIA.',
+      }),
+    // "Puedo entrar en un proyecto para…": sustituye a la lista cerrada
+    // de servicios sin etiquetar a Kiko como estudio o agencia.
+    aportes: z
+      .array(z.object({ titulo: z.string(), texto: z.string() }))
+      .default([]),
+    aportes_cierre: z.string().default(''),
+    // Cierre del pie: "¿ACABAMOS?\nO EMPEZAMOS ALGO."
+    cierre: z.string().default('¿ACABAMOS?\nO EMPEZAMOS ALGO.'),
+    // Se mantiene por compatibilidad con contenido antiguo (ya no se muestra)
+    servicios: z.array(z.object({ nombre: z.string(), tag: z.string() })).default([]),
     clientes: z.array(z.string()),
     email: z.string(),
     telefono: z.string().optional(),

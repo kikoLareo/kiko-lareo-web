@@ -46,6 +46,30 @@
   "seo": {
     "descripcion": "Kiko Lareo, fotógrafo y videógrafo en A Coruña. Fotografía de deportes, eventos y conciertos, moda y gastronomía en toda Galicia. Foto + vídeo + aftermovie."
   },
+  "manifiesto": {
+    "antes": "NO EMPIEZO POR LA CÁMARA.",
+    "despues": "EMPIEZO POR LA HISTORIA."
+  },
+  "aportes": [
+    {
+      "titulo": "PENSARLO",
+      "texto": "Encontrar el concepto, el enfoque y la manera de contarlo antes de encender nada."
+    },
+    {
+      "titulo": "DARLE FORMA",
+      "texto": "Convertir la idea en fotografía y vídeo con una narrativa propia: deporte, eventos, moda o gastronomía."
+    },
+    {
+      "titulo": "PRODUCIRLO",
+      "texto": "Organizar la grabación, las personas, los lugares y los tiempos para que el día salga."
+    },
+    {
+      "titulo": "HACER QUE SE VEA",
+      "texto": "Crear las piezas y adaptarlas a donde tienen que funcionar: redes, web, pantalla o papel."
+    }
+  ],
+  "aportes_cierre": "Puedo desarrollar personalmente una parte del proyecto o reunir a los perfiles necesarios para hacerlo realidad.",
+  "cierre": "¿ACABAMOS?\nO EMPEZAMOS ALGO.",
   "servicios": [
     {
       "nombre": "Cobertura de eventos deportivos",
@@ -81,5 +105,6 @@
       "nombre": "TikTok",
       "url": ""
     }
-  ]
+  ],
+  "hero_estilo": "fondo"
 }

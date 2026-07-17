@@ -46,6 +46,19 @@ a:hover { color: var(--rojo); }
 
 ::selection { background: var(--rojo); color: var(--kl-paper); }
 
+/* Texto solo para lectores de pantalla y buscadores */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---- Huecos de imagen (sustituir por <img>/<video> reales) ---------------- */
 
 .slot {
@@ -111,6 +124,13 @@ a:hover { color: var(--rojo); }
   font-size: 12px;
 }
 
+.nav-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--rojo);
+  margin-right: 2px;
+}
+
 /* ---- Hero ------------------------------------------------------------------ */
 
 .hero { padding: 36px 24px 0; }
@@ -142,6 +162,22 @@ a:hover { color: var(--rojo); }
   font-size: 0.34em;
   vertical-align: super;
   line-height: 0;
+}
+
+/* Hero "letras": la foto se ve dentro del titular gigante (máscara) */
+.hero-letras { padding: 48px 24px 16px; }
+
+.hero-title.mask {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.04em;
+  font-size: min(13.5vw, 180px);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--negro); /* respaldo si la foto no carga */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero-media {
@@ -270,6 +306,82 @@ a:hover { color: var(--rojo); }
 
 .cat-cell { height: 440px; }
 .cat-grid.tall .cat-cell { height: 480px; }
+
+/* ---- Selección de proyectos (portada) --------------------------------------- */
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 24px;
+  padding: 8px 40px 64px;
+}
+
+.featured-card { display: block; }
+
+.featured-card .cover { height: 400px; overflow: hidden; }
+
+.featured-card .slot img {
+  transition: transform 0.5s ease;
+}
+
+.featured-card:hover .slot img { transform: scale(1.03); }
+
+.featured-code {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--rojo);
+  margin-top: 16px;
+}
+
+.featured-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: min(3vw, 34px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: pre-line;
+  margin-top: 10px;
+}
+
+.featured-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--gris);
+  margin-top: 10px;
+}
+
+/* ---- Manifiesto (tipografía que se revela) ---------------------------------- */
+
+.manifiesto {
+  padding: 120px 40px 128px;
+  border-top: 2px solid var(--negro);
+}
+
+.mani-linea {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: min(6.4vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.mani-dos { margin-top: 14px; transition-delay: 0.4s; }
+
+.mani-acento { color: var(--rojo); }
+
+.manifiesto.visible .mani-linea { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mani-linea { opacity: 1; transform: none; }
+}
 
 /* ---- Tarjetas con historia (girar) ----------------------------------------- */
 
@@ -486,6 +598,38 @@ a:hover { color: var(--rojo); }
   font-weight: 400;
 }
 
+/* "Puedo entrar en un proyecto para…" */
+.aporte-titulo {
+  font-family: var(--display);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.aporte-num {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--rojo);
+  margin-right: 12px;
+}
+
+.aporte-texto {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 520px;
+  text-align: right;
+  text-wrap: pretty;
+}
+
+.aportes-cierre {
+  font-size: 19px;
+  line-height: 1.55;
+  max-width: 720px;
+  margin: 36px 0 0;
+  text-wrap: pretty;
+}
+
 /* ---- Clientes ---------------------------------------------------------------- */
 
 .clients {
@@ -608,6 +752,20 @@ a:hover { color: var(--rojo); }
 
 .contact-form button:hover::after,
 .contact-form button:focus-visible::after { width: 100%; }
+
+/* Pie vivo: la invitación final antes de la firma */
+.cierre-cta {
+  display: block;
+  margin-top: 96px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: min(5.5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.cierre-cta span { display: block; }
 
 /* Firma gráfica / línea de registro del manual */
 .registro {
@@ -1023,4 +1181,16 @@ a:hover { color: var(--rojo); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Responsive de las secciones nuevas de la Fase 2 */
+@media (max-width: 900px) {
+  .featured-grid { grid-template-columns: minmax(0, 1fr); padding-left: 20px; padding-right: 20px; }
+  .featured-card .cover { height: 62vw; min-height: 280px; }
+  .featured-title { font-size: 26px; }
+  .manifiesto { padding: 72px 20px 80px; }
+  .mani-linea { font-size: min(9vw, 42px); }
+  .service-row .aporte-texto { text-align: left; }
+  .cierre-cta { font-size: min(9vw, 42px); margin-top: 64px; }
+  .hero-letras { padding: 32px 16px 8px; }
 }

@@ -56,6 +56,26 @@ const secciones = CATEGORIAS.map((cat) => {
 });
 
 const marquesina = `${g.marquesina.trim()} `;
+
+// Selección de proyectos de portada: los marcados como destacados o,
+// si no hay ninguno, los más recientes (máximo 6).
+const marcados = proyectos.filter((p) => p.data.destacado);
+const seleccion = (marcados.length ? marcados : proyectos).slice(0, 6);
+
+// Código de archivo autogenerado ([ KL—001 ]): posición cronológica del
+// proyecto entre todos los publicados. Kiko nunca lo escribe a mano.
+const cronologicos = [...proyectos].sort(
+  (a, b) => a.data.fecha.getTime() - b.data.fecha.getTime()
+);
+const codigo = (p: (typeof proyectos)[number]) =>
+  `KL—${String(cronologicos.indexOf(p) + 1).padStart(3, '0')}`;
+
+// Manifiesto: la última palabra de la segunda línea se acentúa en rojo
+const maniPalabras = g.manifiesto.despues.trim().split(' ');
+const maniUltima = maniPalabras.pop();
+const maniResto = maniPalabras.join(' ');
+
+const [cierre1, cierre2] = g.cierre.split('\n');
 ---
 
 <Base
@@ -67,7 +87,8 @@ const marquesina = `${g.marquesina.trim()} `;
 
 <Nav />
 
-<!-- Hero: con foto de fondo a sangre completa, o con la foto en tarjeta -->
+<!-- Hero: foto de fondo a sangre completa, dentro de las letras (máscara)
+     o con la foto en tarjeta. El titular es el concepto de la marca. -->
 {g.hero_estilo === 'fondo' && g.hero_imagen ? (
   <header id="top" class="hero-bg">
     <div class="bg"><Slot imagen={g.hero_imagen} etiqueta="" /></div>
@@ -78,9 +99,24 @@ const marquesina = `${g.marquesina.trim()} `;
         <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
       </div>
       <h1 class="hero-title" style="margin:0">
-        <span>KIKO</span><span>LAREO<sup>®</sup></span>
+        <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
+        <span>HISTORIAS</span><span>CON&nbsp;LUZ</span>
       </h1>
     </div>
+  </header>
+) : g.hero_estilo === 'letras' && g.hero_imagen ? (
+  <header id="top" class="hero hero-letras">
+    <div class="hero-meta">
+      <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
+      <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
+    </div>
+    <h1
+      class="hero-title mask"
+      style={`margin:0; background-image:url('${g.hero_imagen}')`}
+    >
+      <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
+      <span>HISTORIAS</span><span>CON&nbsp;LUZ</span>
+    </h1>
   </header>
 ) : (
   <header id="top" class="hero">
@@ -89,7 +125,8 @@ const marquesina = `${g.marquesina.trim()} `;
       <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
     </div>
     <h1 class="hero-title" style="margin:0">
-      <span>KIKO</span><span>LAREO<sup>®</sup></span>
+      <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
+      <span>HISTORIAS</span><span>CON&nbsp;LUZ</span>
     </h1>
     <div class="hero-media">
       <div>
@@ -116,9 +153,33 @@ const marquesina = `${g.marquesina.trim()} `;
 <main>
 <div id="trabajo"></div>
 
+<!-- Selección de proyectos: numerados como archivo y con su frase propia -->
+{seleccion.length > 0 && (
+  <section class="featured" id="proyectos">
+    <div class="cat-header first">
+      <span class="cat-num">(SELECCIÓN)</span>
+      <h2 class="cat-title" style="margin:0">PROYECTOS</h2>
+    </div>
+    <div class="featured-grid">
+      {seleccion.map((p) => (
+        <a href={`/proyectos/${p.id}/`} class="featured-card">
+          <div class="cover">
+            <Slot imagen={p.data.portada} alt={`${p.data.titulo} — ${p.data.cliente}`} etiqueta={`Portada de ${p.data.titulo}`} />
+          </div>
+          <div class="featured-code">
+            [ {codigo(p)} ] / {p.data.categoria.toUpperCase()}{p.data.localidad ? ` / ${p.data.localidad.toUpperCase()}` : ''}
+          </div>
+          <div class="featured-title">{p.data.titular}</div>
+          <div class="featured-meta">{p.data.cliente} · {p.data.anio}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
 {secciones.map(({ cat, celdas, ultimoProyecto }, i) => (
   <section id={cat.id}>
-    <div class={`cat-header${i === 0 ? ' first' : ''}`}>
+    <div class={`cat-header${i === 0 && seleccion.length === 0 ? ' first' : ''}`}>
       <span class="cat-num">({cat.num})</span>
       <h2 class="cat-title" style="margin:0">{cat.titulo}</h2>
       <div class="cat-aside-group">
@@ -156,6 +217,14 @@ const marquesina = `${g.marquesina.trim()} `;
   </section>
 ))}
 
+<!-- Manifiesto: se revela al llegar con el scroll -->
+<section class="manifiesto">
+  <p class="mani-linea">{g.manifiesto.antes}</p>
+  <p class="mani-linea mani-dos">
+    {maniResto} <span class="mani-acento">{maniUltima}</span>
+  </p>
+</section>
+
 <!-- Reel -->
 <section class="reel">
   <div class="reel-header">
@@ -182,12 +251,27 @@ const marquesina = `${g.marquesina.trim()} `;
   </div>
 </section>
 
-<!-- Servicios -->
+<!-- Qué aporto: las maneras de entrar en un proyecto, sin lista cerrada -->
 <section id="servicios" class="services">
-  <h2 class="section-title">SERVICIOS</h2>
-  {g.servicios.map((s) => (
-    <div class="service-row"><span>{s.nombre}</span><span class="tag">{s.tag}</span></div>
-  ))}
+  {g.aportes.length > 0 ? (
+    <>
+      <h2 class="section-title">PUEDO ENTRAR EN UN PROYECTO PARA…</h2>
+      {g.aportes.map((a, i) => (
+        <div class="service-row">
+          <span class="aporte-titulo"><span class="aporte-num">0{i + 1}</span> {a.titulo}</span>
+          <span class="aporte-texto">{a.texto}</span>
+        </div>
+      ))}
+      {g.aportes_cierre && <p class="aportes-cierre">{g.aportes_cierre}</p>}
+    </>
+  ) : (
+    <>
+      <h2 class="section-title">SERVICIOS</h2>
+      {g.servicios.map((s) => (
+        <div class="service-row"><span>{s.nombre}</span><span class="tag">{s.tag}</span></div>
+      ))}
+    </>
+  )}
 </section>
 
 <!-- Clientes -->
@@ -217,6 +301,10 @@ const marquesina = `${g.marquesina.trim()} `;
       <button type="submit">ENVIAR →</button>
     </form>
   </div>
+  <a href={`mailto:${g.email}`} class="cierre-cta">
+    <span>{cierre1}</span>
+    {cierre2 && <span>{cierre2} →</span>}
+  </a>
   <div class="registro">
     <span>KIKO LAREO® ─────────── HISTORIAS CON LUZ</span>
     <span><span class="rec" aria-hidden="true">●</span> REC / KL_ARCHIVE</span>
@@ -226,5 +314,25 @@ const marquesina = `${g.marquesina.trim()} `;
   </div>
 </section>
 </main>
+
+<script>
+  // Manifiesto: las dos líneas se revelan al llegar con el scroll.
+  // Con "reducir movimiento" activado, el CSS las muestra directamente.
+  const mani = document.querySelector('.manifiesto');
+  if (mani) {
+    const io = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((e) => {
+          if (e.isIntersecting) {
+            mani.classList.add('visible');
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(mani);
+  }
+</script>
 
 </Base>
