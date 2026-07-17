@@ -117,24 +117,29 @@ const heroLineas = g.hero_titular
     </div>
   </header>
 ) : g.hero_estilo === 'letras' && g.hero_imagen ? (
-  <header id="top" class="hero hero-letras">
-    <div class="hero-meta">
-      <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
-      <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
+  <header id="top" class="hero-split">
+    <div class="izq">
+      <div class="hero-meta">
+        <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
+        <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
+      </div>
+      <h1
+        class="hero-title mask"
+        style={`margin:0; background-image:url('${g.hero_imagen}')`}
+      >
+        <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
+        {heroLineas.map((l) =>
+          l.endsWith('®') ? (
+            <span>{l.slice(0, -1)}<sup>®</sup></span>
+          ) : (
+            <span>{l}</span>
+          )
+        )}
+      </h1>
     </div>
-    <h1
-      class="hero-title mask"
-      style={`margin:0; background-image:url('${g.hero_imagen}')`}
-    >
-      <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-      {heroLineas.map((l) =>
-        l.endsWith('®') ? (
-          <span>{l.slice(0, -1)}<sup>®</sup></span>
-        ) : (
-          <span>{l}</span>
-        )
-      )}
-    </h1>
+    <div class="der">
+      <Slot imagen={g.hero_imagen} etiqueta="" />
+    </div>
   </header>
 ) : (
   <header id="top" class="hero">

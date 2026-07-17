@@ -164,21 +164,44 @@ a:hover { color: var(--rojo); }
   line-height: 0;
 }
 
-/* Hero "letras": la foto se ve dentro del titular gigante (máscara) */
-.hero-letras { padding: 48px 24px 16px; }
+/* Hero "letras": partido en dos. Izquierda, el nombre gigante con la foto
+   dentro de las letras (máscara); derecha, la misma foto a sangre. */
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  min-height: clamp(520px, 86vh, 860px);
+  border-bottom: 2px solid var(--negro);
+}
+
+.hero-split .izq {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 24px 32px 44px 40px;
+  min-width: 0;
+}
+
+.hero-split .izq .hero-meta { padding: 0; }
+
+.hero-split .der { position: relative; min-height: 100%; }
 
 .hero-title.mask {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.04em;
-  font-size: min(13.5vw, 180px);
+  font-size: min(11.5vw, 165px);
   background-size: cover;
   background-position: center;
   background-color: var(--negro); /* respaldo si la foto no carga */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* Perfilado fino: las letras se leen aunque la foto sea clara */
+  -webkit-text-stroke: 1px rgba(11, 11, 11, 0.35);
 }
+
+.hero-split + .marquee { margin-top: 0; }
 
 .hero-media {
   display: flex;
@@ -1192,5 +1215,10 @@ a:hover { color: var(--rojo); }
   .mani-linea { font-size: min(9vw, 42px); }
   .service-row .aporte-texto { text-align: left; }
   .cierre-cta { font-size: min(9vw, 42px); margin-top: 64px; }
-  .hero-letras { padding: 32px 16px 8px; }
+
+  /* Hero partido en móvil: el nombre arriba, la foto debajo */
+  .hero-split { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .hero-split .izq { padding: 20px 20px 32px; gap: 40px; }
+  .hero-split .der { height: 58vh; min-height: 320px; }
+  .hero-title.mask { font-size: min(16vw, 96px); }
 }
