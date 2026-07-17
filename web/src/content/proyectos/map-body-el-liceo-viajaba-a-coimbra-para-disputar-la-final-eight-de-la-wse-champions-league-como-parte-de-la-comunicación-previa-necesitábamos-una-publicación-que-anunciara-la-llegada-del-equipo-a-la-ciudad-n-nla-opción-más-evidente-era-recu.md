@@ -36,7 +36,7 @@ localidad: Coimbra
 descripcion_seo: Concepto y producción de una serie de vídeos para anunciar la
   llegada del Hockey Club Liceo a la Final Eight de la WSE Champions League en
   Coimbra.
-portada: ""
+portada: /img/uploads/coimbra-se-puso-la-bufanda.png
 galeria: []
 video:
   titulo: Publicación
