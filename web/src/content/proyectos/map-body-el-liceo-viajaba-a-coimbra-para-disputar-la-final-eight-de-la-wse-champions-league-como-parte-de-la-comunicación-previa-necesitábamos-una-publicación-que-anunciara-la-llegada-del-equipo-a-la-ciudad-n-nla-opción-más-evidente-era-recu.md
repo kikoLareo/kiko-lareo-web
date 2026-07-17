@@ -8,24 +8,29 @@ anio: "2026"
 servicios: Concepto + Dirección creativa + Vídeo + Contenido para redes
 entrega: Serie de clips para redes sociales
 titular: |-
-  EL EQUIPO
-  AÚN NO HABÍA
-  LLEGADO.
-  LA BUFANDA SÍ.
+  COIMBRA
+  SE PUSO
+  LA BUFANDA.
 reto: >-
   Anunciar la llegada del Liceo a Coimbra para disputar la Final Eight de la WSE
-  Champions League sin recurrir a los códigos habituales de los equipos cuando
-  viajan: una camiseta delante de un monumento, el escudo recorriendo la ciudad
-  o una fotografía de la expedición.
+  Champions League sin recurrir a las imágenes habituales de los equipos cuando
+  viajan: una camiseta frente a un monumento, el escudo por la ciudad o una
+  fotografía en un lugar reconocible.
 
-  La publicación tenía que comunicar que el equipo ya estaba en Coimbra, pero hacerlo de una manera propia, reconocible y vinculada a la vida real de la ciudad.
+  La publicación tenía que situar al equipo en Coimbra, pero también encontrar una forma diferente de contarlo.
 idea: >-
-  En lugar de fotografiar al Liceo por Coimbra, hicimos que Coimbra se
-  convirtiera durante unos minutos en parte del Liceo.
+  En lugar de colocar los símbolos del Liceo en los lugares más conocidos de
+  Coimbra, decidimos introducirlos en la vida cotidiana de la ciudad.
 
-  Buscamos a personas que estaban trabajando, paseando o hablando por la calle. Les colocamos una bufanda del equipo y les pedimos que continuaran haciendo exactamente lo mismo.
+  Buscamos a personas que estaban trabajando, paseando o hablando por la calle. Les pusimos una bufanda del equipo y les pedimos que continuaran con lo que estaban haciendo.
 
-  La ciudad anunciaría la llegada antes de que aparecieran los jugadores.
+  La bufanda era el único elemento fuera de lo normal.
+ejecucion:
+  - RECORRER LA CIUDAD
+  - BUSCAR ESCENAS REALES
+  - HABLAR CON LA GENTE
+  - COLOCAR LA BUFANDA
+  - DEJAR QUE TODO CONTINUARA
 color: rojo
 localidad: Coimbra
 descripcion_seo: Concepto y producción de una serie de vídeos para anunciar la
