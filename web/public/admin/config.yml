@@ -90,6 +90,25 @@ collections:
       - { name: servicios, label: Servicios, widget: string, hint: "Ej: Foto + Vídeo + Aftermovie" }
       - { name: entrega, label: Entrega, widget: string, hint: "Ej: 400 fotos · 48 horas" }
       - { name: titular, label: Titular de la historia, widget: text, hint: "Los saltos de línea se respetan (2-3 líneas quedan mejor)" }
+      - { name: reto, label: "El reto (caso de estudio)", widget: text, required: false, hint: "Qué había que resolver, en 1-3 frases. Ej: Presentar tres fichajes sin hacer tres vídeos iguales. Si lo dejas vacío, la sección no aparece." }
+      - { name: idea, label: "La idea", widget: text, required: false, hint: "Cómo decidiste contarlo, en 1-3 frases. Si lo dejas vacío, la sección no aparece." }
+      - name: ejecucion
+        label: "La ejecución (pasos)"
+        widget: list
+        required: false
+        field: { name: paso, label: Paso, widget: string }
+        hint: "Los pasos del trabajo, en orden. Ej: CONCEPTO, GUIÓN, LOCALIZACIONES, PRODUCCIÓN, PIEZAS FINALES"
+      - name: color
+        label: "Color de acento del proyecto"
+        widget: select
+        default: rojo
+        hint: "Tiñe los detalles de la página del proyecto (código, etiquetas, barra de progreso)"
+        options:
+          - { label: "Rojo flash (el de la marca)", value: rojo }
+          - { label: "Azul eléctrico", value: azul }
+          - { label: "Verde", value: verde }
+          - { label: "Violeta", value: violeta }
+          - { label: "Mostaza", value: mostaza }
       - { name: localidad, label: "Localidad (SEO local)", widget: string, required: false, hint: "Dónde se hizo el trabajo. Ej: A Coruña, Santiago, Vigo…" }
       - { name: descripcion_seo, label: "Descripción para Google", widget: text, required: false, hint: "1-2 frases con la localidad y el tipo de trabajo. Si se deja vacía, se genera sola." }
       - { name: portada, label: Foto de portada, widget: image, required: false }
@@ -101,7 +120,7 @@ collections:
         summary: "{{fields.etiqueta}}"
         hint: "La 1ª foto sale grande, la 2ª y 3ª apiladas, el resto en filas de 3"
         fields:
-          - { name: etiqueta, label: Etiqueta / pie, widget: string }
+          - { name: etiqueta, label: Etiqueta / pie, widget: string, hint: "Fórmula que funciona: lugar + hora + contexto. Ej: 13:02 / A CORUÑA — Primer servicio del día." }
           - { name: imagen, label: Imagen, widget: image, required: false }
       - name: video
         label: Vídeo

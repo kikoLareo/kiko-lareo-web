@@ -8,6 +8,16 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## ✅ Hecho
 
+- **Fase 3 — Proyectos como casos de estudio** (17/07/2026): página de
+  proyecto en secuencia EL RETO → LA IDEA → LA EJECUCIÓN → historia →
+  EL RESULTADO (campos opcionales: vacíos, la página funciona como antes);
+  código de archivo en la cabecera y en el nav; transición cinematográfica
+  tarjeta→proyecto con view transitions nativas (cross-document, sin
+  librerías); barra de progreso IDEA━FORMA━RESULTADO; color de acento por
+  proyecto (lista cerrada de 5); "SIGUIENTE HISTORIA →" y fórmula de pies
+  de foto en el panel. Ajustes de identidad de la misma fecha: hero partido
+  con máscara, titular del hero editable (KIKO LAREO®), categoría
+  Comida→Hostelería (URL incluida) y retirada de fechas/cifras sin respaldo.
 - **Fase 2 — Portada editorial** (17/07/2026): hero con titular
   "HISTORIAS CON LUZ" en tres estilos (fondo / tarjeta / **letras-máscara**,
   elegible desde el panel), Selección de proyectos con código de archivo
@@ -50,19 +60,9 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## 📅 Fases pendientes
 
-### Fase 3 — Proyectos como casos de estudio
-- Página de proyecto como secuencia: EL RETO → LA IDEA → LA EJECUCIÓN
-  (CONCEPTO ↓ GUIÓN ↓ LOCALIZACIONES ↓ PRODUCCIÓN ↓ PIEZAS) → EL RESULTADO.
-- Apertura con código de archivo autogenerado ([ KL—031 ]), categoría,
-  cliente, lugar, fecha y hora (campos nuevos opcionales en el panel).
-- Transición continua tarjeta → proyecto con las view transitions nativas
-  de Astro (la imagen crece hasta ser la cabecera).
-- Barra de progreso de scroll: IDEA ━ FORMA ━ RESULTADO.
-- Color de acento por proyecto, elegido de una lista cerrada de 4–5 colores
-  con contraste verificado (nunca selector libre).
-- Enlace "SIGUIENTE HISTORIA →" y pies de foto "lugar + hora + contexto".
-- Prioridad de contenido: montar los casos reales primero
-  (Estrella Galicia, HC Liceo, presentación de fichajes…).
+> Prioridad de contenido tras la Fase 3: montar los casos reales
+> (Estrella Galicia, HC Liceo, presentación de fichajes…) con su reto,
+> idea, pasos y fotos desde el panel.
 
 ### Fase 4 — Contacto y conversión
 - Contacto como mini-brief con Netlify Forms: "¿Qué quieres hacer?" +

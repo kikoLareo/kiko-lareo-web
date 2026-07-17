@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Slot from '../../components/Slot.astro';
 import { CATEGORIAS } from '../../lib/categorias';
+import { codigoArchivo, ACENTOS } from '../../lib/archivo';
 import { migas, persona } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -14,16 +15,22 @@ export async function getStaticPaths() {
     params: { slug: proyecto.id },
     // Encadena los proyectos: el "siguiente" es el anterior en el tiempo
     // (y el último vuelve al más reciente).
-    props: { proyecto, siguiente: proyectos[(i + 1) % proyectos.length] },
+    props: {
+      proyecto,
+      siguiente: proyectos[(i + 1) % proyectos.length],
+      codigo: codigoArchivo(proyecto, proyectos),
+    },
   }));
 }
 
-const { proyecto, siguiente } = Astro.props;
+const { proyecto, siguiente, codigo } = Astro.props;
 const d = proyecto.data;
 const { Content } = await render(proyecto);
 
 const cat = CATEGORIAS.find((c) => c.id === d.categoria)!;
 const haySiguiente = siguiente.id !== proyecto.id;
+const acento = ACENTOS[d.color] ?? ACENTOS.rojo;
+const hayResultado = d.galeria.length > 0 || d.video;
 
 // Galería con el ritmo del diseño: 1 grande + 2 apiladas, luego filas de 3
 const [g1, g2, g3, ...resto] = d.galeria;
@@ -54,12 +61,13 @@ const jsonLd = [
 
 <Base title={`${d.titulo} — ${cat.titulo.toLowerCase()} en ${lugar} | Kiko Lareo®`} description={descripcion} ogImage={d.portada} jsonLd={jsonLd}>
 
-<Nav variante="subpagina" etiqueta={`${cat.titulo} / PROYECTO`} />
+<Nav variante="subpagina" etiqueta={`${cat.titulo} / ${codigo}`} />
 
-<main>
-<!-- Hero -->
-<header class="project-hero">
+<main style={`--acento:${acento}`}>
+<!-- Hero: la portada llega "creciendo" desde la tarjeta (view transition) -->
+<header class="project-hero" style={`view-transition-name: proyecto-${proyecto.id}`}>
   <Slot imagen={d.portada} etiqueta="Portada del proyecto" />
+  <div class="project-hero-code">[ {codigo} ] / {cat.titulo}{d.localidad ? ` / ${d.localidad.toUpperCase()}` : ''}</div>
   <h1 class="project-hero-title" style="margin:0">{d.titulo.toUpperCase()}</h1>
 </header>
 
@@ -71,6 +79,36 @@ const jsonLd = [
   <div><div class="label">ENTREGA</div><div class="value">{d.entrega}</div></div>
 </section>
 
+<!-- Caso de estudio: el reto y la idea (solo si están rellenos) -->
+{(d.reto || d.idea) && (
+  <section class="caso">
+    {d.reto && (
+      <div>
+        <div class="caso-label">EL RETO</div>
+        <p class="caso-texto">{d.reto}</p>
+      </div>
+    )}
+    {d.idea && (
+      <div>
+        <div class="caso-label">LA IDEA</div>
+        <p class="caso-texto">{d.idea}</p>
+      </div>
+    )}
+  </section>
+)}
+
+<!-- La ejecución: los pasos del trabajo -->
+{d.ejecucion.length > 0 && (
+  <section class="ejecucion">
+    <div class="caso-label">LA EJECUCIÓN</div>
+    <ol class="pasos">
+      {d.ejecucion.map((paso, i) => (
+        <li><span class="paso-num">{String(i + 1).padStart(2, '0')}</span> {paso}</li>
+      ))}
+    </ol>
+  </section>
+)}
+
 <!-- Historia -->
 <section class="project-story">
   <h2 set:html={d.titular.trim().replace(/\n/g, '<br>')} />
@@ -79,7 +117,8 @@ const jsonLd = [
   </div>
 </section>
 
-<!-- Galería -->
+<!-- El resultado: galería y vídeo -->
+{hayResultado && <div class="caso-label resultado-label">EL RESULTADO</div>}
 {d.galeria.length > 0 && (
   <>
     <section class="gallery-top">
@@ -129,10 +168,12 @@ const jsonLd = [
 {haySiguiente ? (
   <a href={`/proyectos/${siguiente.id}/`} class="next-project">
     <div>
-      <div class="label">SIGUIENTE PROYECTO</div>
+      <div class="label">SIGUIENTE HISTORIA</div>
       <div class="title">{siguiente.data.titulo.toUpperCase()} →</div>
     </div>
-    <div class="thumb"><Slot imagen={siguiente.data.portada} etiqueta="Miniatura siguiente" /></div>
+    <div class="thumb" style={`view-transition-name: proyecto-${siguiente.id}`}>
+      <Slot imagen={siguiente.data.portada} etiqueta="Miniatura siguiente" />
+    </div>
   </a>
 ) : (
   <a href={`/${d.categoria}/`} class="next-project">
@@ -142,10 +183,28 @@ const jsonLd = [
     </div>
   </a>
 )}
+
+<!-- Barra de progreso: IDEA ━ FORMA ━ RESULTADO -->
+<div class="progreso" aria-hidden="true">
+  <div class="relleno"></div>
+  <span>IDEA</span><span>FORMA</span><span>RESULTADO</span>
+</div>
 </main>
 
-<footer class="footer-bar">
+<footer class="footer-bar footer-proyecto">
   <span>© {new Date().getFullYear()} KIKO LAREO®</span><a href="/#contacto">CONTACTO →</a>
 </footer>
+
+<script>
+  // La barra de progreso avanza con el scroll del proyecto
+  const relleno = document.querySelector('.progreso .relleno') as HTMLElement | null;
+  const actualizar = () => {
+    const h = document.documentElement;
+    const total = h.scrollHeight - h.clientHeight;
+    if (relleno) relleno.style.width = `${total > 0 ? Math.min(100, (h.scrollTop / total) * 100) : 0}%`;
+  };
+  addEventListener('scroll', actualizar, { passive: true });
+  actualizar();
+</script>
 
 </Base>

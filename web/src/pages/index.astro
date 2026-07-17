@@ -5,6 +5,7 @@ import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
 import FlipCard from '../components/FlipCard.astro';
 import { CATEGORIAS } from '../lib/categorias';
+import { codigoArchivo } from '../lib/archivo';
 import { negocioLocal } from '../lib/seo';
 
 const [ajustes] = await getCollection('paginas');
@@ -62,13 +63,7 @@ const marquesina = `${g.marquesina.trim()} `;
 const marcados = proyectos.filter((p) => p.data.destacado);
 const seleccion = (marcados.length ? marcados : proyectos).slice(0, 6);
 
-// Código de archivo autogenerado ([ KL—001 ]): posición cronológica del
-// proyecto entre todos los publicados. Kiko nunca lo escribe a mano.
-const cronologicos = [...proyectos].sort(
-  (a, b) => a.data.fecha.getTime() - b.data.fecha.getTime()
-);
-const codigo = (p: (typeof proyectos)[number]) =>
-  `KL—${String(cronologicos.indexOf(p) + 1).padStart(3, '0')}`;
+const codigo = (p: (typeof proyectos)[number]) => codigoArchivo(p, proyectos);
 
 // Manifiesto: la última palabra de la segunda línea se acentúa en rojo
 const maniPalabras = g.manifiesto.despues.trim().split(' ');
@@ -192,7 +187,7 @@ const heroLineas = g.hero_titular
     <div class="featured-grid">
       {seleccion.map((p) => (
         <a href={`/proyectos/${p.id}/`} class="featured-card">
-          <div class="cover">
+          <div class="cover" style={`view-transition-name: proyecto-${p.id}`}>
             <Slot imagen={p.data.portada} alt={`${p.data.titulo} — ${p.data.cliente}`} etiqueta={`Portada de ${p.data.titulo}`} />
           </div>
           <div class="featured-code">

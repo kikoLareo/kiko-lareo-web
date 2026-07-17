@@ -42,6 +42,13 @@ const proyectos = defineCollection({
     servicios: z.string(),
     entrega: z.string(),
     titular: z.string(), // titular de la historia; los saltos de línea se respetan
+    // Caso de estudio (opcionales: si se dejan vacíos, la página del
+    // proyecto funciona como siempre, solo con la historia y la galería)
+    reto: z.string().optional(), // qué había que resolver
+    idea: z.string().optional(), // cómo se decidió contarlo
+    ejecucion: z.array(z.string()).default([]), // pasos del trabajo, en orden
+    // Color de acento del proyecto (lista cerrada, contraste comprobado)
+    color: z.enum(['rojo', 'azul', 'verde', 'violeta', 'mostaza']).default('rojo'),
     localidad: z.string().optional(), // dónde se hizo (SEO local): "A Coruña", "Santiago"…
     descripcion_seo: z.string().optional(), // meta description propia; si falta se genera
     portada: z.string().optional(),

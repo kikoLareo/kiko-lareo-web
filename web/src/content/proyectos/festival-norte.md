@@ -11,6 +11,15 @@ titular: |-
   TRES DÍAS,
   DOCE ESCENARIOS,
   UNA TORMENTA.
+reto: Contar tres días de festival sin que parezca el típico resumen con drones y aplausos.
+idea: Seguir la tormenta. La lluvia que casi apaga el festival se convirtió en el hilo del aftermovie.
+ejecucion:
+  - Concepto
+  - Localizaciones
+  - Cobertura foto
+  - Cobertura vídeo
+  - Edición y entrega
+color: azul
 galeria:
   - etiqueta: Escenario principal — gran angular
   - etiqueta: Público — detalle
