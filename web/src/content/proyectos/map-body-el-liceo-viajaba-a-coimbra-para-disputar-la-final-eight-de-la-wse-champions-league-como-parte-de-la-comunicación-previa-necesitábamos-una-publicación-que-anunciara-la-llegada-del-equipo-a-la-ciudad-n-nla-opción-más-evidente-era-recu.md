@@ -33,9 +33,7 @@ ejecucion:
   - DEJAR QUE TODO CONTINUARA
 color: rojo
 localidad: Coimbra
-descripcion_seo: Concepto y producción de una serie de vídeos para anunciar la
-  llegada del Hockey Club Liceo a la Final Eight de la WSE Champions League en
-  Coimbra.
+descripcion_seo: liceo coimbra
 portada: /img/uploads/coimbra-se-puso-la-bufanda.png
 galeria: []
 video:
