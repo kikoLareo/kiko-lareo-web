@@ -1,7 +1,7 @@
 // Las 4 categorías fijas de la web. El contenido (fotos y proyectos) se
 // gestiona desde el CMS; esto solo define su orden e identidad visual.
 export interface Categoria {
-  id: 'deportes' | 'eventos' | 'moda' | 'comida';
+  id: 'deportes' | 'eventos' | 'moda' | 'hosteleria';
   num: string;
   titulo: string;
   etiqueta: string;
@@ -58,17 +58,17 @@ export const CATEGORIAS: Categoria[] = [
     },
   },
   {
-    id: 'comida',
+    id: 'hosteleria',
     num: '04',
-    titulo: 'COMIDA',
+    titulo: 'HOSTELERÍA',
     etiqueta: 'RESTAURANTES / PRODUCTO',
     grid: 'lead-left',
     cardPos: 0,
-    placeholders: ['Comida — plato estrella', 'Comida — sala / ambiente', 'Comida — proceso'],
+    placeholders: ['Hostelería — plato estrella', 'Hostelería — sala / ambiente', 'Hostelería — proceso'],
     seo: {
-      titulo: 'Fotógrafo gastronómico para restaurantes en Galicia — Kiko Lareo®',
+      titulo: 'Fotógrafo gastronómico y de hostelería en Galicia — Kiko Lareo®',
       descripcion:
-        'Fotografía gastronómica en A Coruña y Galicia: restaurantes, producto y contenido para redes sociales. Fotos que hacen que el plato se pida solo.',
+        'Fotografía para hostelería en A Coruña y Galicia: restaurantes, gastronomía, producto y contenido para redes sociales. Fotos que hacen que el plato se pida solo.',
     },
   },
 ];

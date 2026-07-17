@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const categoria = z.enum(['deportes', 'eventos', 'moda', 'comida']);
+const categoria = z.enum(['deportes', 'eventos', 'moda', 'hosteleria']);
 
 // Fotos sueltas: alimentan la portada (últimas por categoría) y la galería
 // de cada página de categoría. Si llevan "historia", se muestran como

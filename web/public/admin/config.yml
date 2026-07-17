@@ -39,7 +39,7 @@ collections:
           - { label: Deportes, value: deportes }
           - { label: Eventos, value: eventos }
           - { label: Moda, value: moda }
-          - { label: Comida, value: comida }
+          - { label: Hostelería, value: hosteleria }
       - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false, hint: "Las más recientes salen en la portada" }
       - { name: imagen, label: Imagen, widget: image }
       - { name: alt, label: "Descripción de la imagen (SEO + accesibilidad)", widget: string, required: false, hint: "Describe qué se ve y dónde. Ej: Ciclista esprintando en la Copa Galicia, A Coruña. Google lee esto." }
@@ -82,7 +82,7 @@ collections:
           - { label: Deportes, value: deportes }
           - { label: Eventos, value: eventos }
           - { label: Moda, value: moda }
-          - { label: Comida, value: comida }
+          - { label: Hostelería, value: hosteleria }
       - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false }
       - { name: destacado, label: "Destacado en portada", widget: boolean, default: false, required: false, hint: "Márcalo para que salga en la Selección de proyectos de la portada. Si no marcas ninguno, salen los más recientes." }
       - { name: cliente, label: Cliente, widget: string }

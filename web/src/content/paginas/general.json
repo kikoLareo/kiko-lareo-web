@@ -6,22 +6,22 @@
     ],
     "stats": [
       {
-        "linea1": "+8 AÑOS",
-        "linea2": "DE OFICIO"
-      },
-      {
-        "linea1": "+120",
-        "linea2": "PROYECTOS"
-      },
-      {
         "linea1": "FOTO + VÍDEO",
         "linea2": "+ EDICIÓN"
+      },
+      {
+        "linea1": "A CORUÑA",
+        "linea2": "TODA GALICIA"
+      },
+      {
+        "linea1": "DEPORTE · EVENTOS",
+        "linea2": "MODA · HOSTELERÍA"
       }
     ]
   },
-  "claim_derecha": "HISTORIAS CON LUZ\nDESDE 2018",
+  "claim_derecha": "HISTORIAS CON LUZ",
   "localizacion": "A CORUÑA · GALICIA, ESPAÑA",
-  "marquesina": "DEPORTES ✦ EVENTOS ✦ MODA ✦ COMIDA ✦ VÍDEO ✦",
+  "marquesina": "DEPORTES ✦ EVENTOS ✦ MODA ✦ HOSTELERÍA ✦ VÍDEO ✦",
   "direccion": {
     "ciudad": "A Coruña",
     "region": "Galicia",
@@ -38,7 +38,7 @@
     "MARCA LOCAL"
   ],
   "reel": {
-    "titulo": "REEL 2026",
+    "titulo": "SHOWREEL",
     "etiqueta": "VÍDEO · 60 SEG"
   },
   "claim_izquierda": "FOTÓGRAFO & VIDEÓGRAFO\nA CORUÑA · GALICIA",

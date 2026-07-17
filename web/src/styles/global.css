@@ -169,7 +169,9 @@ a:hover { color: var(--rojo); }
 .hero-split {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  min-height: clamp(520px, 86vh, 860px);
+  /* Altura fija: el nombre completo se ve sin hacer scroll y la foto
+     se recorta sola (object-fit: cover), sea vertical u horizontal */
+  height: clamp(520px, 86vh, 900px);
   border-bottom: 2px solid var(--negro);
 }
 
@@ -184,7 +186,9 @@ a:hover { color: var(--rojo); }
 
 .hero-split .izq .hero-meta { padding: 0; }
 
-.hero-split .der { position: relative; min-height: 100%; }
+.hero-split .der { position: relative; overflow: hidden; }
+
+.hero-split .der .slot { position: absolute; inset: 0; }
 
 .hero-title.mask {
   flex-direction: column;
@@ -193,12 +197,14 @@ a:hover { color: var(--rojo); }
   font-size: min(11.5vw, 165px);
   background-size: cover;
   background-position: center;
-  background-color: var(--negro); /* respaldo si la foto no carga */
+  /* El gris multiplica la foto dentro de las letras: gana contraste sobre
+     el blanco papel sin trazos que dejen costuras. Si la foto no carga,
+     las letras quedan de este gris. */
+  background-color: #A9A59C;
+  background-blend-mode: multiply;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  /* Perfilado fino: las letras se leen aunque la foto sea clara */
-  -webkit-text-stroke: 1px rgba(11, 11, 11, 0.35);
 }
 
 .hero-split + .marquee { margin-top: 0; }
@@ -1217,7 +1223,7 @@ a:hover { color: var(--rojo); }
   .cierre-cta { font-size: min(9vw, 42px); margin-top: 64px; }
 
   /* Hero partido en móvil: el nombre arriba, la foto debajo */
-  .hero-split { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .hero-split { grid-template-columns: minmax(0, 1fr); height: auto; }
   .hero-split .izq { padding: 20px 20px 32px; gap: 40px; }
   .hero-split .der { height: 58vh; min-height: 320px; }
   .hero-title.mask { font-size: min(16vw, 96px); }
