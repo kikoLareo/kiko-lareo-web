@@ -76,6 +76,12 @@ const maniUltima = maniPalabras.pop();
 const maniResto = maniPalabras.join(' ');
 
 const [cierre1, cierre2] = g.cierre.split('\n');
+
+// Titular gigante del hero, línea a línea; el ® final se hace pequeño
+const heroLineas = g.hero_titular
+  .split('\n')
+  .map((l) => l.trim())
+  .filter(Boolean);
 ---
 
 <Base
@@ -100,7 +106,13 @@ const [cierre1, cierre2] = g.cierre.split('\n');
       </div>
       <h1 class="hero-title" style="margin:0">
         <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-        <span>HISTORIAS</span><span>CON&nbsp;LUZ</span>
+        {heroLineas.map((l) =>
+        l.endsWith('®') ? (
+          <span>{l.slice(0, -1)}<sup>®</sup></span>
+        ) : (
+          <span>{l}</span>
+        )
+      )}
       </h1>
     </div>
   </header>
@@ -115,7 +127,13 @@ const [cierre1, cierre2] = g.cierre.split('\n');
       style={`margin:0; background-image:url('${g.hero_imagen}')`}
     >
       <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-      <span>HISTORIAS</span><span>CON&nbsp;LUZ</span>
+      {heroLineas.map((l) =>
+        l.endsWith('®') ? (
+          <span>{l.slice(0, -1)}<sup>®</sup></span>
+        ) : (
+          <span>{l}</span>
+        )
+      )}
     </h1>
   </header>
 ) : (
@@ -126,7 +144,13 @@ const [cierre1, cierre2] = g.cierre.split('\n');
     </div>
     <h1 class="hero-title" style="margin:0">
       <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-      <span>HISTORIAS</span><span>CON&nbsp;LUZ</span>
+      {heroLineas.map((l) =>
+        l.endsWith('®') ? (
+          <span>{l.slice(0, -1)}<sup>®</sup></span>
+        ) : (
+          <span>{l}</span>
+        )
+      )}
     </h1>
     <div class="hero-media">
       <div>

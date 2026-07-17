@@ -133,6 +133,7 @@ collections:
               - { label: "De fondo, a pantalla completa", value: fondo }
               - { label: "Tarjeta centrada sobre el blanco", value: tarjeta }
               - { label: "Dentro de las letras gigantes (máscara)", value: letras }
+          - { name: hero_titular, label: "Hero — titular gigante", widget: text, default: "KIKO\nLAREO®", hint: "El texto enorme de la portada. Cada línea del cuadro es una línea en pantalla. Ej: KIKO + salto + LAREO®" }
           - { name: marquesina, label: Marquesina, widget: string }
           - name: reel
             label: Reel
