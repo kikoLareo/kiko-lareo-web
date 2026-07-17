@@ -19,37 +19,12 @@
       }
     ]
   },
+  "hero_titular": "KIKO\nLAREO®",
   "claim_derecha": "HISTORIAS CON LUZ",
+  "cierre": "¿ACABAMOS?\nO EMPEZAMOS ALGO.",
   "localizacion": "A CORUÑA · GALICIA, ESPAÑA",
+  "hero_estilo": "letras",
   "marquesina": "DEPORTES ✦ EVENTOS ✦ MODA ✦ HOSTELERÍA ✦ VÍDEO ✦",
-  "direccion": {
-    "ciudad": "A Coruña",
-    "region": "Galicia",
-    "pais": "ES",
-    "lat": 43.3623,
-    "lng": -8.4115
-  },
-  "hero_imagen": "/img/uploads/ad31dfde-3a4f-4c98-9475-a30ab89f2e9c.jpeg",
-  "clientes": [
-    "CLUB DEPORTIVO ★",
-    "FESTIVAL NORTE",
-    "ATELIER MODA",
-    "GRUPO GASTRO",
-    "MARCA LOCAL"
-  ],
-  "reel": {
-    "titulo": "SHOWREEL",
-    "etiqueta": "VÍDEO · 60 SEG"
-  },
-  "claim_izquierda": "FOTÓGRAFO & VIDEÓGRAFO\nA CORUÑA · GALICIA",
-  "email": "hola@kikolareo.com",
-  "seo": {
-    "descripcion": "Kiko Lareo, fotógrafo y videógrafo en A Coruña. Fotografía de deportes, eventos y conciertos, moda y gastronomía en toda Galicia. Foto + vídeo + aftermovie."
-  },
-  "manifiesto": {
-    "antes": "NO EMPIEZO POR LA CÁMARA.",
-    "despues": "EMPIEZO POR LA HISTORIA."
-  },
   "aportes": [
     {
       "titulo": "PENSARLO",
@@ -68,8 +43,36 @@
       "texto": "Crear las piezas y adaptarlas a donde tienen que funcionar: redes, web, pantalla o papel."
     }
   ],
+  "direccion": {
+    "ciudad": "A Coruña",
+    "region": "Galicia",
+    "pais": "ES",
+    "lat": 43.3623,
+    "lng": -8.4115
+  },
+  "telefono": "617 95 25 27",
   "aportes_cierre": "Puedo desarrollar personalmente una parte del proyecto o reunir a los perfiles necesarios para hacerlo realidad.",
-  "cierre": "¿ACABAMOS?\nO EMPEZAMOS ALGO.",
+  "hero_imagen": "/img/uploads/ad31dfde-3a4f-4c98-9475-a30ab89f2e9c.jpeg",
+  "clientes": [
+    "CLUB DEPORTIVO ★",
+    "FESTIVAL NORTE",
+    "ATELIER MODA",
+    "GRUPO GASTRO",
+    "MARCA LOCAL"
+  ],
+  "reel": {
+    "titulo": "SHOWREEL",
+    "etiqueta": "VÍDEO · 60 SEG"
+  },
+  "manifiesto": {
+    "antes": "NO EMPIEZO POR LA CÁMARA.",
+    "despues": "EMPIEZO POR LA HISTORIA."
+  },
+  "claim_izquierda": "FOTÓGRAFO & VIDEÓGRAFO\nA CORUÑA · GALICIA",
+  "email": "kiko.lareo@gmail.com",
+  "seo": {
+    "descripcion": "Kiko Lareo, fotógrafo y videógrafo en A Coruña. Fotografía de deportes, eventos y conciertos, moda y gastronomía en toda Galicia. Foto + vídeo + aftermovie."
+  },
   "servicios": [
     {
       "nombre": "Cobertura de eventos deportivos",
@@ -91,21 +94,7 @@
   "redes": [
     {
       "nombre": "Instagram",
-      "url": ""
-    },
-    {
-      "nombre": "Vimeo",
-      "url": ""
-    },
-    {
-      "nombre": "YouTube",
-      "url": ""
-    },
-    {
-      "nombre": "TikTok",
-      "url": ""
+      "url": "https://www.instagram.com/kiko.lareo?igsh=a3N4aHNiZW1uaG43&utm_source=qr"
     }
-  ],
-  "hero_estilo": "letras",
-  "hero_titular": "KIKO\nLAREO®"
+  ]
 }
