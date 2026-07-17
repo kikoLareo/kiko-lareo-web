@@ -122,16 +122,16 @@ const jsonLd = [
 {d.galeria.length > 0 && (
   <>
     <section class="gallery-top">
-      <div class="big">{g1 && <Slot imagen={g1.imagen} etiqueta={g1.etiqueta} />}</div>
+      <div class="big">{g1 && <Slot imagen={g1.imagen} video={g1.clip} etiqueta={g1.etiqueta} />}</div>
       <div class="stack">
-        <div>{g2 && <Slot imagen={g2.imagen} etiqueta={g2.etiqueta} />}</div>
-        <div>{g3 && <Slot imagen={g3.imagen} etiqueta={g3.etiqueta} />}</div>
+        <div>{g2 && <Slot imagen={g2.imagen} video={g2.clip} etiqueta={g2.etiqueta} />}</div>
+        <div>{g3 && <Slot imagen={g3.imagen} video={g3.clip} etiqueta={g3.etiqueta} />}</div>
       </div>
     </section>
     {resto.length > 0 && (
       <section class="gallery-row">
-        {resto.map((foto) => (
-          <div><Slot imagen={foto.imagen} etiqueta={foto.etiqueta} /></div>
+        {resto.map((pieza) => (
+          <div><Slot imagen={pieza.imagen} video={pieza.clip} etiqueta={pieza.etiqueta} /></div>
         ))}
       </section>
     )}
@@ -146,7 +146,17 @@ const jsonLd = [
       <span class="aftermovie-label">{d.video.etiqueta}</span>
     </div>
     <div class="aftermovie-media">
-      {d.video.url ? (
+      {d.video.archivo ? (
+        <video
+          src={d.video.archivo}
+          poster={d.video.imagen ?? undefined}
+          controls
+          playsinline
+          preload="metadata"
+          style="width:100%; height:100%; object-fit:cover; display:block"
+          aria-label={d.video.titulo}
+        ></video>
+      ) : d.video.url ? (
         <iframe
           src={d.video.url}
           style="width:100%; height:100%; border:none"

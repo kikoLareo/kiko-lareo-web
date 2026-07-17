@@ -1,7 +1,7 @@
-// Las 4 categorías fijas de la web. El contenido (fotos y proyectos) se
+// Las categorías fijas de la web. El contenido (fotos y proyectos) se
 // gestiona desde el CMS; esto solo define su orden e identidad visual.
 export interface Categoria {
-  id: 'deportes' | 'eventos' | 'moda' | 'hosteleria';
+  id: 'deportes' | 'eventos' | 'moda' | 'hosteleria' | 'naturaleza';
   num: string;
   titulo: string;
   etiqueta: string;
@@ -69,6 +69,20 @@ export const CATEGORIAS: Categoria[] = [
       titulo: 'Fotógrafo gastronómico y de hostelería en Galicia — Kiko Lareo®',
       descripcion:
         'Fotografía para hostelería en A Coruña y Galicia: restaurantes, gastronomía, producto y contenido para redes sociales. Fotos que hacen que el plato se pida solo.',
+    },
+  },
+  {
+    id: 'naturaleza',
+    num: '05',
+    titulo: 'NATURALEZA',
+    etiqueta: 'PAISAJE / A CORUÑA',
+    grid: 'lead-right',
+    cardPos: 2,
+    placeholders: ['Naturaleza — costa', 'Naturaleza — luz', 'Naturaleza — detalle'],
+    seo: {
+      titulo: 'Fotografía de naturaleza y paisaje en A Coruña — Kiko Lareo®',
+      descripcion:
+        'Fotografía de naturaleza y paisaje en A Coruña y Galicia: playas, costa, mar y luz atlántica. La mirada personal de Kiko Lareo fuera de los encargos.',
     },
   },
 ];

@@ -74,7 +74,7 @@ const ogImage = proyectos.find((p) => p.data.portada)?.data.portada
         />
       ) : (
         <div>
-          <Slot imagen={f.data.imagen} alt={f.data.alt} etiqueta={f.data.titulo} />
+          <Slot imagen={f.data.imagen} video={f.data.clip} alt={f.data.alt} etiqueta={f.data.titulo} />
         </div>
       )
     )}

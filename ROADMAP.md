@@ -8,6 +8,15 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## ✅ Hecho
 
+- **Extras post-Fase 4** (17/07/2026): categoría nueva **Naturaleza** (05,
+  con página /naturaleza y SEO propio, para fotos personales de costa y
+  paisaje); **clips de vídeo subibles** (MP4) en la colección de fotos y en
+  las galerías de proyecto — se pueden mezclar fotos y clips — y campo
+  "vídeo subido" en el vídeo principal del proyecto (la URL de
+  YouTube/Vimeo queda para piezas largas); arreglo del primer proyecto
+  real (URL corta /proyectos/coimbra-se-puso-la-bufanda, descripción SEO
+  y embed de Instagram) y pista en el panel para que los títulos sean
+  cortos; retirado un RAW (.cr3) subido por error a la biblioteca.
 - **Fase 4 — Contacto y conversión** (17/07/2026): contacto como
   mini-brief con Netlify Forms ("¿Qué quieres hacer?" + "¿En qué punto
   está?" + "Cuéntamelo como te salga" + VAMOS A DARLE FORMA →), con

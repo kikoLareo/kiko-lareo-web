@@ -1,16 +1,31 @@
 ---
-// Hueco de imagen: muestra la foto si existe, o el recuadro punteado con
-// la etiqueta si aún no se ha subido (mismo comportamiento que el prototipo).
+// Hueco de imagen o clip de vídeo: muestra el clip si existe, si no la
+// foto, y si no hay nada, el recuadro punteado con la etiqueta.
 interface Props {
   imagen?: string | null;
+  /** Clip de vídeo subido (MP4 corto). La imagen hace de fotograma de espera. */
+  video?: string | null;
   alt?: string;
   etiqueta: string;
 }
 
-const { imagen, alt, etiqueta } = Astro.props;
+const { imagen, video, alt, etiqueta } = Astro.props;
 ---
 
-{imagen ? (
+{video ? (
+  <div class="slot filled">
+    <video
+      src={video}
+      poster={imagen ?? undefined}
+      controls
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-label={alt ?? etiqueta}
+    ></video>
+  </div>
+) : imagen ? (
   <div class="slot filled"><img src={imagen} alt={alt ?? etiqueta} loading="lazy" /></div>
 ) : (
   <div class="slot"><span>{etiqueta}</span></div>

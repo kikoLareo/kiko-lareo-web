@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const categoria = z.enum(['deportes', 'eventos', 'moda', 'hosteleria']);
+const categoria = z.enum(['deportes', 'eventos', 'moda', 'hosteleria', 'naturaleza']);
 
 // Fotos sueltas: alimentan la portada (últimas por categoría) y la galería
 // de cada página de categoría. Si llevan "historia", se muestran como
@@ -13,6 +13,9 @@ const fotos = defineCollection({
     categoria,
     fecha: z.coerce.date(),
     imagen: z.string().optional(),
+    // Clip de vídeo corto (MP4). Si está, se muestra en vez de la imagen
+    // (y la imagen, si la hay, hace de fotograma de espera).
+    clip: z.string().optional(),
     alt: z.string().optional(),
     historia: z
       .object({
@@ -52,11 +55,14 @@ const proyectos = defineCollection({
     localidad: z.string().optional(), // dónde se hizo (SEO local): "A Coruña", "Santiago"…
     descripcion_seo: z.string().optional(), // meta description propia; si falta se genera
     portada: z.string().optional(),
+    // Galería mixta: cada pieza puede ser una foto, un clip de vídeo
+    // subido (MP4 corto) o ambos (la imagen hace de fotograma de espera)
     galeria: z
       .array(
         z.object({
           etiqueta: z.string(),
           imagen: z.string().optional(),
+          clip: z.string().optional(),
         })
       )
       .default([]),
@@ -65,6 +71,9 @@ const proyectos = defineCollection({
         titulo: z.string().default('AFTERMOVIE'),
         etiqueta: z.string().default('90 SEG · 4K'),
         imagen: z.string().optional(),
+        // archivo: MP4 subido al panel; url: embed de YouTube/Vimeo
+        // (para piezas largas). Si están los dos, gana el archivo.
+        archivo: z.string().optional(),
         url: z.string().optional(),
       })
       .optional(),

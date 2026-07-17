@@ -40,8 +40,10 @@ collections:
           - { label: Eventos, value: eventos }
           - { label: Moda, value: moda }
           - { label: Hostelería, value: hosteleria }
+          - { label: Naturaleza, value: naturaleza }
       - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false, hint: "Las más recientes salen en la portada" }
-      - { name: imagen, label: Imagen, widget: image }
+      - { name: imagen, label: Imagen, widget: image, required: false, hint: "Si además pones un clip, la imagen hace de fotograma de espera" }
+      - { name: clip, label: "Clip de vídeo (opcional)", widget: file, required: false, hint: "MP4 corto (H.264). Ideal por debajo de ~20 MB: la web lo carga entero. Para piezas largas, mejor un proyecto con URL de YouTube/Vimeo." }
       - { name: alt, label: "Descripción de la imagen (SEO + accesibilidad)", widget: string, required: false, hint: "Describe qué se ve y dónde. Ej: Ciclista esprintando en la Copa Galicia, A Coruña. Google lee esto." }
       - name: historia
         label: "Historia (tarjeta que gira)"
@@ -71,10 +73,11 @@ collections:
     extension: md
     format: frontmatter
     slug: "{{slug}}"
+    identifier_field: titulo
     summary: "{{titulo}} ({{anio}})"
     sort_by: ["fecha"]
     fields:
-      - { name: titulo, label: Título, widget: string }
+      - { name: titulo, label: Título, widget: string, hint: "CORTO (2-5 palabras): se convierte en la dirección de la página. Ej: Coimbra se puso la bufanda" }
       - name: categoria
         label: Categoría
         widget: select
@@ -83,6 +86,7 @@ collections:
           - { label: Eventos, value: eventos }
           - { label: Moda, value: moda }
           - { label: Hostelería, value: hosteleria }
+          - { label: Naturaleza, value: naturaleza }
       - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false }
       - { name: destacado, label: "Destacado en portada", widget: boolean, default: false, required: false, hint: "Márcalo para que salga en la Selección de proyectos de la portada. Si no marcas ninguno, salen los más recientes." }
       - { name: cliente, label: Cliente, widget: string }
@@ -121,7 +125,8 @@ collections:
         hint: "La 1ª foto sale grande, la 2ª y 3ª apiladas, el resto en filas de 3"
         fields:
           - { name: etiqueta, label: Etiqueta / pie, widget: string, hint: "Fórmula que funciona: lugar + hora + contexto. Ej: 13:02 / A CORUÑA — Primer servicio del día." }
-          - { name: imagen, label: Imagen, widget: image, required: false }
+          - { name: imagen, label: Imagen, widget: image, required: false, hint: "Si además pones un clip, la imagen hace de fotograma de espera" }
+          - { name: clip, label: "Clip de vídeo (opcional)", widget: file, required: false, hint: "MP4 corto (H.264), ideal por debajo de ~20 MB. Puedes mezclar fotos y clips en la misma galería." }
       - name: video
         label: Vídeo
         widget: object
@@ -130,8 +135,9 @@ collections:
         fields:
           - { name: titulo, label: Título, widget: string, default: AFTERMOVIE, required: false }
           - { name: etiqueta, label: Etiqueta, widget: string, default: "90 SEG · 4K", required: false }
-          - { name: url, label: "URL de embed (YouTube/Vimeo)", widget: string, required: false, hint: "Ej: https://player.vimeo.com/video/XXXX o https://www.youtube.com/embed/XXXX" }
-          - { name: imagen, label: "Fotograma (si aún no hay URL)", widget: image, required: false }
+          - { name: archivo, label: "Vídeo subido (MP4)", widget: file, required: false, hint: "Sube el MP4 (H.264) para reproducirlo directamente en la web. Ideal por debajo de ~30 MB. Si también hay URL, gana el archivo." }
+          - { name: url, label: "URL de embed (YouTube/Vimeo, para piezas largas)", widget: string, required: false, hint: "Ej: https://player.vimeo.com/video/XXXX o https://www.youtube.com/embed/XXXX" }
+          - { name: imagen, label: "Fotograma de espera", widget: image, required: false }
 
   - name: paginas
     label: Páginas

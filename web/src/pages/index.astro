@@ -231,7 +231,7 @@ const heroLineas = g.hero_titular
           )
         ) : celda.tipo === 'foto' ? (
           <div class="cat-cell">
-            <Slot imagen={celda.foto.data.imagen} alt={celda.foto.data.alt} etiqueta={celda.foto.data.titulo} />
+            <Slot imagen={celda.foto.data.imagen} video={celda.foto.data.clip} alt={celda.foto.data.alt} etiqueta={celda.foto.data.titulo} />
           </div>
         ) : (
           <div class="cat-cell"><Slot etiqueta={celda.etiqueta} /></div>
