@@ -90,13 +90,13 @@ const jsonLd = [
     {d.reto && (
       <div>
         <div class="caso-label">EL RETO</div>
-        <p class="caso-texto">{d.reto}</p>
+        <p class={`caso-texto${d.reto.length <= 90 ? ' corto' : ''}`}>{d.reto}</p>
       </div>
     )}
     {d.idea && (
       <div>
         <div class="caso-label">LA IDEA</div>
-        <p class="caso-texto">{d.idea}</p>
+        <p class={`caso-texto${d.idea.length <= 90 ? ' corto' : ''}`}>{d.idea}</p>
       </div>
     )}
   </section>
@@ -222,6 +222,16 @@ const jsonLd = [
   };
   addEventListener('scroll', actualizar, { passive: true });
   actualizar();
+
+  // La barra de progreso se retira cuando el pie entra en pantalla, para
+  // que nunca se solape con el "© / CONTACTO".
+  const barra = document.querySelector('.progreso');
+  const pie = document.querySelector('.footer-proyecto');
+  if (barra && pie) {
+    new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => barra.classList.toggle('oculta', e.isIntersecting));
+    }, { threshold: 0.05 }).observe(pie);
+  }
 
   // El embed de Instagram informa de su alto real por postMessage: ajustamos
   // el iframe a esa altura para que se vea entero, sin scroll interno.
