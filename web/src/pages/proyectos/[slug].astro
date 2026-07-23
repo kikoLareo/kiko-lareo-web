@@ -32,6 +32,11 @@ const haySiguiente = siguiente.id !== proyecto.id;
 const acento = ACENTOS[d.color] ?? ACENTOS.rojo;
 const hayResultado = d.galeria.length > 0 || d.video;
 
+// Los embeds de Instagram/TikTok son verticales: se muestran en un marco
+// estrecho centrado (no en la caja ancha de YouTube/Vimeo).
+const urlVideo = d.video?.url ?? '';
+const embedVertical = /instagram\.com|tiktok\.com/.test(urlVideo);
+
 // Galería con el ritmo del diseño: 1 grande + 2 apiladas, luego filas de 3
 const [g1, g2, g3, ...resto] = d.galeria;
 
@@ -145,7 +150,7 @@ const jsonLd = [
       <span class="aftermovie-title">{d.video.titulo}</span>
       <span class="aftermovie-label">{d.video.etiqueta}</span>
     </div>
-    <div class="aftermovie-media">
+    <div class={`aftermovie-media${d.video.url && !d.video.archivo ? (embedVertical ? ' embed-vertical' : ' embed-ancho') : ''}`}>
       {d.video.archivo ? (
         <video
           src={d.video.archivo}
@@ -159,8 +164,10 @@ const jsonLd = [
       ) : d.video.url ? (
         <iframe
           src={d.video.url}
-          style="width:100%; height:100%; border:none"
-          allow="autoplay; fullscreen; picture-in-picture"
+          class="embed-frame"
+          scrolling="no"
+          style="width:100%; border:none; display:block"
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
           allowfullscreen
           title={d.video.titulo}
         ></iframe>
@@ -215,6 +222,33 @@ const jsonLd = [
   };
   addEventListener('scroll', actualizar, { passive: true });
   actualizar();
+
+  // El embed de Instagram informa de su alto real por postMessage: ajustamos
+  // el iframe a esa altura para que se vea entero, sin scroll interno.
+  const frame = document.querySelector('.embed-vertical .embed-frame') as HTMLIFrameElement | null;
+  if (frame) {
+    addEventListener('message', (e) => {
+      if (typeof e.origin !== 'string' || e.origin.indexOf('instagram.com') === -1) return;
+      if (e.source !== frame.contentWindow) return;
+      try {
+        const datos = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        const alto = datos?.details?.height ?? datos?.height;
+        if (alto) frame.style.height = alto + 'px';
+      } catch {}
+    });
+    // Da un empujón a Instagram para que reporte medidas
+    const pedirMedida = () => {
+      frame.contentWindow?.postMessage(
+        JSON.stringify({ type: 'em.MEASURE', details: {} }),
+        'https://www.instagram.com'
+      );
+    };
+    frame.addEventListener('load', () => {
+      pedirMedida();
+      setTimeout(pedirMedida, 600);
+      setTimeout(pedirMedida, 1500);
+    });
+  }
 </script>
 
 </Base>

@@ -1142,6 +1142,27 @@ a:hover { color: var(--rojo); }
   position: relative;
 }
 
+/* Embed ancho (YouTube/Vimeo): proporción 16:9, sin recortes */
+.aftermovie-media.embed-ancho {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.aftermovie-media.embed-ancho .embed-frame { height: 100%; }
+
+/* Embed vertical (Instagram/TikTok): marco estrecho centrado. El alto se
+   ajusta por JS al contenido; este es el de partida y el de respaldo. */
+.aftermovie-media.embed-vertical {
+  height: auto;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.aftermovie-media.embed-vertical .embed-frame {
+  height: 720px;
+  background: var(--crema);
+}
+
 .aftermovie .play-btn {
   width: 100px;
   height: 100px;
@@ -1245,6 +1266,8 @@ a:hover { color: var(--rojo); }
   .gallery-row > div { height: 60vw; }
 
   .aftermovie-media { height: 56vw; min-height: 260px; }
+  .aftermovie-media.embed-ancho { height: auto; min-height: 0; }
+  .aftermovie-media.embed-vertical { height: auto; min-height: 0; max-width: 100%; }
 
   .next-project { flex-wrap: wrap; }
 }
