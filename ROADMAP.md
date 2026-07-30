@@ -78,9 +78,11 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## 📅 Fases pendientes
 
-> Prioridad de contenido tras la Fase 3: montar los casos reales
-> (Estrella Galicia, HC Liceo, presentación de fichajes…) con su reto,
-> idea, pasos y fotos desde el panel.
+> **Decisión (contenido primero):** antes de la Fase 5, el dueño carga la
+> web de contenido real (proyectos como Coimbra, fotos por categoría,
+> naturaleza). La Fase 5 se retoma cuando haya 3-4 casos reales publicados
+> — luce poco con la web casi vacía. Analítica: pendiente de que el dueño
+> elija herramienta y pase el ID (ver conversación).
 
 ### Fase 5 — "Ideas en busca de marca"
 - Nueva colección en el panel (título + concepto breve), claramente
