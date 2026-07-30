@@ -8,8 +8,9 @@ export default defineConfig({
   site: 'https://kikolareo.com',
   integrations: [
     sitemap({
-      // La página de "gracias" del formulario no debe salir en Google
-      filter: (page) => !page.includes('/gracias'),
+      // Fuera del sitemap: gracias y las páginas legales (llevan noindex)
+      filter: (page) =>
+        !['/gracias', '/aviso-legal', '/privacidad'].some((r) => page.includes(r)),
     }),
   ],
   trailingSlash: 'ignore',

@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+
+const [ajustes] = await getCollection('paginas');
+const g = ajustes.data;
+const L = g.legal;
+---
+
+<Base
+  title="Política de privacidad — Kiko Lareo®"
+  description="Cómo se tratan tus datos personales en kikolareo.com."
+  noindex
+>
+
+<Nav variante="subpagina" etiqueta="PRIVACIDAD" />
+
+<main id="contenido" class="legal">
+  <h1>Política de privacidad</h1>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> {L.nombre_legal}</li>
+    <li><strong>NIF:</strong> {L.nif || '(pendiente de completar)'}</li>
+    <li><strong>Domicilio:</strong> {L.direccion}</li>
+    <li><strong>Correo electrónico:</strong> {g.email}</li>
+  </ul>
+
+  <h2>2. ¿Qué datos recogemos y con qué finalidad?</h2>
+  <p>
+    A través del formulario de contacto recogemos tu <strong>nombre</strong>,
+    tu <strong>correo electrónico</strong> y el <strong>mensaje</strong> que nos
+    escribes (y, si lo indicas, qué quieres hacer y en qué punto está tu proyecto).
+    La única finalidad es <strong>atender y responder a tu consulta</strong>. No
+    se utilizan para envíos comerciales ni para elaborar perfiles.
+  </p>
+
+  <h2>3. Legitimación</h2>
+  <p>
+    La base legal del tratamiento es tu <strong>consentimiento</strong>, que
+    otorgas al marcar la casilla de aceptación y enviar el formulario. Puedes
+    retirarlo en cualquier momento escribiendo a {g.email}.
+  </p>
+
+  <h2>4. ¿Durante cuánto tiempo conservamos tus datos?</h2>
+  <p>
+    Conservamos tus datos el tiempo necesario para atender tu solicitud y,
+    después, durante los plazos legalmente exigibles. Cuando dejan de ser
+    necesarios, se eliminan.
+  </p>
+
+  <h2>5. ¿A quién se comunican tus datos?</h2>
+  <p>
+    No cedemos tus datos a terceros, salvo obligación legal. Este sitio está
+    alojado en <strong>Netlify</strong> (Netlify, Inc.), que también gestiona el
+    envío del formulario de contacto y actúa como encargado del tratamiento.
+    Netlify puede tratar datos en servidores situados fuera del Espacio Económico
+    Europeo, aplicando las garantías previstas por el RGPD (cláusulas contractuales
+    tipo).
+  </p>
+
+  <h2>6. Tus derechos</h2>
+  <p>
+    Puedes ejercer tus derechos de <strong>acceso, rectificación, supresión,
+    oposición, limitación del tratamiento y portabilidad</strong> escribiendo a
+    {g.email}, indicando el derecho que deseas ejercer. Si consideras que el
+    tratamiento no se ajusta a la normativa, puedes reclamar ante la Agencia
+    Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).
+  </p>
+
+  <h2>7. Cookies</h2>
+  <p>
+    Esta web <strong>no utiliza cookies propias ni de terceros con fines de
+    seguimiento o publicidad</strong>. Las tipografías se cargan desde Google
+    Fonts, servicio que puede registrar la dirección IP de quien las solicita para
+    servir la fuente; no instala cookies. Si en el futuro se incorpora una
+    herramienta de analítica, esta política se actualizará y, si procede, se
+    solicitará tu consentimiento previo.
+  </p>
+
+  <p class="legal-fecha">Última actualización: julio de 2026.</p>
+</main>
+
+<footer class="footer-bar">
+  <span>© {new Date().getFullYear()} KIKO LAREO®</span><a href="/#contacto">CONTACTO →</a>
+</footer>
+
+</Base>

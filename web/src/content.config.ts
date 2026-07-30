@@ -119,6 +119,15 @@ const paginas = defineCollection({
     aportes_cierre: z.string().default(''),
     // Cierre del pie: "¿ACABAMOS?\nO EMPEZAMOS ALGO."
     cierre: z.string().default('¿ACABAMOS?\nO EMPEZAMOS ALGO.'),
+    // Datos identificativos para las páginas legales (Aviso Legal + Privacidad).
+    // El dueño los rellena desde el panel; son su responsabilidad.
+    legal: z
+      .object({
+        nombre_legal: z.string().default('Kiko Lareo'),
+        nif: z.string().default(''),
+        direccion: z.string().default('A Coruña, Galicia (España)'),
+      })
+      .default({ nombre_legal: 'Kiko Lareo', nif: '', direccion: 'A Coruña, Galicia (España)' }),
     // Se mantiene por compatibilidad con contenido antiguo (ya no se muestra)
     servicios: z.array(z.object({ nombre: z.string(), tag: z.string() })).default([]),
     clientes: z.array(z.string()),

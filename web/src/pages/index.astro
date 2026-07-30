@@ -358,6 +358,10 @@ const heroLineas = g.hero_titular
       <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
       <input type="email" name="email" placeholder="Email" aria-label="Email" required />
       <textarea name="mensaje" placeholder="Cuéntamelo como te salga" aria-label="Cuéntamelo como te salga" rows="3" required></textarea>
+      <label class="consent">
+        <input type="checkbox" name="consentimiento" value="sí" required />
+        <span>He leído y acepto la <a href="/privacidad/">política de privacidad</a>.</span>
+      </label>
       <button type="submit">VAMOS A DARLE FORMA →</button>
     </form>
   </div>
@@ -370,7 +374,12 @@ const heroLineas = g.hero_titular
     <span><span class="rec" aria-hidden="true">●</span> REC / KL_ARCHIVE</span>
   </div>
   <div class="contact-footer">
-    <span>© {new Date().getFullYear()} KIKO LAREO®</span><span>{g.localizacion}</span>
+    <span>© {new Date().getFullYear()} KIKO LAREO®</span>
+    <span class="footer-legal">
+      <a href="/aviso-legal/">AVISO LEGAL</a>
+      <a href="/privacidad/">PRIVACIDAD</a>
+    </span>
+    <span>{g.localizacion}</span>
   </div>
 </section>
 </main>

@@ -196,6 +196,15 @@ collections:
           - { name: aportes_cierre, label: "Frase de cierre de la sección", widget: text, required: false, hint: "Ej: Puedo desarrollar personalmente una parte del proyecto o reunir a los perfiles necesarios para hacerlo realidad." }
           - { name: cierre, label: "Frase final del pie (con salto de línea)", widget: text, hint: "Ej: ¿ACABAMOS? + salto de línea + O EMPEZAMOS ALGO." }
           - { name: clientes, label: Clientes, widget: list, field: { name: cliente, label: Cliente, widget: string } }
+          - name: legal
+            label: "Datos legales (Aviso Legal y Privacidad)"
+            widget: object
+            collapsed: true
+            hint: "Obligatorios por ley española. Rellénalos con tus datos reales."
+            fields:
+              - { name: nombre_legal, label: "Nombre y apellidos", widget: string, hint: "Tu nombre completo como autónomo. Ej: Francisco Lareo …" }
+              - { name: nif, label: "NIF / DNI", widget: string, required: false, hint: "La ley (LSSI) obliga a mostrarlo. Ej: 12345678A" }
+              - { name: direccion, label: "Dirección o municipio", widget: string, hint: "Dirección fiscal o, como mínimo, tu municipio. Ej: A Coruña, Galicia (España)" }
           - { name: email, label: Email de contacto, widget: string }
           - { name: telefono, label: "Teléfono (opcional, ayuda al SEO local)", widget: string, required: false }
           - { name: localizacion, label: Localización, widget: string }
