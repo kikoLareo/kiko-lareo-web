@@ -8,6 +8,20 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## ✅ Hecho
 
+- **Cumplimiento legal y privacidad** (jul 2026): páginas /aviso-legal y
+  /privacidad (LSSI + RGPD, con apartado de cookies), casilla de
+  consentimiento obligatoria en el formulario, enlaces en los pies, datos
+  identificativos editables en el panel (paginas → Datos legales).
+  ⚠️ Pendiente de Kiko: rellenar su NIF (obligatorio) en el panel.
+  No hace falta banner de cookies (la web no usa cookies de seguimiento).
+- **Tipografías alojadas en la web** (jul 2026): Bricolage + IBM Plex Mono
+  servidas desde /fonts/ (woff2, OFL); fuera Google Fonts. Sin peticiones
+  a Google, más rápido y sin enviar IP del visitante fuera de la UE.
+- **Logo y favicon** (jul 2026): wordmark KIKO LAREO® + monograma KL. (con
+  cuadrado rojo) en /public/marca/ (PNG negro/crema + SVG + avatares);
+  favicon y apple-touch-icon montados.
+- **Índice del proyecto**: CLAUDE.md en la raíz (se carga solo en cada
+  sesión) + este ROADMAP.md.
 - **Extras post-Fase 4** (17/07/2026): categoría nueva **Naturaleza** (05,
   con página /naturaleza y SEO propio, para fotos personales de costa y
   paisaje); **clips de vídeo subibles** (MP4) en la colección de fotos y en
