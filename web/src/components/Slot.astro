@@ -1,22 +1,30 @@
 ---
 // Hueco de imagen o clip de vídeo: muestra el clip si existe, si no la
 // foto, y si no hay nada, el recuadro punteado con la etiqueta.
+import { optim } from '../lib/imagen';
+
 interface Props {
   imagen?: string | null;
   /** Clip de vídeo subido (MP4 corto). La imagen hace de fotograma de espera. */
   video?: string | null;
   alt?: string;
   etiqueta: string;
+  /** Ancho al que optimizar la imagen (px). Ajusta al tamaño real del hueco. */
+  ancho?: number;
+  /** true en la imagen del hero: carga prioritaria en vez de diferida. */
+  prioridad?: boolean;
 }
 
-const { imagen, video, alt, etiqueta } = Astro.props;
+const { imagen, video, alt, etiqueta, ancho = 1400, prioridad = false } = Astro.props;
+const src = optim(imagen, ancho);
+const poster = optim(imagen, ancho);
 ---
 
 {video ? (
   <div class="slot filled">
     <video
       src={video}
-      poster={imagen ?? undefined}
+      poster={poster ?? undefined}
       controls
       muted
       loop
@@ -26,7 +34,15 @@ const { imagen, video, alt, etiqueta } = Astro.props;
     ></video>
   </div>
 ) : imagen ? (
-  <div class="slot filled"><img src={imagen} alt={alt ?? etiqueta} loading="lazy" /></div>
+  <div class="slot filled">
+    <img
+      src={src}
+      alt={alt ?? etiqueta}
+      decoding="async"
+      loading={prioridad ? 'eager' : 'lazy'}
+      fetchpriority={prioridad ? 'high' : undefined}
+    />
+  </div>
 ) : (
   <div class="slot"><span>{etiqueta}</span></div>
 )}

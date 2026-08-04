@@ -6,6 +6,7 @@ import Slot from '../components/Slot.astro';
 import FlipCard from '../components/FlipCard.astro';
 import { CATEGORIAS } from '../lib/categorias';
 import { codigoArchivo } from '../lib/archivo';
+import { optim } from '../lib/imagen';
 import { negocioLocal } from '../lib/seo';
 
 const [ajustes] = await getCollection('paginas');
@@ -92,7 +93,7 @@ const heroLineas = g.hero_titular
      o con la foto en tarjeta. El titular es el concepto de la marca. -->
 {g.hero_estilo === 'fondo' && g.hero_imagen ? (
   <header id="top" class="hero-bg">
-    <div class="bg"><Slot imagen={g.hero_imagen} etiqueta="" /></div>
+    <div class="bg"><Slot imagen={g.hero_imagen} etiqueta="" ancho={2000} prioridad /></div>
     <div class="scrim" aria-hidden="true"></div>
     <div class="contenido">
       <div class="hero-meta">
@@ -120,7 +121,7 @@ const heroLineas = g.hero_titular
       </div>
       <h1
         class="hero-title mask"
-        style={`margin:0; background-image:url('${g.hero_imagen}')`}
+        style={`margin:0; background-image:url('${optim(g.hero_imagen, 1400)}')`}
       >
         <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
         {heroLineas.map((l) =>
@@ -133,7 +134,7 @@ const heroLineas = g.hero_titular
       </h1>
     </div>
     <div class="der">
-      <Slot imagen={g.hero_imagen} etiqueta="" />
+      <Slot imagen={g.hero_imagen} etiqueta="" ancho={1400} prioridad />
     </div>
   </header>
 ) : (
