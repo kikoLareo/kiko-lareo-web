@@ -4,6 +4,8 @@
    Tipografías: Bricolage Grotesque (titulares y cuerpo) + IBM Plex Mono (metadatos)
    ========================================================================== */
 
+@import './fonts.css';
+
 :root {
   /* Paleta del manual (v1.0, julio 2026) */
   --kl-black: #0B0B0B;  /* negro carbón */

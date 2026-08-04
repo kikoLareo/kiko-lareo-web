@@ -61,9 +61,10 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
   <script type="application/ld+json" set:html={JSON.stringify(bloque)} />
 ))}
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<!-- Fuentes alojadas en la propia web (ver src/styles/fonts.css). Precargamos
+     los dos pesos más usados del titular para que no parpadee al cargar. -->
+<link rel="preload" href="/fonts/bricolage-grotesque-800-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/bricolage-grotesque-400-latin.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body>
 <a href="#contenido" class="skip">SALTAR AL CONTENIDO →</a>
