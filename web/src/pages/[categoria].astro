@@ -47,7 +47,7 @@ const ogImage = proyectos.find((p) => p.data.portada)?.data.portada
     <div class="subsection-label">PROYECTOS ({String(proyectos.length).padStart(2, '0')})</div>
     <div class="project-list">
       {proyectos.map((p) => (
-        <a href={`/proyectos/${p.id}/`} class="project-card">
+        <a href={`/proyectos/${p.id}/`} class="project-card reveal">
           <div class="cover" style={`view-transition-name: proyecto-${p.id}`}>
             <Slot imagen={p.data.portada} etiqueta={`Portada — ${p.data.titulo}`} />
           </div>

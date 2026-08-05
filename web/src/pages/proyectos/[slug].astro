@@ -86,7 +86,7 @@ const jsonLd = [
 
 <!-- Caso de estudio: el reto y la idea (solo si están rellenos) -->
 {(d.reto || d.idea) && (
-  <section class="caso">
+  <section class="caso reveal">
     {d.reto && (
       <div>
         <div class="caso-label">EL RETO</div>
@@ -104,7 +104,7 @@ const jsonLd = [
 
 <!-- La ejecución: los pasos del trabajo -->
 {d.ejecucion.length > 0 && (
-  <section class="ejecucion">
+  <section class="ejecucion reveal">
     <div class="caso-label">LA EJECUCIÓN</div>
     <ol class="pasos">
       {d.ejecucion.map((paso, i) => (
@@ -115,7 +115,7 @@ const jsonLd = [
 )}
 
 <!-- Historia -->
-<section class="project-story">
+<section class="project-story reveal">
   <h2 set:html={d.titular.trim().replace(/\n/g, '<br>')} />
   <div class="project-story-text">
     <Content />
@@ -123,7 +123,7 @@ const jsonLd = [
 </section>
 
 <!-- El resultado: galería y vídeo -->
-{hayResultado && <div class="caso-label resultado-label">EL RESULTADO</div>}
+{hayResultado && <div class="caso-label resultado-label reveal">EL RESULTADO</div>}
 {d.galeria.length > 0 && (
   <>
     <section class="gallery-top">

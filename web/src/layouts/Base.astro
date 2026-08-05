@@ -21,6 +21,10 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script is:inline>
+  // Marca que hay JS antes de pintar: evita el "flash" de contenido oculto
+  document.documentElement.classList.add('js');
+</script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" href="/favicon.png" />
@@ -75,6 +79,29 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
     const btn = (e.target as Element).closest('.flip-btn');
     if (btn) btn.closest('.flip')?.classList.toggle('flipped');
   });
+
+  // Aparición al hacer scroll: revela los bloques con .reveal cuando entran
+  // (o cuando ya se han pasado, p. ej. al saltar con el menú, para que ninguna
+  // sección quede en blanco). Con reducir-movimiento, se muestran directos.
+  const reveals = Array.from(document.querySelectorAll('.reveal'));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    reveals.forEach((e) => e.classList.add('visible'));
+  } else {
+    const check = () => {
+      const h = window.innerHeight;
+      for (const e of reveals) {
+        if (!e.classList.contains('visible') && e.getBoundingClientRect().top < h * 0.88) {
+          e.classList.add('visible');
+        }
+      }
+    };
+    check();
+    addEventListener('scroll', check, { passive: true });
+    addEventListener('resize', check, { passive: true });
+    addEventListener('hashchange', () => setTimeout(check, 60));
+    setTimeout(check, 3000); // red de seguridad
+  }
 </script>
 </body>
 </html>
