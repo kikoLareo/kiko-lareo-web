@@ -3,7 +3,7 @@ titulo: Bergantiños, campeón en Noia
 categoria: deportes
 fecha: 2026-08-22
 destacado: false
-cliente: CD Bergantiños
+cliente: CD Bergantiños · Iniciativa propia
 anio: "2026"
 servicios: Fotografía deportiva
 entrega: Reportaje del partido y de la celebración
