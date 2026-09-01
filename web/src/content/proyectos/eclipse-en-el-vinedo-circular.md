@@ -39,6 +39,7 @@ galeria: []
 video:
   titulo: Vídeo del eclipse
   etiqueta: Casa de Outeiro
+  url: https://www.instagram.com/reel/DcGnHQxs9gg/embed
 ---
 El 12 de agosto de 2026 el eclipse solar total cruzó el norte de España. La franja de totalidad atravesó prácticamente toda la provincia de Lugo, y en el valle de Quiroga, dentro del Geoparque Mundial Montañas do Courel, está Casa de Outeiro.
 
