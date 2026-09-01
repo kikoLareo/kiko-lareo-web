@@ -12,16 +12,18 @@ titular: |-
   CON DJALMINHA
   EN A CORUÑA.
 reto: >-
-  Tres días seguidos, tres formatos distintos y una figura de la que existen
-  miles de fotografías. El riesgo era entregar tres coberturas sueltas —una
-  entrevista, una firma de libros y un espectáculo— sin nada que las uniera.
+  Dos trabajos distintos en la misma semana y en formatos que no se parecen: un
+  vídeo de entrevista por un lado y la cobertura fotográfica de dos actos por
+  otro. Cada uno pide una forma de estar.
 
-  Y, sobre todo, encontrar algo que no se hubiera visto ya de alguien tan fotografiado.
+  Y todo con una agenda apretada y sin margen para repetir: los actos pasan una vez.
 idea: >-
-  Tratarlo como una sola historia de tres días, no como tres encargos. El hilo
-  no era Djalminha: era A Coruña reencontrándose con él.
+  Aquí no había un concepto detrás y no lo voy a inventar: había que estar y que
+  quedara. Dar cobertura a unos actos que en A Coruña se esperaban desde hacía
+  tiempo y dejar el registro —el recuerdo— para quien los organizaba y para
+  quien estuvo allí.
 
-  Por eso busqué tanto las caras del público como la suya. En una presentación de libro o en un espectáculo con las entradas agotadas, la reacción de la gente cuenta tanto como el protagonista.
+  En este tipo de encargo el trabajo no es lucirse: es no perderse nada, leer bien cada sala y entregar a tiempo.
 ejecucion:
   - GRABAR LA ENTREVISTA PARA TURISMO
   - CUBRIR LA PRESENTACIÓN DEL LIBRO
@@ -39,10 +41,12 @@ video:
   titulo: Vídeo para Turismo de A Coruña
   etiqueta: Entrevista
 ---
-Djalminha volvió a A Coruña la última semana de agosto y la ciudad se le echó encima. Tres días, tres escenarios distintos.
+Djalminha volvió a A Coruña la última semana de agosto y la ciudad se le echó encima. Tres días seguidos, tres escenarios distintos.
 
-El martes grabamos un vídeo de preguntas para Turismo de A Coruña. El miércoles fue la presentación de *Djalminha: ¡Es de otra galaxia!*, el libro que el periodista Javier Guillén ha escrito sobre sus siete temporadas en el Deportivo, en el edificio de la ONCE del Cantón Grande. Y el jueves, el Depor Locura de Roi da Costa en el Centro Ágora, con las entradas agotadas.
+En realidad fueron dos trabajos separados que coincidieron en la misma semana. Por un lado, el vídeo de preguntas para Turismo de A Coruña, que grabamos el martes y que salió a raíz del Depor Locura del jueves: el espectáculo de Roi da Costa en el Centro Ágora, con las entradas agotadas. Por otro, la presentación de *Djalminha: ¡Es de otra galaxia!* —el libro que el periodista Javier Guillén ha escrito sobre sus siete temporadas en el Deportivo—, el miércoles en el edificio de la ONCE del Cantón Grande.
 
-Lo interesante de encadenar tres días con la misma persona es que se le ve cambiar de registro: el de la entrevista, tranquilo y hablando de la ciudad; el del libro, escuchando cómo otros cuentan su propia carrera; y el del escenario, delante de un Ágora lleno que llevaba años esperando para aplaudirle otra vez.
+Los reúno aquí porque son la misma semana y la misma persona, pero venían de sitios distintos.
+
+Lo que sí tenían en común era el encargo de fondo: cubrir los actos y que quedara el recuerdo. Y lo interesante de encadenar tres días con la misma persona es que se le ve cambiar de registro: el de la entrevista, tranquilo y hablando de la ciudad; el del libro, escuchando cómo otros cuentan su propia carrera; y el del escenario, delante de un Ágora lleno.
 
 Yo hice el vídeo del primer día y las fotos de los otros dos.
