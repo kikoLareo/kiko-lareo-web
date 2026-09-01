@@ -117,12 +117,18 @@ collections:
       - { name: descripcion_seo, label: "Descripción para Google", widget: text, required: false, hint: "1-2 frases con la localidad y el tipo de trabajo. Si se deja vacía, se genera sola." }
       - { name: portada, label: Foto de portada, widget: image, required: false }
       - { name: body, label: Historia, widget: markdown, hint: "Dos párrafos funcionan bien: el momento clave y cómo trabajaste" }
+      - name: fotos
+        label: "Fotos (subida múltiple)"
+        widget: list
+        required: false
+        field: { name: foto, label: Foto, widget: image }
+        hint: "LO MÁS RÁPIDO: pulsa Add Foto → Choose an image → y selecciona VARIAS fotos a la vez (Ctrl/Cmd o arrastrándolas). Salen en filas de 3, sin pie. Si quieres pies, usa la Galería de abajo."
       - name: galeria
-        label: Galería
+        label: "Galería con pies (una a una)"
         widget: list
         required: false
         summary: "{{fields.etiqueta}}"
-        hint: "La 1ª foto sale grande, la 2ª y 3ª apiladas, el resto en filas de 3"
+        hint: "Solo para fotos que quieras con pie propio. La 1ª sale grande, la 2ª y 3ª apiladas, el resto en filas de 3"
         fields:
           - { name: etiqueta, label: Etiqueta / pie, widget: string, hint: "Fórmula que funciona: lugar + hora + contexto. Ej: 13:02 / A CORUÑA — Primer servicio del día." }
           - { name: imagen, label: Imagen, widget: image, required: false, hint: "Si además pones un clip, la imagen hace de fotograma de espera" }

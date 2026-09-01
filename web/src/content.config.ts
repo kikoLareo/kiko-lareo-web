@@ -66,6 +66,10 @@ const proyectos = defineCollection({
         })
       )
       .default([]),
+    // Subida múltiple: lista simple de rutas de imagen. Al ser un solo campo
+    // por elemento, el panel permite seleccionar muchas fotos a la vez.
+    // Se muestran después de la galería con pies.
+    fotos: z.array(z.string()).default([]),
     video: z
       .object({
         titulo: z.string().default('AFTERMOVIE'),

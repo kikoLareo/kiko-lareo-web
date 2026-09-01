@@ -30,7 +30,7 @@ const { Content } = await render(proyecto);
 const cat = CATEGORIAS.find((c) => c.id === d.categoria)!;
 const haySiguiente = siguiente.id !== proyecto.id;
 const acento = ACENTOS[d.color] ?? ACENTOS.rojo;
-const hayResultado = d.galeria.length > 0 || d.video;
+const hayResultado = d.galeria.length > 0 || d.fotos.length > 0 || d.video;
 
 // Los embeds de Instagram/TikTok son verticales: se muestran en un marco
 // estrecho centrado (no en la caja ancha de YouTube/Vimeo).
@@ -141,6 +141,15 @@ const jsonLd = [
       </section>
     )}
   </>
+)}
+
+<!-- Fotos subidas en bloque (sin pie), en filas de tres -->
+{d.fotos.length > 0 && (
+  <section class="gallery-row gallery-fotos">
+    {d.fotos.map((foto, i) => (
+      <div><Slot imagen={foto} alt={`${d.titulo} — foto ${i + 1}`} etiqueta="" /></div>
+    ))}
+  </section>
 )}
 
 <!-- Vídeo -->

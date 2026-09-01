@@ -1557,3 +1557,10 @@ a:hover { color: var(--rojo); }
   .ejecucion { padding: 32px 20px 8px; }
   .resultado-label { padding: 40px 20px 16px; }
 }
+
+/* Fotos subidas en bloque: filas de tres que se cierran solas */
+.gallery-fotos {
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  row-gap: 16px;
+  padding-bottom: 8px;
+}
