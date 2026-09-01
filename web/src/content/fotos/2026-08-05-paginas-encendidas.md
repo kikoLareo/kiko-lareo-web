@@ -1,5 +1,5 @@
 ---
-titulo: La última hora de la feria
+titulo: Páginas encendidas
 categoria: eventos
 fecha: 2026-08-05
 imagen: /img/uploads/feria-del-libro-a-coruna.jpg
