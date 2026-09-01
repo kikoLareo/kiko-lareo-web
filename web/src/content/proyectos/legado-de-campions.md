@@ -5,7 +5,7 @@ fecha: 2026-08-31
 destacado: false
 cliente: Hockey Club Liceo
 anio: "2026"
-servicios: Grabación + Montaje de vídeo
+servicios: Guion de planos + Grabación + Montaje
 entrega: Vídeo de campaña para redes y medios
 titular: |-
   E NÓS
@@ -23,11 +23,12 @@ idea: >-
   pertenencia, en gallego y con una canción que la gente ya se sabe, bajo el
   lema «Legado de campións: o noso xeito de ser».
 
-  La idea es del equipo de redes del Liceo, no mía. Mi parte fue llevarla a imágenes.
+  Esa idea general es del equipo de redes del club. Sobre ella escribí el guion de planos y le di una vuelta a cómo llevarla a imagen.
 ejecucion:
+  - IDEA GENERAL DEL EQUIPO DE REDES
+  - GUION DE PLANOS
   - GRABACIÓN CON LOS JUGADORES
   - MONTAJE AL RITMO DE LA CANCIÓN
-  - AJUSTES CON EL EQUIPO DE REDES
   - ENTREGA PARA REDES Y MEDIOS
 color: verde
 localidad: A Coruña
@@ -39,10 +40,11 @@ galeria: []
 video:
   titulo: Vídeo de campaña
   etiqueta: Abonados 2026/27
+  url: https://www.instagram.com/reel/DcsvG37RKdj/embed
 ---
 El 31 de agosto el Liceo abrió su campaña de abonados para la temporada 2026/27 bajo el lema «Legado de campións: o noso xeito de ser». La campaña se apoya en la letra de «Cariña do raposo», de The Rapants, y en los propios jugadores del club.
 
-La idea no es mía: salió de un compañero del equipo de redes del Liceo. Lo mío fue llevarla a imágenes —grabar el vídeo y montarlo—, que es donde puedo aportar. Me parece justo decirlo, porque en una campaña así el acierto está en el concepto.
+La idea general de la campaña es del equipo de redes del club, no mía. Sobre esa base le di una vuelta a la pieza audiovisual: el guion de planos es mío, y me encargué de grabar y editar el vídeo. Me parece justo separar las dos cosas, porque el concepto y la ejecución son trabajos distintos y cada uno tiene su mérito.
 
 A partir de ahí, el trabajo fue de ritmo: encajar los planos con una canción que la gente ya se sabe, dejar que la letra hiciera de guion y que cada «e nós vamos a estar» cayera sobre la imagen correcta. En una pieza de redes no hay margen: o entra en los primeros segundos, o no entra.
 
