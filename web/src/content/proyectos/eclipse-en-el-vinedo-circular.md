@@ -22,7 +22,7 @@ idea: >-
   abajo, entre las ruinas de la casa señorial, y se terminaba arriba, en el
   viñedo, mirando al oeste.
 
-  Grabarlo como esa subida —de la piedra vieja al horizonte— y dejar que el eclipse fuera el final, no el único motivo.
+  Grabarlo como esa subida —de la piedra vieja al horizonte— y dejar que el eclipse fuera el final, no el único motivo. Y durante la totalidad había música en directo: Sophie tocando el violín mientras se apagaba el sol. Eso no se planifica, se está.
 ejecucion:
   - RECORRER LAS RUINAS
   - SUBIR AL VIÑEDO CIRCULAR
@@ -33,8 +33,9 @@ color: mostaza
 localidad: Quiroga
 descripcion_seo: >-
   Vídeo del eclipse solar del 12 de agosto de 2026 desde el viñedo circular de
-  Casa de Outeiro, en Quiroga (Ribeira Sacra, Lugo). Grabación de vídeo por
-  Kiko Lareo, videógrafo en A Coruña y Galicia.
+  Casa de Outeiro, en Quiroga (Ribeira Sacra, Lugo), con violín en directo
+  durante la totalidad. Grabación de vídeo por Kiko Lareo, videógrafo en A
+  Coruña y Galicia.
 galeria: []
 video:
   titulo: Vídeo del eclipse
@@ -48,3 +49,5 @@ Casa de Outeiro no es una bodega al uso. Es un proyecto que nace de las ruinas d
 El día siguió ese orden. Primero, abajo: las ruinas, la piedra que lleva siglos ahí esperando a que alguien la levante otra vez. Después, la subida al viñedo, con el sol cayendo hacia el oeste. Y al final, la espera.
 
 Grabar un eclipse tiene una particularidad que no tiene casi ningún otro encargo: no hay repetición. El sol se pone donde se pone y el minuto que dura es ese. Todo lo demás —dónde te colocas, qué llevas preparado, a qué hora estás listo— se decide antes.
+
+Y durante la totalidad hubo música en directo: Sophie tocando el violín en el viñedo mientras se apagaba el sol. Eso no se prepara, solo se puede estar ahí y grabarlo.
