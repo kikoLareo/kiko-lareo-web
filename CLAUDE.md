@@ -72,6 +72,39 @@ cd dist && python3 -m http.server 4321 &     # 'serve' puede fallar; usar python
 # (playwright-core se instala en el scratchpad, no en el proyecto)
 ```
 
+**ffmpeg** (para inspeccionar/convertir vídeos, p. ej. H.265 → H.264):
+`pip install imageio-ffmpeg` y luego
+`python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())"`.
+
+## Probar el PANEL de Decap sin login (¡importante!)
+
+Sí se puede abrir y probar el panel aquí. `config.yml` ya trae
+`local_backend: true`, así que **no hace falta Netlify Identity**:
+
+```
+# 1) proxy de ficheros de Decap, SIEMPRE desde la raíz del repo
+#    (config.yml lleva rutas con prefijo web/)
+npm install --no-save --prefix <scratchpad> decap-server
+cd /home/user/kiko-lareo-web && node <scratchpad>/node_modules/decap-server/dist/index.js   # puerto 8081
+
+# 2) unpkg.com está BLOQUEADO por el proxy → bajar el bundle de npm
+npm install --no-save --prefix <scratchpad> decap-cms@^3.0.0
+cp <scratchpad>/node_modules/decap-cms/dist/*.js web/dist/admin/vendor/
+
+# 3) admin de PRUEBA en dist (NO tocar web/public/admin/index.html,
+#    que en producción debe seguir cargando unpkg + netlify-identity)
+#    <script src="vendor/decap-cms.js"></script>  y nada más
+
+# 4) servir dist y abrir con Playwright; pulsar "Iniciar sesión"
+#    (con local_backend no pide credenciales)
+```
+
+Visto así, con viewport 390x844: la lista de entradas se ve bien, pero
+**al abrir una ficha el ancho salta a 800 px** y el móvil lo encoge todo.
+Causa localizada: `min-width: 800px` en `EditorContainer` y en
+`ToolbarContainer` (clases de emotion con hash → usar selectores
+`[class*="EditorContainer"]`, nunca el hash completo).
+
 ## Gotchas aprendidos
 
 - **Slugs:** el `slug` de proyecto sale del `titulo`; títulos largos → URLs kilométricas malas para SEO. El panel avisa de usar títulos cortos. Corregir renombrando el `.md`.

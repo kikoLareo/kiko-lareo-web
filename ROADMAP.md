@@ -123,19 +123,39 @@ servicios) dentro de un bloque plegable del panel, dejando arriba lo que
 se usa siempre: título, categoría, fecha, fotos, vídeo.
 - Solo toca `config.yml`. No cambia ningún dato ya guardado.
 
-### 1.3 El panel en el móvil (CON CUIDADO)
-⚠️ **Ya se intentó una vez y rompió el panel**: con los estilos puestos no
-se abría ninguna entrada, y hubo que revertirlo entero. La causa: no
-puedo entrar al panel para probarlo, porque necesita el login de Netlify
-Identity, así que iba a ciegas.
-**Método obligatorio a partir de ahora:** una sola regla de estilo por
-despliegue, Kiko la prueba en el móvil, y solo cuando confirma que sigue
-funcionando se añade la siguiente. Nunca un paquete entero.
-Orden previsto, de menos a más arriesgado:
-1. Botones y campos más altos, para el dedo.
-2. Barra de guardar siempre visible abajo.
-3. Listas de entradas en una sola columna.
-4. Lo que quede, si hace falta.
+### 1.3 El panel en el móvil — CAUSA LOCALIZADA (15/09/2026)
+Ya **se puede abrir y probar el panel aquí**, sin el login de Netlify:
+receta completa en `CLAUDE.md`, apartado "Probar el PANEL de Decap sin
+login". Eso cambia el punto de partida: el intento anterior falló porque
+se iba a ciegas, no porque la idea fuera mala.
+
+**Lo medido con pantalla de móvil (390 px):**
+- La lista de entradas se ve bien.
+- Al abrir una ficha, el ancho **salta a 800 px** y el teléfono lo encoge
+  todo. Causa: `min-width: 800px` en `EditorContainer` y `ToolbarContainer`.
+- La ficha de proyecto mide 3427 px de alto, unas 5,7 pantallas, dentro de
+  un panel con scroll propio. 22 campos.
+
+**Arreglo probado y verificado en el panel abierto** (la ficha sigue
+abriéndose y ya no desborda nada):
+```css
+@media (max-width: 799px) {
+  [class*="EditorContainer"], [class*="ToolbarContainer"] { min-width: 0 !important; }
+  [class*="ToolbarContainer"] { height: auto !important; flex-wrap: wrap !important;
+    gap: 6px !important; padding: 6px 8px !important; }
+  [class*="ToolbarSectionMain"],
+  [class*="ToolbarSubSectionFirst"], [class*="ToolbarSubSectionLast"] { flex-wrap: wrap !important; }
+  [class*="ControlPaneContainer"] { padding-left: 12px !important; padding-right: 12px !important; }
+}
+```
+⚠️ Las clases de Decap son de emotion y llevan hash
+(`css-hn3jn7-EditorContainer`): usar SIEMPRE `[class*="..."]`, nunca el
+hash entero, o al actualizar Decap deja de aplicar.
+⚠️ Sigue haciendo falta que Kiko lo confirme en su iPhone: aquí se prueba
+en Chromium emulando el móvil, y Safari real no es idéntico.
+
+Pendiente después, ya con banco de pruebas: barra de guardar fija abajo y
+cabecera más corta (hoy ocupa tres filas).
 
 ## Paso 2 — Las acreditaciones
 
