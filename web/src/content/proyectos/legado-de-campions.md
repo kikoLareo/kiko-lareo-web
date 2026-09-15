@@ -1,6 +1,7 @@
 ---
 titulo: Legado de campións
 categoria: deportes
+tipo: video
 fecha: 2026-08-31
 destacado: false
 cliente: Hockey Club Liceo

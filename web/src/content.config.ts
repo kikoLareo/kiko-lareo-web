@@ -36,6 +36,11 @@ const proyectos = defineCollection({
   schema: z.object({
     titulo: z.string(),
     categoria,
+    // Qué ES el trabajo (eje distinto de la categoría, que dice de qué VA).
+    // Alimenta el índice filtrable de /archivo. Ver src/lib/tipos.ts.
+    tipo: z
+      .enum(['fotografia', 'video', 'identidad', 'direccion-arte', 'documento'])
+      .default('fotografia'),
     fecha: z.coerce.date(),
     // Los destacados llenan la "Selección de proyectos" de portada;
     // si no hay ninguno marcado, salen los más recientes.
@@ -66,6 +71,14 @@ const proyectos = defineCollection({
         })
       )
       .default([]),
+    // Acreditación de prensa escaneada. Es un documento real del encargo,
+    // no un adorno: se muestra como un pase, junto al código de archivo.
+    acreditacion: z
+      .object({
+        imagen: z.string(),
+        pie: z.string().optional(),
+      })
+      .optional(),
     // Subida múltiple: lista simple de rutas de imagen. Al ser un solo campo
     // por elemento, el panel permite seleccionar muchas fotos a la vez.
     // Se muestran después de la galería con pies.
@@ -91,6 +104,21 @@ const paginas = defineCollection({
     claim_izquierda: z.string(),
     claim_derecha: z.string(),
     marquesina: z.string(),
+    // Encender y apagar bloques de la portada desde el panel. Apagar NO
+    // borra nada: el texto y las fotos siguen guardados. Todas empiezan
+    // encendidas para que nada cambie solo al desplegar esto.
+    secciones: z
+      .object({
+        proyectos: z.boolean().default(true),
+        categorias: z.boolean().default(true),
+        manifiesto: z.boolean().default(true),
+        reel: z.boolean().default(true),
+        sobre_mi: z.boolean().default(true),
+        aportes: z.boolean().default(true),
+        clientes: z.boolean().default(true),
+        marquesina: z.boolean().default(true),
+      })
+      .default({}),
     hero_imagen: z.string().optional(),
     // 'fondo': foto a sangre completa con el titular encima;
     // 'tarjeta': foto centrada sobre el blanco papel (diseño original);

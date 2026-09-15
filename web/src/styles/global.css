@@ -1564,3 +1564,208 @@ a:hover { color: var(--rojo); }
   row-gap: 16px;
   padding-bottom: 8px;
 }
+
+/* ====================================================================
+   LA ACREDITACIÓN — el documento real del encargo, como un pase
+   ==================================================================== */
+.acreditacion {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  padding: 64px 40px 24px;
+}
+
+.acreditacion-pase {
+  transform: rotate(-2.5deg);
+  box-shadow: 0 18px 40px rgba(11, 11, 11, 0.22);
+  background: #fff;
+  padding: 10px;
+  line-height: 0;
+}
+
+.acreditacion-pase img { width: 100%; height: auto; display: block; }
+
+.acreditacion-pie {
+  font-size: 19px;
+  line-height: 1.5;
+  max-width: 46ch;
+  margin: 12px 0 18px;
+}
+
+.acreditacion-code {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--acento, var(--rojo));
+}
+
+@media (max-width: 900px) {
+  .acreditacion { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 48px 20px 16px; }
+  .acreditacion-pase { max-width: 280px; }
+}
+
+/* ====================================================================
+   ARCHIVO — índice de todo el trabajo, filtrable por tipo
+   ==================================================================== */
+.archivo-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 40px 28px;
+}
+
+.archivo-filtros .filtro {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  min-height: 38px;
+  background: transparent;
+  color: var(--negro);
+  border: 1px solid rgba(11, 11, 11, 0.25);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.archivo-filtros .filtro:hover { border-color: var(--negro); }
+
+.archivo-filtros .filtro.activo {
+  background: var(--negro);
+  color: var(--crema);
+  border-color: var(--negro);
+}
+
+.archivo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 40px 24px;
+  padding: 0 40px 72px;
+}
+
+.archivo-item { display: block; text-decoration: none; color: inherit; }
+/* Al filtrar se ocultan con el atributo hidden; como aquí fijamos display,
+   hay que apagarlo a mano o el filtro no ocultaría nada. */
+.archivo-item[hidden] { display: none; }
+.archivo-item .cover { aspect-ratio: 4 / 3; overflow: hidden; }
+
+.archivo-pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-top: 10px;
+  border-top: 1px solid rgba(11, 11, 11, 0.18);
+  margin-top: 10px;
+}
+
+.archivo-cliente { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.archivo-tipo { color: var(--rojo); flex: none; }
+
+.archivo-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--gris);
+  padding-top: 5px;
+}
+
+.archivo-vacio[hidden] { display: none; }
+
+.archivo-vacio {
+  grid-column: 1 / -1;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--gris);
+  padding: 32px 0;
+}
+
+@media (max-width: 900px) {
+  .archivo-filtros { padding: 8px 20px 22px; }
+  .archivo-grid { gap: 32px 16px; padding: 0 20px 56px; }
+}
+
+/* ====================================================================
+   VISOR a pantalla completa de las galerías
+   ==================================================================== */
+.slot.ampliable { cursor: zoom-in; }
+.slot.ampliable:focus-visible { outline: 3px solid var(--rojo); outline-offset: 3px; }
+
+body.visor-abierto { overflow: hidden; }
+
+.visor {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 16px 72px;
+  background: rgba(11, 11, 11, 0.96);
+}
+
+/* IMPRESCINDIBLE: sin esto el visor cerrado sigue ocupando toda la
+   pantalla (position:fixed + inset:0) y se traga TODOS los clics de la
+   web, porque el display de arriba gana al atributo hidden. */
+.visor[hidden] { display: none; }
+
+.visor-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.visor-btn {
+  position: absolute;
+  background: transparent;
+  color: var(--crema);
+  border: 1px solid rgba(242, 239, 232, 0.3);
+  font-family: var(--mono);
+  font-size: 16px;
+  line-height: 1;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.visor-btn:hover { background: rgba(242, 239, 232, 0.12); border-color: var(--crema); }
+.visor-btn:focus-visible { outline: 3px solid var(--rojo); outline-offset: 2px; }
+
+.visor-cerrar { top: 12px; right: 12px; }
+.visor-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+.visor-next { right: 12px; top: 50%; transform: translateY(-50%); }
+
+.visor-pie {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--crema);
+  border-top: 1px solid rgba(242, 239, 232, 0.2);
+}
+
+.visor-contador { color: var(--rojo); flex: none; }
+
+@media (max-width: 700px) {
+  .visor { padding: 56px 8px 64px; }
+  .visor-btn { width: 44px; height: 44px; }
+  .visor-prev { left: 6px; }
+  .visor-next { right: 6px; }
+}

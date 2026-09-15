@@ -94,6 +94,42 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ---
 
+# ✅ Plan del 15/09 — HECHO (pendiente de que Kiko lo pruebe)
+
+Los pasos 1 a 4 están implementados, compilados y probados en navegador
+(escritorio 1400 px y móvil 390 px): 0 errores de JS, 0 scroll lateral, y
+el panel abierto de verdad con la receta de `CLAUDE.md`.
+
+- **Panel en el móvil**: sueltas las dos reglas `min-width: 800px` de Decap
+  (estilos en `public/admin/index.html`). Medido: el ancho ya no salta a
+  800 px y no desborda nada.
+- **Encender/apagar secciones**: `secciones` en `paginas` (8 casillas, todas
+  encendidas por defecto). Apagar no borra.
+- **Orden de campos del proyecto**: las fotos suben del píxel 3140 al 822.
+  El formulario NO es más corto (4067 px, antes 3427) porque se añadieron
+  dos campos; lo que cambia es que lo que más se usa está arriba.
+  `ejecucion` lleva `minimize_collapsed` (de 515 px a 137 px).
+- **Acreditaciones**: campo `acreditacion` {imagen, pie} en proyectos, con
+  aviso en el panel de tapar el QR/código de barras. Se pinta como un pase
+  girado junto al código de archivo. Probado con una imagen temporal.
+- **Índice /archivo**: campo `tipo` (5 valores, ver `src/lib/tipos.ts`) y
+  página filtrable. Los 9 proyectos existentes ya llevan tipo asignado.
+  Enlace añadido al menú de portada.
+- **Visor a pantalla completa**: en galerías de proyecto y de categoría.
+  Teclado (Escape, flechas), pie de foto, contador, y foco devuelto al
+  cerrar. Entra por `[data-visor]`; las tarjetas que giran quedan fuera.
+
+⚠️ **Trampa encontrada y corregida, no repetirla**: `.visor` y
+`.archivo-item` fijan `display`, que gana al atributo `hidden`. Sin
+`.visor[hidden]{display:none}` el visor cerrado tapaba TODA la web y se
+tragaba cualquier clic. Si se añade otro elemento que se oculte con
+`hidden`, hay que apagar su `display` a mano.
+
+**Paso 5 (clientes como pestañas de archivador) sigue aparcado**: con los
+clientes de hoy quedaría flojo.
+
+---
+
 # 🔨 Plan de trabajo acordado (15/09/2026)
 
 Salido de dos referencias que pasó Kiko (cestclair.me y MERCE des BENZ) y

@@ -5,6 +5,7 @@ import Nav from '../../components/Nav.astro';
 import Slot from '../../components/Slot.astro';
 import { CATEGORIAS } from '../../lib/categorias';
 import { codigoArchivo, ACENTOS } from '../../lib/archivo';
+import { optim } from '../../lib/imagen';
 import { migas, persona } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -122,21 +123,40 @@ const jsonLd = [
   </div>
 </section>
 
+<!-- La acreditación: el documento real con el que se entró al encargo -->
+{d.acreditacion?.imagen && (
+  <section class="acreditacion reveal">
+    <div class="acreditacion-pase">
+      <img
+        src={optim(d.acreditacion.imagen, 700)}
+        alt={d.acreditacion.pie ?? `Acreditación de ${d.titulo}`}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="acreditacion-info">
+      <div class="caso-label">LA ACREDITACIÓN</div>
+      <p class="acreditacion-pie">{d.acreditacion.pie ?? `Con esto se entró a ${d.titulo}.`}</p>
+      <div class="acreditacion-code">[ {codigo} ] / {cat.titulo}</div>
+    </div>
+  </section>
+)}
+
 <!-- El resultado: galería y vídeo -->
 {hayResultado && <div class="caso-label resultado-label reveal">EL RESULTADO</div>}
 {d.galeria.length > 0 && (
   <>
-    <section class="gallery-top">
-      <div class="big">{g1 && <Slot imagen={g1.imagen} video={g1.clip} etiqueta={g1.etiqueta} />}</div>
+    <section class="gallery-top" data-visor>
+      <div class="big">{g1 && <Slot imagen={g1.imagen} video={g1.clip} alt={g1.etiqueta} etiqueta={g1.etiqueta} />}</div>
       <div class="stack">
-        <div>{g2 && <Slot imagen={g2.imagen} video={g2.clip} etiqueta={g2.etiqueta} />}</div>
-        <div>{g3 && <Slot imagen={g3.imagen} video={g3.clip} etiqueta={g3.etiqueta} />}</div>
+        <div>{g2 && <Slot imagen={g2.imagen} video={g2.clip} alt={g2.etiqueta} etiqueta={g2.etiqueta} />}</div>
+        <div>{g3 && <Slot imagen={g3.imagen} video={g3.clip} alt={g3.etiqueta} etiqueta={g3.etiqueta} />}</div>
       </div>
     </section>
     {resto.length > 0 && (
-      <section class="gallery-row">
+      <section class="gallery-row" data-visor>
         {resto.map((pieza) => (
-          <div><Slot imagen={pieza.imagen} video={pieza.clip} etiqueta={pieza.etiqueta} /></div>
+          <div><Slot imagen={pieza.imagen} video={pieza.clip} alt={pieza.etiqueta} etiqueta={pieza.etiqueta} /></div>
         ))}
       </section>
     )}
@@ -145,7 +165,7 @@ const jsonLd = [
 
 <!-- Fotos subidas en bloque (sin pie), en filas de tres -->
 {d.fotos.length > 0 && (
-  <section class="gallery-row gallery-fotos">
+  <section class="gallery-row gallery-fotos" data-visor>
     {d.fotos.map((foto, i) => (
       <div><Slot imagen={foto} alt={`${d.titulo} — foto ${i + 1}`} etiqueta="" /></div>
     ))}

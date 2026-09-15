@@ -1,0 +1,122 @@
+---
+// Índice completo del trabajo, filtrable por TIPO (qué es el trabajo), que
+// es un eje distinto de la categoría (de qué va). Es la página que permite
+// publicar logos, moodboards o documentos de imagen sin meterlos a la
+// fuerza en "deportes" o en "hostelería".
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Slot from '../components/Slot.astro';
+import { CATEGORIAS } from '../lib/categorias';
+import { TIPOS, tipoDe } from '../lib/tipos';
+import { codigoArchivo } from '../lib/archivo';
+import { migas } from '../lib/seo';
+
+const proyectos = (await getCollection('proyectos')).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+
+// Solo se ofrecen como filtro los tipos que de verdad tienen trabajo: una
+// fila de filtros vacíos hace la web más pequeña, no más grande.
+const conTrabajo = TIPOS.filter((t) => proyectos.some((p) => p.data.tipo === t.id));
+
+const jsonLd = [
+  migas(Astro.site!, [
+    { nombre: 'Inicio', ruta: '/' },
+    { nombre: 'Archivo', ruta: '/archivo/' },
+  ]),
+];
+
+const ogImage = proyectos.find((p) => p.data.portada)?.data.portada;
+const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ?? id.toUpperCase();
+---
+
+<Base
+  title="Archivo de trabajos — Kiko Lareo®, fotógrafo y videógrafo en A Coruña"
+  description="Todo el trabajo de Kiko Lareo en un índice: fotografía, vídeo, identidad, dirección de arte y documentos de imagen. A Coruña y Galicia."
+  ogImage={ogImage}
+  jsonLd={jsonLd}
+>
+
+<Nav variante="subpagina" etiqueta="KL_ARCHIVE" />
+
+<main id="contenido">
+<div class="cat-header first">
+  <span class="cat-num">(ARCHIVO)</span>
+  <h1 class="cat-title" style="margin:0">TODO EL TRABAJO</h1>
+  <span class="cat-aside">{String(proyectos.length).padStart(2, '0')} ENTRADAS</span>
+</div>
+
+{conTrabajo.length > 1 && (
+  <div class="archivo-filtros" role="group" aria-label="Filtrar por tipo de trabajo">
+    <button type="button" class="filtro activo" data-tipo="todo" aria-pressed="true">TODO</button>
+    {conTrabajo.map((t) => (
+      <button type="button" class="filtro" data-tipo={t.id} aria-pressed="false">
+        {t.corto}
+      </button>
+    ))}
+  </div>
+)}
+
+{proyectos.length > 0 ? (
+  <div class="archivo-grid" id="archivo-grid">
+    {proyectos.map((p) => (
+      <a href={`/proyectos/${p.id}/`} class="archivo-item reveal" data-tipo={p.data.tipo}>
+        <div class="cover" style={`view-transition-name: proyecto-${p.id}`}>
+          <Slot
+            imagen={p.data.portada}
+            alt={`${p.data.titulo} — ${p.data.cliente}`}
+            etiqueta={`Portada de ${p.data.titulo}`}
+            ancho={700}
+          />
+        </div>
+        <div class="archivo-pie">
+          <span class="archivo-cliente">{p.data.cliente} — {p.data.titulo}</span>
+          <span class="archivo-tipo">{tipoDe(p.data.tipo).corto}</span>
+        </div>
+        <div class="archivo-code">
+          [ {codigoArchivo(p, proyectos)} ] / {nombreCat(p.data.categoria)}
+          {p.data.localidad ? ` / ${p.data.localidad.toUpperCase()}` : ''}
+        </div>
+      </a>
+    ))}
+    <p class="archivo-vacio" id="archivo-vacio" hidden>No hay trabajos de ese tipo todavía.</p>
+  </div>
+) : (
+  <div class="empty-note">Todavía no hay proyectos en el archivo.</div>
+)}
+</main>
+
+<footer class="footer-bar">
+  <span>© {new Date().getFullYear()} KIKO LAREO®</span>
+  <span class="footer-legal"><a href="/aviso-legal/">AVISO LEGAL</a><a href="/privacidad/">PRIVACIDAD</a><a href="/#contacto">CONTACTO →</a></span>
+</footer>
+
+<script>
+  // Filtro por tipo de trabajo. Sin librerías: se ocultan las tarjetas que
+  // no coinciden. Si el visitante no tiene JS, se ven todas, que es el
+  // comportamiento correcto para un índice.
+  const filtros = Array.from(document.querySelectorAll<HTMLButtonElement>('.archivo-filtros .filtro'));
+  const items = Array.from(document.querySelectorAll<HTMLElement>('.archivo-item'));
+  const vacio = document.getElementById('archivo-vacio');
+
+  filtros.forEach((boton) => {
+    boton.addEventListener('click', () => {
+      const tipo = boton.dataset.tipo;
+      filtros.forEach((b) => {
+        const activo = b === boton;
+        b.classList.toggle('activo', activo);
+        b.setAttribute('aria-pressed', String(activo));
+      });
+      let visibles = 0;
+      items.forEach((item) => {
+        const coincide = tipo === 'todo' || item.dataset.tipo === tipo;
+        item.hidden = !coincide;
+        if (coincide) visibles++;
+      });
+      if (vacio) vacio.hidden = visibles > 0;
+    });
+  });
+</script>
+
+</Base>

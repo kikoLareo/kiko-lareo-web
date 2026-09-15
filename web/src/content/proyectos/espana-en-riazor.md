@@ -1,6 +1,7 @@
 ---
 titulo: España en Riazor
 categoria: deportes
+tipo: fotografia
 fecha: 2026-06-04
 destacado: false
 cliente: Acreditación freelance

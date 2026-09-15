@@ -1,6 +1,7 @@
 ---
 titulo: Djalminha en A Coruña
 categoria: eventos
+tipo: video
 fecha: 2026-08-25
 destacado: false
 cliente: Turismo de A Coruña

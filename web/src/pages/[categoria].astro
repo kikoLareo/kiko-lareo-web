@@ -63,7 +63,7 @@ const ogImage = proyectos.find((p) => p.data.portada)?.data.portada
 
 <div class="subsection-label">GALERÍA ({String(fotos.length).padStart(2, '0')})</div>
 {fotos.length > 0 ? (
-  <div class="photo-grid">
+  <div class="photo-grid" data-visor>
     {fotos.map((f) =>
       f.data.historia ? (
         <FlipCard

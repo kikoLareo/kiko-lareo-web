@@ -29,6 +29,7 @@ npm run fotos -- <categoria> <carpeta> [fecha]   # volcado por lotes (scripts/su
 - `web/src/pages/index.astro` — **portada** (hero, selección de proyectos, categorías, manifiesto, reel, sobre mí, "qué aporto", clientes, contacto). Se alimenta sola del contenido.
 - `web/src/pages/[categoria].astro` — páginas `/deportes /eventos /moda /hosteleria /naturaleza` (listado de proyectos + galería de fotos).
 - `web/src/pages/proyectos/[slug].astro` — **caso de estudio** por proyecto (reto→idea→ejecución→historia→resultado, código de archivo, barra de progreso, embeds).
+- `web/src/pages/archivo.astro` — **índice de todo el trabajo**, filtrable por `tipo` (filtro en JS a mano, oculta con `hidden`).
 - `web/src/pages/gracias.astro` — confirmación del formulario (noindex, fuera del sitemap).
 - `web/src/pages/404.astro`, `web/src/pages/robots.txt.ts`
 - `web/src/layouts/Base.astro` — `<head>` (SEO, OG, favicon, JSON-LD), redirect de tokens de Netlify Identity a `/admin`, script de las tarjetas flip, enlace "saltar al contenido".
@@ -44,8 +45,9 @@ npm run fotos -- <categoria> <carpeta> [fecha]   # volcado por lotes (scripts/su
 ## Modelo de contenido (colecciones; esquema en `content.config.ts`, panel en `config.yml`)
 
 - **fotos** (`.md`): `titulo`, `categoria`, `fecha`, `imagen?`, `clip?` (MP4 corto), `alt?`, `historia?` {titulo, meta, texto, proyecto?}. Alimentan portada y galería de categoría. Con `historia` → tarjeta flip.
-- **proyectos** (`.md`): `titulo`, `categoria`, `fecha`, `destacado` (portada), `cliente`, `anio`, `servicios`, `entrega`, `titular`, `reto?`, `idea?`, `ejecucion[]`, `color` (rojo/azul/verde/violeta/mostaza), `localidad?`, `descripcion_seo?`, `portada?`, `galeria[]` {etiqueta, imagen?, clip?}, `video?` {titulo, etiqueta, archivo? (MP4), url? (embed), imagen?}. El cuerpo md es la historia.
-- **paginas/general.json** (singleton): textos globales — hero (`hero_titular`, `hero_estilo` fondo/tarjeta/letras, `hero_imagen`), `manifiesto`, `aportes[]`, `aportes_cierre`, `cierre`, `sobre_mi`, `clientes[]`, `redes[]`, `reel`, `email`, `telefono`, `seo`, `direccion`, `marquesina`, `localizacion`.
+- **proyectos** (`.md`): `titulo`, `categoria`, `tipo` (eje distinto: qué ES el trabajo → `/archivo`, ver `src/lib/tipos.ts`), `fecha`, `destacado` (portada), `cliente`, `anio`, `servicios`, `entrega`, `titular`, `reto?`, `idea?`, `ejecucion[]`, `color` (rojo/azul/verde/violeta/mostaza), `localidad?`, `descripcion_seo?`, `portada?`, `galeria[]` {etiqueta, imagen?, clip?}, `fotos[]`, `acreditacion?` {imagen, pie?}, `video?` {titulo, etiqueta, archivo? (MP4), url? (embed), imagen?}. El cuerpo md es la historia.
+  - Los campos del panel están ordenados para el móvil: básicos → fotos y vídeo → ficha → textos → lo que casi nunca se toca. Si añades un campo, colócalo en su bloque.
+- **paginas/general.json** (singleton): textos globales — hero (`hero_titular`, `hero_estilo` fondo/tarjeta/letras, `hero_imagen`), `manifiesto`, `aportes[]`, `aportes_cierre`, `cierre`, `sobre_mi`, `clientes[]`, `redes[]`, `reel`, `email`, `telefono`, `seo`, `direccion`, `marquesina`, `localizacion`, `secciones` (8 casillas para encender/apagar bloques de la portada; todas `true` por defecto).
 
 **Regla de oro:** cualquier campo nuevo se añade EN LOS DOS sitios — `content.config.ts` (zod) y `config.yml` (Decap, con `hint:` en español). Si no, o rompe el build o el dueño no lo ve.
 
@@ -112,3 +114,5 @@ Causa localizada: `min-width: 800px` en `EditorContainer` y en
 - **Embeds verticales** (Instagram/TikTok): marco estrecho centrado (`.embed-vertical`) + script que ajusta alto por postMessage. Horizontales (YT/Vimeo) → 16:9.
 - **Entregas a clientes:** se usa Pixieset (externo), no se suben al repo.
 - **Sin datos inventados:** el dueño lleva <1 año; no poner años de experiencia, "desde 20XX" ni nº de proyectos falsos.
+- **`hidden` vs `display`:** varios elementos se ocultan con el atributo `hidden` (el visor, las tarjetas del archivo al filtrar). Si el CSS les fija un `display`, ese `display` GANA al atributo y el elemento sigue ahí. El visor cerrado llegó a tapar toda la web y a tragarse todos los clics por esto. Regla: al ocultar con `hidden`, añadir siempre `.loquesea[hidden] { display: none; }`.
+- **Visor de fotos:** entra por las imágenes dentro de `[data-visor] .slot.filled img`. Para que una galería nueva lo tenga, basta con marcar su contenedor con `data-visor`. Las tarjetas que giran (`.flip`) se excluyen a propósito.

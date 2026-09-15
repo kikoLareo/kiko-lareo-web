@@ -1,6 +1,7 @@
 ---
 titulo: Eclipse en el viñedo circular
 categoria: hosteleria
+tipo: video
 fecha: 2026-08-12
 destacado: false
 cliente: Casa de Outeiro

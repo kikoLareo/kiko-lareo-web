@@ -73,6 +73,20 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 <body>
 <a href="#contenido" class="skip">SALTAR AL CONTENIDO →</a>
 <slot />
+
+<!-- Visor a pantalla completa. Se rellena al pulsar una foto de cualquier
+     galería marcada con data-visor. Sin JS no estorba: queda oculto y las
+     fotos siguen viéndose en su sitio. -->
+<div class="visor" id="visor" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <img class="visor-img" id="visor-img" alt="" />
+  <button type="button" class="visor-btn visor-cerrar" id="visor-cerrar" aria-label="Cerrar">✕</button>
+  <button type="button" class="visor-btn visor-prev" id="visor-prev" aria-label="Foto anterior">←</button>
+  <button type="button" class="visor-btn visor-next" id="visor-next" aria-label="Foto siguiente">→</button>
+  <div class="visor-pie">
+    <span id="visor-texto"></span>
+    <span class="visor-contador" id="visor-contador"></span>
+  </div>
+</div>
 <script>
   // Tarjetas con historia: HISTORIA ↻ gira la tarjeta
   document.addEventListener('click', (e) => {
@@ -101,6 +115,92 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
     addEventListener('resize', check, { passive: true });
     addEventListener('hashchange', () => setTimeout(check, 60));
     setTimeout(check, 3000); // red de seguridad
+  }
+
+  // ------------------------------------------------------------------
+  // Visor a pantalla completa de las galerías.
+  // Entra por las fotos que estén dentro de un contenedor [data-visor].
+  // Se dejan fuera a propósito las tarjetas que giran (.flip), que ya
+  // tienen su propio gesto, y los vídeos, que llevan sus controles.
+  // ------------------------------------------------------------------
+  const visor = document.getElementById('visor');
+  const visorImg = document.getElementById('visor-img') as HTMLImageElement | null;
+  const visorTexto = document.getElementById('visor-texto');
+  const visorContador = document.getElementById('visor-contador');
+
+  if (visor && visorImg) {
+    const fotos = Array.from(
+      document.querySelectorAll<HTMLImageElement>('[data-visor] .slot.filled img')
+    ).filter((img) => !img.closest('.flip'));
+
+    if (fotos.length === 0) {
+      visor.remove();
+    } else {
+      let actual = 0;
+      let origen: HTMLElement | null = null;
+
+      const pintar = () => {
+        const img = fotos[actual];
+        visorImg.src = img.currentSrc || img.src;
+        visorImg.alt = img.alt || '';
+        if (visorTexto) visorTexto.textContent = img.alt || '';
+        if (visorContador) {
+          visorContador.textContent = `${String(actual + 1).padStart(2, '0')} / ${String(fotos.length).padStart(2, '0')}`;
+        }
+      };
+
+      const abrir = (i: number, desde: HTMLElement) => {
+        actual = i;
+        origen = desde;
+        pintar();
+        visor.hidden = false;
+        document.body.classList.add('visor-abierto');
+        (document.getElementById('visor-cerrar') as HTMLElement | null)?.focus();
+      };
+
+      const cerrar = () => {
+        visor.hidden = true;
+        visorImg.removeAttribute('src');
+        document.body.classList.remove('visor-abierto');
+        origen?.focus();
+        origen = null;
+      };
+
+      const mover = (paso: number) => {
+        actual = (actual + paso + fotos.length) % fotos.length;
+        pintar();
+      };
+
+      fotos.forEach((img, i) => {
+        const caja = img.closest('.slot') as HTMLElement | null;
+        if (!caja) return;
+        caja.classList.add('ampliable');
+        caja.tabIndex = 0;
+        caja.setAttribute('role', 'button');
+        caja.setAttribute('aria-label', `Ampliar: ${img.alt || 'foto'}`);
+        caja.addEventListener('click', () => abrir(i, caja));
+        caja.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            abrir(i, caja);
+          }
+        });
+      });
+
+      document.getElementById('visor-cerrar')?.addEventListener('click', cerrar);
+      document.getElementById('visor-prev')?.addEventListener('click', () => mover(-1));
+      document.getElementById('visor-next')?.addEventListener('click', () => mover(1));
+      // Pulsar el fondo (no la foto ni los botones) también cierra
+      visor.addEventListener('click', (e) => {
+        if (e.target === visor) cerrar();
+      });
+      addEventListener('keydown', (e) => {
+        if (visor.hidden) return;
+        if (e.key === 'Escape') cerrar();
+        else if (e.key === 'ArrowLeft') mover(-1);
+        else if (e.key === 'ArrowRight') mover(1);
+      });
+    }
   }
 </script>
 </body>

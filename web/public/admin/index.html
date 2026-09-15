@@ -5,6 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Panel — Kiko Lareo®</title>
 <meta name="robots" content="noindex">
+<style>
+  /* ------------------------------------------------------------------
+     Panel usable en el móvil.
+
+     Decap fija min-width: 800px en el editor y en su barra superior, así
+     que al abrir una ficha el teléfono encogía la página entera y todo
+     salía diminuto. Estas reglas solo sueltan ese ancho mínimo y dejan
+     que la barra se reparta en varias filas.
+
+     ⚠️ Las clases de Decap son de emotion y llevan un hash que cambia al
+     actualizar la librería (css-hn3jn7-EditorContainer). Por eso se
+     seleccionan SIEMPRE por trozo de nombre con [class*="..."], nunca
+     por la clase completa. Y solo por debajo de 800 px: en el ordenador
+     el panel se queda exactamente como está.
+     ------------------------------------------------------------------ */
+  @media (max-width: 799px) {
+    [class*="EditorContainer"],
+    [class*="ToolbarContainer"] {
+      min-width: 0 !important;
+    }
+
+    /* La barra de arriba (guardar, publicar, borrar, ver) se reparte en
+       varias filas en vez de salirse por la derecha. */
+    [class*="ToolbarContainer"] {
+      height: auto !important;
+      flex-wrap: wrap !important;
+      gap: 6px !important;
+      padding: 6px 8px !important;
+    }
+    [class*="ToolbarSectionMain"],
+    [class*="ToolbarSubSectionFirst"],
+    [class*="ToolbarSubSectionLast"] {
+      flex-wrap: wrap !important;
+    }
+
+    /* Márgenes laterales del formulario, para que los campos no peguen
+       con el borde de la pantalla. */
+    [class*="ControlPaneContainer"] {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+  }
+</style>
 </head>
 <body>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

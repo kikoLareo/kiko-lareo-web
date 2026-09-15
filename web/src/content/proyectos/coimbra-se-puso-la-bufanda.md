@@ -1,6 +1,7 @@
 ---
 titulo: COIMBRA SE PUSO LA BUFANDA
 categoria: deportes
+tipo: direccion-arte
 fecha: 2026-05-06
 destacado: false
 cliente: Hockey Club Liceo
