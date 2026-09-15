@@ -1,7 +1,7 @@
 # Roadmap — kikolareo.com
 
 Estado del rediseño "KL / Visual Archive → Una idea, muchas formas".
-Última actualización: 17/07/2026. Los cambios se desarrollan en ramas y se
+Última actualización: 15/09/2026. Los cambios se desarrollan en ramas y se
 publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ---
@@ -92,6 +92,117 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 
 ## 📅 Fases pendientes
 
+---
+
+# 🔨 Plan de trabajo acordado (15/09/2026)
+
+Salido de dos referencias que pasó Kiko (cestclair.me y MERCE des BENZ) y
+de una petición suya: **el panel tiene que ser cómodo, y sobre todo en el
+móvil**. Orden pensado para que lo primero que se note sea su comodidad
+diaria, no un efecto visual.
+
+## Paso 1 — El panel cómodo (PRIORIDAD)
+
+Lo más importante para Kiko: hoy publica desde el móvil y el panel no
+está pensado para eso.
+
+### 1.1 Encender y apagar secciones desde el panel
+Casillas en `paginas/general.json` para mostrar u ocultar cada bloque de
+la portada sin tocar código ni borrar contenido: manifiesto, reel, sobre
+mí, "qué aporto", clientes, marquesina. Apagar ≠ borrar: el texto se
+queda guardado por si lo vuelve a encender.
+- Campos nuevos en `content.config.ts` (booleanos con `default: true`,
+  para que nada cambie de golpe) **y** en `config.yml` con `hint:`.
+- La portada comprueba la casilla antes de pintar cada sección.
+- Riesgo bajo. Se puede hacer entero de una vez.
+
+### 1.2 Formularios más cortos
+Las fichas de proyecto tienen ~20 campos seguidos; en el móvil es un
+scroll eterno. Agrupar los que casi nunca se tocan (SEO, color, entrega,
+servicios) dentro de un bloque plegable del panel, dejando arriba lo que
+se usa siempre: título, categoría, fecha, fotos, vídeo.
+- Solo toca `config.yml`. No cambia ningún dato ya guardado.
+
+### 1.3 El panel en el móvil (CON CUIDADO)
+⚠️ **Ya se intentó una vez y rompió el panel**: con los estilos puestos no
+se abría ninguna entrada, y hubo que revertirlo entero. La causa: no
+puedo entrar al panel para probarlo, porque necesita el login de Netlify
+Identity, así que iba a ciegas.
+**Método obligatorio a partir de ahora:** una sola regla de estilo por
+despliegue, Kiko la prueba en el móvil, y solo cuando confirma que sigue
+funcionando se añade la siguiente. Nunca un paquete entero.
+Orden previsto, de menos a más arriesgado:
+1. Botones y campos más altos, para el dedo.
+2. Barra de guardar siempre visible abajo.
+3. Listas de entradas en una sola columna.
+4. Lo que quede, si hace falta.
+
+## Paso 2 — Las acreditaciones
+
+Idea de Kiko y la mejor del lote: escanear las acreditaciones físicas de
+prensa y enseñarlas en la ficha del proyecto donde se usaron. No es un
+adorno prestado de otra web: es su oficio y encaja con la marca "archivo".
+
+- Campo nuevo opcional en **proyectos**: `acreditacion` {imagen, dorso?,
+  pie?}. Si está vacío, la ficha funciona igual que hoy.
+- Se pinta como un pase escaneado, ligeramente girado, junto al código de
+  archivo del proyecto (KL—00X). Sin librerías: CSS.
+- Más adelante, si se juntan varias: una pared de acreditaciones en
+  "Sobre mí".
+- ⚠️ **Aviso a Kiko antes de subir ninguna:** taparle el código de barras
+  o el QR si lo lleva, y revisar que no aparezcan datos personales que no
+  quiera públicos (DNI, teléfono, número de licencia).
+
+## Paso 3 — El índice de archivo (lo que permite crecer)
+
+El problema real: hoy todo se ordena **por tema** (deportes, eventos,
+moda, hostelería, naturaleza). Eso vale mientras todo sean fotos y
+vídeos. Un logo no es "deportes"; un moodboard no es "hostelería".
+
+Solución: separar dos ejes que hoy van juntos.
+- **Tema** (lo de ahora): se conserva tal cual, es lo que posiciona en
+  Google como fotógrafo en A Coruña. No se toca.
+- **Tipo de trabajo** (nuevo): campo `tipo` en proyectos, lista cerrada —
+  fotografía / vídeo / identidad / dirección de arte / documento de imagen.
+
+Con eso, una página `/archivo` que lista todo el trabajo con una fila de
+filtros arriba y una línea en monoespaciada bajo cada miniatura
+(cliente a la izquierda, tipo a la derecha), como en MERCE des BENZ.
+
+Esto **absorbe la Fase 6** ("[POR IDEA] [POR FORMATO] [POR CLIENTE]"): es
+la misma idea, mejor definida.
+⚠️ Con 9 proyectos un filtro se ve vacío. Se monta igualmente porque es
+lo que deja subir logos y moodboards sin romper nada, pero el efecto no
+llegará hasta que haya material.
+
+## Paso 4 — Visor a pantalla completa
+
+Hoy pulsas una foto de una galería y no pasa nada. Con 17 fotos ya se
+nota; con 100 será un problema.
+- Al pulsar, la foto se abre grande sobre fondo negro, con ANTERIOR,
+  SIGUIENTE, su pie de foto y cierre con Escape o tocando fuera.
+- Teclado y lector de pantalla incluidos; respeta "reducir movimiento".
+- Sin librerías. Lo más barato del plan y lo que más se agradece.
+
+## Paso 5 — Clientes como pestañas de archivador
+
+De cestclair.me: la lista de clientes como pestañas de carpeta, cada
+marca en la suya. Muy de archivo, muy suyo.
+**Aparcado a propósito**: con los clientes de hoy quedaría flojo. Se
+retoma cuando haya más.
+
+## ❌ Lo que NO se copia de las referencias
+
+- **Las ventanas de navegador flotando sobre un atardecer** (MERCE des
+  BENZ): eso no es su web, es el anuncio de su web. Copiarlo es el error
+  clásico de mirar una referencia.
+- **La estética oscura y pesada con capas de movimiento**: es la moda de
+  2026, pero cada capa de efecto es peso, y en una web de fotos cada
+  segundo de carga se come una foto. Sigue valiendo la regla: ante la
+  duda, gana la fotografía.
+
+---
+
 > **Decisión (contenido primero):** antes de la Fase 5, el dueño carga la
 > web de contenido real (proyectos como Coimbra, fotos por categoría,
 > naturaleza). La Fase 5 se retoma cuando haya 3-4 casos reales publicados
@@ -141,6 +252,18 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 - Teléfono de contacto.
 - Clientes reales (hoy hay placeholders).
 - Fotos y vídeos reales en los huecos; material de los casos de estudio.
+- **Confirmar que el panel del móvil volvió a funcionar** tras revertir
+  los estilos (15/09/2026). Sin esa confirmación no se toca el punto 1.3.
+- **Dos vídeos sin publicar**: llegaron en `.mov` y en MP4 con códec H.265,
+  que no se ve en Chrome ni Firefox. Ya hay herramienta para convertirlos
+  (ffmpeg vía `pip install imageio-ffmpeg`), pero falta saber **a qué
+  proyecto va cada uno**.
+- **Preguntas sin responder** de la carga de contenido: cliente de las
+  fotos del libro y del DeporLocura de Djalminha, y si montó ese vídeo;
+  fecha del Cabrio Fest; si la foto de playa es Riazor u Orzán y cómo se
+  titula; URL del vídeo de Turismo de A Coruña.
+- **Decisión abierta**: renombrar la categoría "Naturaleza". Acumula 12
+  fotos y muchas son urbanas de A Coruña, no de naturaleza.
 
 ## 🌐 Pendientes externos
 
