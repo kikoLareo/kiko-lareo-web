@@ -53,7 +53,7 @@ collections:
         hint: "Rellénala solo si quieres que esta foto sea una tarjeta HISTORIA ↻"
         fields:
           - { name: titulo, label: Título de la historia, widget: string, required: false }
-          - { name: meta, label: "Datos técnicos (ej: COPA GALICIA · 2025 · f/2.8)", widget: string, required: false }
+          - { name: meta, label: "Datos técnicos", widget: string, required: false, hint: "Solo datos reales. Ej: RIAZOR · 2026 · f/2.8" }
           - { name: texto, label: Relato, widget: text, required: false }
           - name: proyecto
             label: Proyecto enlazado
