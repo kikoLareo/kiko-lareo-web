@@ -1,0 +1,137 @@
+---
+// PROCESS BOARD — la página que pide el manual de marca (pág. 35): un
+// tablero creativo con fotos pegadas, frames, capturas y anotaciones,
+// dividido en cuatro zonas. Puede sentirse libre y algo caótico, pero la
+// estructura tiene que entenderse.
+//
+// El desorden es DECIDIDO, no aleatorio: cada nota lleva un giro y un
+// desplazamiento calculados a partir de su posición, así que el tablero
+// se ve igual en cada visita y en cada compilación.
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import { optim } from '../lib/imagen';
+import { migas } from '../lib/seo';
+
+const ZONAS = [
+  { id: 'now', titulo: 'AHORA', nota: 'Lo que estoy haciendo estos días.' },
+  { id: 'building', titulo: 'PROBANDO', nota: 'Ideas y pruebas en marcha.' },
+  { id: 'released', titulo: 'YA SALIÓ', nota: 'Piezas publicadas y qué funcionó.' },
+  { id: 'next', titulo: 'LO QUE VIENE', nota: 'Líneas siguientes, sin prometer lo que no existe.' },
+] as const;
+
+const notas = (await getCollection('proceso')).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+
+// El cuerpo markdown de cada nota, renderizado por adelantado
+const cuerpos = new Map<string, any>();
+for (const n of notas) {
+  const { Content } = await render(n);
+  cuerpos.set(n.id, Content);
+}
+
+const porZona = ZONAS.map((z) => ({
+  ...z,
+  notas: notas.filter((n) => n.data.zona === z.id),
+}));
+
+// Giro y desplazamiento estables a partir del identificador de la nota
+const semilla = (texto: string) => {
+  let h = 0;
+  for (let i = 0; i < texto.length; i++) h = (h * 31 + texto.charCodeAt(i)) % 1000;
+  return h / 1000;
+};
+const giro = (id: string) => (semilla(id) * 5 - 2.5).toFixed(2);
+const empuje = (id: string) => (semilla(id + 'x') * 26 - 13).toFixed(0);
+
+const fechaCorta = (d: Date) =>
+  d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }).toUpperCase().replace('.', '');
+
+const jsonLd = [
+  migas(Astro.site!, [
+    { nombre: 'Inicio', ruta: '/' },
+    { nombre: 'Proceso', ruta: '/proceso/' },
+  ]),
+];
+
+const ogImage = notas.find((n) => n.data.imagen)?.data.imagen;
+---
+
+<Base
+  title="Proceso — cómo trabajo | Kiko Lareo®, A Coruña"
+  description="El tablero de trabajo de Kiko Lareo: lo que está en marcha, lo que se está probando, lo que ya salió y lo que viene. Dirección visual, fotografía y vídeo en A Coruña y Galicia."
+  ogImage={ogImage}
+  jsonLd={jsonLd}
+>
+
+<Nav variante="subpagina" etiqueta="PROCESS BOARD" />
+
+<main id="contenido" class="proceso">
+  <div class="cat-header first">
+    <span class="cat-num">(PROCESO)</span>
+    <h1 class="cat-title" style="margin:0">EL TABLERO</h1>
+    <span class="cat-aside">{String(notas.length).padStart(2, '0')} NOTAS</span>
+  </div>
+
+  <p class="proceso-intro">
+    Esto no es el trabajo terminado, es el trabajo mientras pasa. Pruebas,
+    ideas a medias, cosas que salieron y cosas que vienen.
+  </p>
+
+  {notas.length === 0 ? (
+    <div class="empty-note">
+      El tablero todavía está vacío. Se llena desde el panel, en Proceso → Nueva nota.
+    </div>
+  ) : (
+    porZona.map((z) => (
+      z.notas.length > 0 && (
+        <section class="zona" id={z.id}>
+          <div class="zona-cab">
+            <h2 class="zona-tit">{z.titulo}</h2>
+            <span class="zona-nota">{z.nota}</span>
+            <span class="zona-num">{String(z.notas.length).padStart(2, '0')}</span>
+          </div>
+          <div class="zona-notas" data-visor>
+            {z.notas.map((n) => {
+              const Cuerpo = cuerpos.get(n.id);
+              return (
+                <article
+                  class={`nota${n.data.imagen ? ' con-foto' : ''}`}
+                  style={`--giro:${giro(n.id)}deg; --empuje:${empuje(n.id)}px`}
+                >
+                  <div class="nota-cab">
+                    <span class="nota-fecha">{fechaCorta(n.data.fecha)}</span>
+                    {n.data.proyecto && (
+                      <a class="nota-enlace" href={`/proyectos/${n.data.proyecto}/`}>VER PROYECTO →</a>
+                    )}
+                  </div>
+                  <h3 class="nota-tit">{n.data.titulo}</h3>
+                  {n.data.imagen && (
+                    <div class="slot filled nota-foto">
+                      <img
+                        src={optim(n.data.imagen, 700)}
+                        alt={n.data.anotacion ?? n.data.titulo}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  )}
+                  {n.data.anotacion && <p class="nota-anotacion">{n.data.anotacion}</p>}
+                  <div class="nota-texto"><Cuerpo /></div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )
+    ))
+  )}
+</main>
+
+<footer class="footer-bar">
+  <span>© {new Date().getFullYear()} KIKO LAREO®</span>
+  <span class="footer-legal"><a href="/aviso-legal/">AVISO LEGAL</a><a href="/privacidad/">PRIVACIDAD</a><a href="/#contacto">CONTACTO →</a></span>
+</footer>
+
+</Base>

@@ -250,7 +250,7 @@ const heroLineas = g.hero_titular
 
 <!-- Manifiesto: se revela al llegar con el scroll -->
 {s.manifiesto && (
-  <section class="manifiesto">
+  <section class="manifiesto" data-encender>
     <p class="mani-linea">{g.manifiesto.antes}</p>
     <p class="mani-linea mani-dos">
       {maniResto} <span class="mani-acento">{maniUltima}</span>
@@ -402,22 +402,76 @@ const heroLineas = g.hero_titular
 </main>
 
 <script>
-  // Manifiesto: las dos líneas se revelan al llegar con el scroll.
-  // Con "reducir movimiento" activado, el CSS las muestra directamente.
-  const mani = document.querySelector('.manifiesto');
-  if (mani) {
-    const io = new IntersectionObserver(
-      (entradas) => {
-        entradas.forEach((e) => {
-          if (e.isIntersecting) {
-            mani.classList.add('visible');
-            io.disconnect();
-          }
+  // El texto se enciende palabra a palabra al bajar, al ritmo al que lee
+  // la persona. Sin JS el texto ya sale entero (el CSS solo apaga las
+  // palabras cuando existe la clase .encender, que se pone aquí).
+  const bloques = Array.from(document.querySelectorAll<HTMLElement>('[data-encender]'));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (bloques.length && !reduce) {
+    const todas: HTMLElement[][] = [];
+
+    bloques.forEach((bloque) => {
+      bloque.classList.add('encender');
+      const palabras: HTMLElement[] = [];
+      // Recorre solo los nodos de texto: así respeta los <span> de acento
+      const paso = document.createTreeWalker(bloque, NodeFilter.SHOW_TEXT);
+      const textos: Text[] = [];
+      let n: Node | null;
+      while ((n = paso.nextNode())) if (n.textContent?.trim()) textos.push(n as Text);
+
+      textos.forEach((t) => {
+        const frag = document.createDocumentFragment();
+        (t.textContent ?? '').split(/(\s+)/).forEach((trozo) => {
+          if (!trozo.trim()) { frag.appendChild(document.createTextNode(trozo)); return; }
+          const s = document.createElement('span');
+          s.className = 'pal';
+          if ((t.parentElement as HTMLElement)?.classList.contains('mani-acento')) s.classList.add('mani-acento');
+          s.textContent = trozo;
+          frag.appendChild(s);
+          palabras.push(s);
         });
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(mani);
+        t.replaceWith(frag);
+      });
+      todas.push(palabras);
+    });
+
+    const mirar = () => {
+      const alto = innerHeight || 800;
+      bloques.forEach((bloque, b) => {
+        const caja = bloque.getBoundingClientRect();
+        // 0 cuando el bloque entra por abajo; 1 cuando llega a media pantalla
+        let t = (alto - caja.top) / (alto * 0.62);
+        t = Math.max(0, Math.min(1, t));
+        const corte = Math.round(t * todas[b].length);
+        todas[b].forEach((p, i) => p.classList.toggle('on', i < corte));
+      });
+    };
+
+    addEventListener('scroll', mirar, { passive: true });
+    addEventListener('resize', mirar);
+    mirar();
+  }
+
+  // Tipografía cinética: el único momento de movimiento fuerte de la
+  // portada, en la llamada final. Se parten las letras en <span> para
+  // poder moverlas; el texto leído en voz alta no cambia porque el
+  // enlace conserva su etiqueta accesible.
+  const cta = document.querySelector<HTMLElement>('.cierre-cta');
+  if (cta) {
+    cta.setAttribute('aria-label', cta.textContent?.replace(/\s+/g, ' ').trim() ?? '');
+    cta.querySelectorAll<HTMLElement>('span').forEach((linea) => {
+      const texto = linea.textContent ?? '';
+      linea.textContent = '';
+      linea.setAttribute('aria-hidden', 'true');
+      for (const c of texto) {
+        if (c === ' ') { linea.appendChild(document.createTextNode(' ')); continue; }
+        const s = document.createElement('span');
+        s.className = 'ltr';
+        s.textContent = c;
+        linea.appendChild(s);
+      }
+    });
   }
 </script>
 

@@ -97,6 +97,23 @@ const proyectos = defineCollection({
   }),
 });
 
+// PROCESS BOARD: el tablero de proceso que pide el manual de marca.
+// Cada nota es una cosa que está pasando, ordenada por zona: lo que se
+// hace ahora, lo que se está probando, lo que ya salió y lo que viene.
+const proceso = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/proceso' }),
+  schema: z.object({
+    titulo: z.string(),
+    zona: z.enum(['now', 'building', 'released', 'next']),
+    fecha: z.coerce.date(),
+    imagen: z.string().optional(),
+    // Nota escrita a mano sobre la foto (se pinta como anotación, no como pie)
+    anotacion: z.string().optional(),
+    // Enlace opcional a un proyecto ya publicado
+    proyecto: z.string().optional(),
+  }),
+});
+
 // Textos generales de la web (portada, sobre mí, servicios, clientes, contacto).
 const paginas = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/paginas' }),
@@ -181,4 +198,4 @@ const paginas = defineCollection({
   }),
 });
 
-export const collections = { fotos, proyectos, paginas };
+export const collections = { fotos, proyectos, proceso, paginas };

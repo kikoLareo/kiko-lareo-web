@@ -1,0 +1,58 @@
+---
+// Carrusel vertical con relieve: la foto seleccionada viene al frente y
+// las demás se van hacia atrás con escala, giro y desenfoque. Al lado,
+// los datos de la que está delante.
+//
+// Se maneja arrastrando, con la rueda, con el teclado y pulsando una foto
+// del fondo. Sin JS se ve la primera foto y los pies siguen en el HTML,
+// así que Google lo lee igual.
+import { optim } from '../lib/imagen';
+
+export interface Pieza {
+  imagen: string;
+  etiqueta?: string;
+}
+
+interface Props {
+  piezas: Pieza[];
+  /** Nombre del proyecto, para el texto alternativo cuando no hay pie */
+  titulo: string;
+  /** Se muestra en la ficha lateral */
+  localidad?: string;
+  anio?: string;
+}
+
+const { piezas, titulo, localidad, anio } = Astro.props;
+const total = String(piezas.length).padStart(2, '0');
+---
+
+<section class="carrusel" data-carrusel>
+  <div class="carrusel-pila" tabindex="0" role="listbox" aria-label={`Fotos de ${titulo}`}>
+    <div class="carrusel-pista"><i></i></div>
+    {piezas.map((p, i) => (
+      <figure data-i={i} role="option" aria-selected={i === 0 ? 'true' : 'false'}>
+        <img
+          src={optim(p.imagen, 900)}
+          alt={p.etiqueta || `${titulo} — foto ${i + 1}`}
+          loading={i < 2 ? 'eager' : 'lazy'}
+          decoding="async"
+          draggable="false"
+        />
+        <button type="button" tabindex="-1">Ver foto {i + 1}</button>
+      </figure>
+    ))}
+  </div>
+
+  <div class="carrusel-ficha">
+    <div class="carrusel-idx"><span data-idx>01</span> / {total}</div>
+    <p class="carrusel-pie" data-pie>{piezas[0]?.etiqueta || titulo}</p>
+    <dl class="carrusel-datos">
+      {localidad && (<><dt>Lugar</dt><dd>{localidad}</dd></>)}
+      {anio && (<><dt>Año</dt><dd>{anio}</dd></>)}
+    </dl>
+    <div class="carrusel-mandos">
+      <button type="button" data-sube aria-label="Foto anterior">↑</button>
+      <button type="button" data-baja aria-label="Foto siguiente">↓</button>
+    </div>
+  </div>
+</section>

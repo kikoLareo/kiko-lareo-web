@@ -181,6 +181,42 @@ collections:
           - { label: "Mostaza", value: mostaza }
       - { name: descripcion_seo, label: "Descripción para Google", widget: text, required: false, hint: "1-2 frases con la localidad y el tipo de trabajo. Si se deja vacía, se genera sola." }
 
+  - name: proceso
+    label: "Proceso (tablero)"
+    label_singular: Nota
+    folder: "web/src/content/proceso"
+    create: true
+    editor: { preview: false }
+    extension: md
+    format: frontmatter
+    slug: "{{fecha}}-{{slug}}"
+    summary: "{{titulo}} ({{zona}})"
+    sort_by: ["fecha"]
+    fields:
+      - { name: titulo, label: Título, widget: string, hint: "Corto. Ej: Serie [07:12] — A Coruña a la misma hora" }
+      - name: zona
+        label: Zona del tablero
+        widget: select
+        default: now
+        hint: "AHORA = lo que estás haciendo · PROBANDO = ideas en marcha · YA SALIÓ = piezas publicadas · LO QUE VIENE = líneas futuras (sin prometer lo que no existe)"
+        options:
+          - { label: "AHORA", value: now }
+          - { label: "PROBANDO", value: building }
+          - { label: "YA SALIÓ", value: released }
+          - { label: "LO QUE VIENE", value: next }
+      - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { name: imagen, label: "Foto, frame o captura (opcional)", widget: image, required: false, hint: "Vale una captura, un fotograma o una foto del cuaderno. No tiene que estar terminada." }
+      - { name: anotacion, label: "Anotación (opcional)", widget: string, required: false, hint: "La frase escrita al margen. Ej: probar con el sol ya bajo" }
+      - name: proyecto
+        label: "Proyecto relacionado (opcional)"
+        widget: relation
+        collection: proyectos
+        value_field: "{{slug}}"
+        search_fields: [titulo]
+        display_fields: [titulo]
+        required: false
+      - { name: body, label: "Qué es esto", widget: markdown, required: false, hint: "Dos o tres frases. Qué buscabas y qué has decidido." }
+
   - name: paginas
     label: Páginas
     editor: { preview: false }

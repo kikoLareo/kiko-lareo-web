@@ -1,30 +1,57 @@
 ---
-// Nav fijo. En portada lleva los enlaces de sección; en subpáginas,
-// vuelta a la portada + etiqueta contextual.
+// Nav fijo: logo + botón MENÚ. El menú es una pantalla completa con la
+// tipografía al tamaño que se merece; el HTML de los enlaces está siempre
+// en la página (Google lo lee aunque el menú esté cerrado).
+// En subpáginas el logo lleva de vuelta a la portada.
 interface Props {
   variante?: 'portada' | 'subpagina';
   etiqueta?: string;
 }
 
 const { variante = 'portada', etiqueta } = Astro.props;
+
+// Navegación simple, como pide el manual de marca: trabajo, proceso,
+// sobre mí y contacto. Los anclajes solo funcionan en la portada, así que
+// en subpáginas se apuntan a la portada con su ancla.
+const raiz = variante === 'portada' ? '' : '/';
+const ENLACES = [
+  { num: '01', texto: 'Trabajo', href: `${raiz}#trabajo` },
+  { num: '02', texto: 'Archivo', href: '/archivo/' },
+  { num: '03', texto: 'Proceso', href: '/proceso/' },
+  { num: '04', texto: 'Sobre mí', href: `${raiz}#sobre` },
+  { num: '05', texto: 'Contacto', href: `${raiz}#contacto` },
+];
 ---
 
 <nav class="nav">
   {variante === 'portada' ? (
-    <>
-      <a href="#top" class="nav-logo">KIKO LAREO®</a>
-      <div class="nav-links">
-        <a href="#trabajo"><span class="nav-num">01</span> TRABAJO</a>
-        <a href="/archivo/"><span class="nav-num">02</span> ARCHIVO</a>
-        <a href="#sobre"><span class="nav-num">03</span> SOBRE MÍ</a>
-        <a href="#servicios"><span class="nav-num">04</span> QUÉ APORTO</a>
-        <a href="#contacto"><span class="nav-num">05</span> CONTACTO</a>
-      </div>
-    </>
+    <a href="#top" class="nav-logo">KIKO LAREO®</a>
   ) : (
-    <>
-      <a href="/" class="nav-logo">← KIKO LAREO®</a>
-      {etiqueta && <span class="nav-label">{etiqueta}</span>}
-    </>
+    <a href="/" class="nav-logo">← KIKO LAREO®</a>
   )}
+
+  <div class="nav-der">
+    {etiqueta && <span class="nav-label">{etiqueta}</span>}
+    <button type="button" class="nav-menu-btn" id="abrirMenu" aria-expanded="false" aria-controls="menuPlena">
+      MENÚ
+    </button>
+  </div>
 </nav>
+
+<!-- Menú a pantalla completa -->
+<div class="menu-plena" id="menuPlena" hidden>
+  <button type="button" class="menu-cerrar" id="cerrarMenu">CERRAR ✕</button>
+  <nav aria-label="Menú principal">
+    <ol class="menu-lista">
+      {ENLACES.map((e) => (
+        <li>
+          <a href={e.href}><i>{e.num}</i><span>{e.texto}</span></a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+  <div class="menu-pie">
+    <span>A CORUÑA · GALICIA</span>
+    <span>KIKO LAREO®</span>
+  </div>
+</div>

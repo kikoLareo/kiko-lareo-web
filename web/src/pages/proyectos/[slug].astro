@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Slot from '../../components/Slot.astro';
+import CarruselVertical from '../../components/CarruselVertical.astro';
 import { CATEGORIAS } from '../../lib/categorias';
 import { codigoArchivo, ACENTOS } from '../../lib/archivo';
 import { optim } from '../../lib/imagen';
@@ -40,6 +41,17 @@ const embedVertical = /instagram\.com|tiktok\.com/.test(urlVideo);
 
 // Galería con el ritmo del diseño: 1 grande + 2 apiladas, luego filas de 3
 const [g1, g2, g3, ...resto] = d.galeria;
+
+// Las fotos del proyecto (con pie y sin pie) se cuentan como UNA secuencia
+// y se enseñan en el carrusel vertical. Los clips de vídeo van aparte:
+// llevan sus propios controles y no encajan en la pila.
+const piezasCarrusel = [
+  ...d.galeria.filter((p) => p.imagen && !p.clip).map((p) => ({ imagen: p.imagen!, etiqueta: p.etiqueta })),
+  ...d.fotos.map((f) => ({ imagen: f })),
+];
+const clips = d.galeria.filter((p) => p.clip);
+// Con una sola foto un carrusel no aporta nada: se enseña en la rejilla.
+const hayCarrusel = piezasCarrusel.length >= 2;
 
 const lugar = d.localidad ?? 'Galicia';
 const descripcion =
@@ -144,7 +156,14 @@ const jsonLd = [
 
 <!-- El resultado: galería y vídeo -->
 {hayResultado && <div class="caso-label resultado-label reveal">EL RESULTADO</div>}
-{d.galeria.length > 0 && (
+{hayCarrusel ? (
+  <CarruselVertical
+    piezas={piezasCarrusel}
+    titulo={d.titulo}
+    localidad={d.localidad}
+    anio={d.anio}
+  />
+) : d.galeria.length > 0 ? (
   <>
     <section class="gallery-top" data-visor>
       <div class="big">{g1 && <Slot imagen={g1.imagen} video={g1.clip} alt={g1.etiqueta} etiqueta={g1.etiqueta} />}</div>
@@ -161,13 +180,19 @@ const jsonLd = [
       </section>
     )}
   </>
-)}
-
-<!-- Fotos subidas en bloque (sin pie), en filas de tres -->
-{d.fotos.length > 0 && (
+) : d.fotos.length > 0 ? (
   <section class="gallery-row gallery-fotos" data-visor>
     {d.fotos.map((foto, i) => (
       <div><Slot imagen={foto} alt={`${d.titulo} — foto ${i + 1}`} etiqueta="" /></div>
+    ))}
+  </section>
+) : null}
+
+<!-- Los clips de vídeo van fuera del carrusel: llevan sus propios controles -->
+{hayCarrusel && clips.length > 0 && (
+  <section class="gallery-row">
+    {clips.map((pieza) => (
+      <div><Slot imagen={pieza.imagen} video={pieza.clip} alt={pieza.etiqueta} etiqueta={pieza.etiqueta} /></div>
     ))}
   </section>
 )}
@@ -243,6 +268,104 @@ const jsonLd = [
 </footer>
 
 <script>
+  // ------------------------------------------------------------------
+  // Carrusel vertical con relieve: la foto elegida viene al frente y las
+  // demás se van hacia atrás. Sin JS se ve la primera y los pies siguen
+  // en el HTML, así que la página nunca queda vacía.
+  // ------------------------------------------------------------------
+  document.querySelectorAll<HTMLElement>('[data-carrusel]').forEach((raiz) => {
+    const pila = raiz.querySelector<HTMLElement>('.carrusel-pila');
+    const relleno = raiz.querySelector<HTMLElement>('.carrusel-pista i');
+    const idx = raiz.querySelector<HTMLElement>('[data-idx]');
+    const pie = raiz.querySelector<HTMLElement>('[data-pie]');
+    if (!pila) return;
+
+    const figuras = Array.from(pila.querySelectorAll<HTMLElement>('figure'));
+    const pies = figuras.map((f) => f.querySelector('img')?.getAttribute('alt') ?? '');
+    if (figuras.length === 0) return;
+
+    let sel = 0;
+    pila.classList.add('listo');
+
+    const colocar = () => {
+      figuras.forEach((fig, i) => {
+        const d = i - sel;
+        const a = Math.abs(d);
+        if (a > 3) {
+          fig.style.opacity = '0';
+          fig.style.pointerEvents = 'none';
+          fig.style.transform = `translate(-50%,-50%) translateY(${Math.sign(d) * 240}px) translateZ(-700px)`;
+          fig.classList.remove('activa');
+          fig.setAttribute('aria-selected', 'false');
+          return;
+        }
+        fig.style.pointerEvents = '';
+        fig.style.opacity = String(1 - a * 0.22);
+        fig.style.filter = a ? `blur(${a * 1.2}px)` : 'none';
+        fig.style.zIndex = String(50 - a);
+        fig.style.transform =
+          `translate(-50%,-50%) translateY(${d * 62}px) translateZ(${-a * 165}px) scale(${1 - a * 0.05}) rotateX(${d * -3}deg)`;
+        fig.classList.toggle('activa', a === 0);
+        fig.setAttribute('aria-selected', String(a === 0));
+      });
+      if (idx) idx.textContent = String(sel + 1).padStart(2, '0');
+      if (pie) pie.textContent = pies[sel];
+      if (relleno) {
+        relleno.style.height = `${100 / figuras.length}%`;
+        relleno.style.top = `${(sel * 100) / figuras.length}%`;
+      }
+    };
+
+    const ir = (n: number) => {
+      sel = Math.max(0, Math.min(figuras.length - 1, n));
+      colocar();
+    };
+
+    figuras.forEach((fig) => {
+      fig.querySelector('button')?.addEventListener('click', () => ir(Number(fig.dataset.i)));
+    });
+    raiz.querySelector('[data-sube]')?.addEventListener('click', () => ir(sel - 1));
+    raiz.querySelector('[data-baja]')?.addEventListener('click', () => ir(sel + 1));
+
+    pila.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); ir(sel - 1); }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); ir(sel + 1); }
+    });
+
+    // Rueda del ratón: solo se queda el scroll mientras quedan fotos.
+    // Al llegar al extremo suelta la página, para no atrapar al visitante.
+    let freno = 0;
+    pila.addEventListener('wheel', (e) => {
+      const baja = e.deltaY > 0;
+      if ((baja && sel === figuras.length - 1) || (!baja && sel === 0)) return;
+      e.preventDefault();
+      const ahora = Date.now();
+      if (ahora - freno < 260) return;
+      freno = ahora;
+      ir(sel + (baja ? 1 : -1));
+    }, { passive: false });
+
+    // Arrastre vertical, con el dedo o con el ratón
+    let y0: number | null = null;
+    let selInicio = 0;
+    pila.addEventListener('pointerdown', (e) => {
+      y0 = e.clientY;
+      selInicio = sel;
+      pila.classList.add('agarrando');
+      pila.setPointerCapture(e.pointerId);
+    });
+    pila.addEventListener('pointermove', (e) => {
+      if (y0 === null) return;
+      const paso = Math.round((y0 - e.clientY) / 52);
+      if (paso !== sel - selInicio) ir(selInicio + paso);
+    });
+    ['pointerup', 'pointercancel'].forEach((ev) =>
+      pila.addEventListener(ev, () => { y0 = null; pila.classList.remove('agarrando'); })
+    );
+
+    colocar();
+  });
+
   // La barra de progreso avanza con el scroll del proyecto
   const relleno = document.querySelector('.progreso .relleno') as HTMLElement | null;
   const actualizar = () => {

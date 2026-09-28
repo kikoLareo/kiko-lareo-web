@@ -130,6 +130,43 @@ clientes como pestañas de archivador.
 
 ---
 
+# ✅ Rediseño 2027 — las 5 piezas elegidas (28/09/2026), HECHAS
+
+Kiko revisó la propuesta (artifact "Dirección visual KL 2027") y eligió
+cinco. Construidas y probadas en navegador a 1300 px y a 390 px, sin
+errores de JS ni scroll lateral:
+
+1. **Menú a pantalla completa** — `Nav.astro` pinta logo + botón MENÚ en
+   todas las páginas; el overlay vive siempre en el HTML (Google lee los
+   enlaces) y el script está en `Base.astro`. Cierra con Escape, con el
+   botón y al pulsar un enlace; el foco queda atrapado dentro mientras
+   está abierto. Navegación: Trabajo · Archivo · Proceso · Sobre mí ·
+   Contacto, como pide el manual.
+2. **Carrusel vertical con relieve** — `CarruselVertical.astro`, en las
+   páginas de proyecto con 2+ fotos. Arrastre, rueda, teclado y clic en
+   una foto del fondo. La rueda suelta la página al llegar al extremo,
+   para no atrapar al visitante. Con 0-1 fotos se sigue usando la rejilla
+   de siempre; los clips de vídeo van fuera del carrusel.
+3. **Texto que se enciende al bajar** — `[data-encender]` en el
+   manifiesto de la portada, palabra a palabra. Sustituye al revelado de
+   golpe anterior.
+4. **Tipografía cinética** — UN solo momento, en la llamada final de la
+   portada (`.cierre-cta`). Las letras se parten en `<span>` por JS y el
+   enlace conserva su `aria-label`.
+5. **PROCESS BOARD** — `/proceso`, colección nueva `proceso` con cuatro
+   zonas. Las notas caen giradas y se enderezan al pasar por encima.
+
+⚠️ **Lo que Kiko NO eligió: los modos creativos por proyecto.** Es lo
+único de la lista que ataca el diagnóstico del manual (pág. 8: "cambiaba
+la fotografía, pero no el lenguaje"). Se le dijo una vez y no se insiste.
+Se puede añadir después sin rehacer nada de lo anterior.
+
+**Pendiente inmediato:** el tablero está VACÍO hasta que Kiko escriba
+notas desde el panel (Proceso → Nueva nota), y siguen faltando 8 de 9
+portadas de proyecto.
+
+---
+
 # 🔨 Plan de trabajo acordado (15/09/2026)
 
 Salido de dos referencias que pasó Kiko (cestclair.me y MERCE des BENZ) y

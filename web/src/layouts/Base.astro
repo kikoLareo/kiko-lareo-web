@@ -118,6 +118,51 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
   }
 
   // ------------------------------------------------------------------
+  // Menú a pantalla completa. El HTML está siempre en la página (Google
+  // lee los enlaces aunque esté cerrado); aquí solo se abre y se cierra.
+  // ------------------------------------------------------------------
+  (() => {
+    const menu = document.getElementById('menuPlena');
+    const abrir = document.getElementById('abrirMenu');
+    const cerrar = document.getElementById('cerrarMenu');
+    if (!menu || !abrir || !cerrar) return;
+
+    const enlaces = Array.from(menu.querySelectorAll<HTMLAnchorElement>('.menu-lista a'));
+
+    const abre = () => {
+      enlaces.forEach((a, i) => { a.style.animationDelay = `${i * 55}ms`; });
+      menu.hidden = false;
+      abrir.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      cerrar.focus();
+    };
+    const cierra = (devolverFoco = true) => {
+      menu.hidden = true;
+      abrir.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (devolverFoco) abrir.focus();
+    };
+
+    abrir.addEventListener('click', abre);
+    cerrar.addEventListener('click', () => cierra());
+    // Al pulsar un enlace se cierra: los anclajes de la misma página no
+    // recargan, así que hay que quitarlo a mano.
+    enlaces.forEach((a) => a.addEventListener('click', () => cierra(false)));
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) cierra();
+    });
+    // El foco no debe escaparse detrás del menú abierto
+    menu.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const foco = [cerrar, ...enlaces];
+      const primero = foco[0];
+      const ultimo = foco[foco.length - 1];
+      if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+      else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+    });
+  })();
+
+  // ------------------------------------------------------------------
   // Visor a pantalla completa de las galerías.
   // Entra por las fotos que estén dentro de un contenedor [data-visor].
   // Se dejan fuera a propósito las tarjetas que giran (.flip), que ya

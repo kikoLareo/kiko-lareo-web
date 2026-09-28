@@ -165,9 +165,136 @@ a:hover { color: var(--rojo); }
   letter-spacing: 0.06em;
 }
 
+.nav-der {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .nav-label {
   font-family: var(--mono);
   font-size: 12px;
+}
+
+/* Botón que abre el menú a pantalla completa */
+.nav-menu-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  padding: 9px 14px;
+  min-height: 38px;
+  background: transparent;
+  color: var(--negro);
+  border: 1px solid rgba(11, 11, 11, 0.3);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.nav-menu-btn:hover {
+  background: var(--negro);
+  color: var(--crema);
+  border-color: var(--negro);
+}
+
+/* ---- Menú a pantalla completa ---- */
+.menu-plena {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--negro);
+  color: var(--crema);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 88px 40px 40px;
+}
+
+/* Sin esto el menú cerrado seguiría cubriendo la web entera */
+.menu-plena[hidden] { display: none !important; }
+
+.menu-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-lista li { border-top: 1px solid rgba(242, 239, 232, 0.16); }
+.menu-lista li:last-child { border-bottom: 1px solid rgba(242, 239, 232, 0.16); }
+
+.menu-lista a {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: clamp(6px, 1.4vw, 16px) 0;
+  color: var(--crema);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: clamp(34px, 8vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.menu-lista a i {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--rojo);
+  flex: none;
+}
+
+.menu-lista a span { transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.25, 1), color 0.28s ease; }
+.menu-lista a:hover span,
+.menu-lista a:focus-visible span { color: var(--rojo); transform: translateX(16px); }
+
+.menu-cerrar {
+  position: absolute;
+  top: 18px;
+  right: 40px;
+  background: transparent;
+  border: 1px solid rgba(242, 239, 232, 0.35);
+  color: var(--crema);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  padding: 10px 14px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.menu-cerrar:hover { border-color: var(--rojo); color: var(--rojo); }
+
+.menu-pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 40px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--gris);
+}
+
+/* La entrada escalonada de los enlaces solo cuando el menú está abierto */
+.menu-plena:not([hidden]) .menu-lista a {
+  animation: menu-entra 0.45s cubic-bezier(0.2, 0.8, 0.25, 1) backwards;
+}
+
+@keyframes menu-entra {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+  .menu-plena { padding: 84px 20px 32px; }
+  .menu-cerrar { right: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-plena:not([hidden]) .menu-lista a { animation: none; }
+  .menu-lista a:hover span { transform: none; }
 }
 
 .nav-num {
@@ -443,19 +570,25 @@ a:hover { color: var(--rojo); }
   letter-spacing: -0.045em;
   text-transform: uppercase;
   margin: 0;
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.mani-dos { margin-top: 14px; transition-delay: 0.4s; }
+.mani-dos { margin-top: 14px; }
 
 .mani-acento { color: var(--rojo); }
 
-.manifiesto.visible .mani-linea { opacity: 1; transform: none; }
+/* El texto se enciende palabra a palabra al bajar. Sin JS, o con
+   "reducir movimiento", sale entero desde el principio. */
+.encender .pal {
+  color: rgba(11, 11, 11, 0.16);
+  transition: color 0.45s ease;
+}
+
+.encender .pal.on { color: var(--negro); }
+.encender .pal.on.mani-acento { color: var(--rojo); }
 
 @media (prefers-reduced-motion: reduce) {
-  .mani-linea { opacity: 1; transform: none; }
+  .encender .pal { color: var(--negro); transition: none; }
+  .encender .pal.mani-acento { color: var(--rojo); }
 }
 
 /* ---- Tarjetas con historia (girar) ----------------------------------------- */
@@ -956,6 +1089,29 @@ a:hover { color: var(--rojo); }
 }
 
 .cierre-cta span { display: block; }
+
+/* Tipografía cinética: EL momento de movimiento de la portada, uno solo.
+   Las letras se separan y se recolocan al pasar por encima o al enfocar
+   con el teclado. Si no hay JS, el texto se ve exactamente igual. */
+.cierre-cta .ltr {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1), color 0.4s ease;
+}
+
+.cierre-cta:hover .ltr,
+.cierre-cta:focus-visible .ltr { color: var(--rojo); }
+
+.cierre-cta:hover .ltr:nth-child(odd),
+.cierre-cta:focus-visible .ltr:nth-child(odd) { transform: translateY(-0.085em) rotate(-2.5deg); }
+
+.cierre-cta:hover .ltr:nth-child(even),
+.cierre-cta:focus-visible .ltr:nth-child(even) { transform: translateY(0.085em) rotate(2.5deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cierre-cta .ltr { transition: none; }
+  .cierre-cta:hover .ltr,
+  .cierre-cta:focus-visible .ltr { transform: none; }
+}
 
 /* Firma gráfica / línea de registro del manual */
 .registro {
@@ -1768,4 +1924,299 @@ body.visor-abierto { overflow: hidden; }
   .visor-btn { width: 44px; height: 44px; }
   .visor-prev { left: 6px; }
   .visor-next { right: 6px; }
+}
+
+/* ====================================================================
+   CARRUSEL VERTICAL CON RELIEVE (galerías de proyecto)
+   ==================================================================== */
+.carrusel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  background: var(--negro);
+  color: var(--crema);
+  margin-top: 8px;
+}
+
+.carrusel-pila {
+  position: relative;
+  height: clamp(420px, 62vw, 620px);
+  perspective: 1400px;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.carrusel-pila.agarrando { cursor: grabbing; }
+.carrusel-pila:focus-visible { outline: 3px solid var(--rojo); outline-offset: -3px; }
+
+.carrusel-pila figure {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  width: min(48%, 280px);
+  aspect-ratio: 3 / 4;
+  background: #000;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -50%);
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.55s ease, filter 0.55s ease;
+  will-change: transform, opacity;
+}
+
+.carrusel-pila figure img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+.carrusel-pila figure::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  transition: border-color 0.4s ease;
+  pointer-events: none;
+}
+
+.carrusel-pila figure.activa::after { border-color: var(--acento, var(--rojo)); }
+
+/* El botón cubre la foto: sirve para seleccionarla con el ratón y con el teclado */
+.carrusel-pila figure button {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: transparent;
+  font-size: 0;
+}
+
+.carrusel-pila figure button:focus-visible { outline: 3px solid var(--acento, var(--rojo)); outline-offset: 3px; }
+
+/* Sin JS solo se ve la primera; el resto se apila detrás sin estorbar */
+.carrusel-pila:not(.listo) figure { opacity: 0; }
+.carrusel-pila:not(.listo) figure[data-i='0'] { opacity: 1; }
+
+.carrusel-pista {
+  position: absolute;
+  right: 14px;
+  top: 14%;
+  bottom: 14%;
+  width: 2px;
+  background: rgba(242, 239, 232, 0.18);
+  z-index: 60;
+}
+
+.carrusel-pista i {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: var(--acento, var(--rojo));
+  transition: top 0.45s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.carrusel-ficha {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 40px;
+  border-left: 1px solid rgba(242, 239, 232, 0.16);
+}
+
+.carrusel-idx {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--acento, var(--rojo));
+}
+
+.carrusel-pie {
+  margin: 0;
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.carrusel-datos {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.carrusel-datos dt { color: var(--gris); }
+.carrusel-datos dd { margin: 0; }
+
+.carrusel-mandos { display: flex; gap: 8px; margin-top: 4px; }
+
+.carrusel-mandos button {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid rgba(242, 239, 232, 0.3);
+  color: var(--crema);
+  font-family: var(--mono);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.carrusel-mandos button:hover { border-color: var(--acento, var(--rojo)); color: var(--acento, var(--rojo)); }
+
+@media (max-width: 860px) {
+  .carrusel { grid-template-columns: minmax(0, 1fr); }
+  .carrusel-pila { height: clamp(380px, 86vw, 520px); }
+  .carrusel-pila figure { width: min(62%, 240px); }
+  .carrusel-ficha { border-left: 0; border-top: 1px solid rgba(242, 239, 232, 0.16); padding: 24px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carrusel-pila figure { transition: none; }
+  .carrusel-pista i { transition: none; }
+}
+
+/* ====================================================================
+   PROCESS BOARD — el tablero de proceso (manual de marca, pág. 35)
+   ==================================================================== */
+.proceso-intro {
+  padding: 4px 40px 8px;
+  max-width: 58ch;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--negro);
+}
+
+.zona { padding: 48px 40px 8px; }
+
+.zona-cab {
+  display: flex;
+  align-items: baseline;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--negro);
+  margin-bottom: 30px;
+}
+
+.zona-tit {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(26px, 4.4vw, 46px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.zona-nota {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris);
+  flex: 1;
+  min-width: 180px;
+}
+
+.zona-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--rojo);
+}
+
+/* Las notas caen como papeles pegados: mismo tamaño, distinto ángulo */
+.zona-notas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 34px 26px;
+  padding-bottom: 20px;
+}
+
+.nota {
+  background: var(--crema);
+  border: 1px solid rgba(11, 11, 11, 0.16);
+  padding: 14px 15px 16px;
+  transform: rotate(var(--giro, 0deg)) translateY(var(--empuje, 0px));
+  box-shadow: 0 10px 26px rgba(11, 11, 11, 0.1);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.35s ease;
+}
+
+/* Al pasar por encima la nota se endereza: el caos se ordena al mirarlo */
+.nota:hover,
+.nota:focus-within {
+  transform: rotate(0deg) translateY(calc(var(--empuje, 0px) - 4px));
+  box-shadow: 0 18px 38px rgba(11, 11, 11, 0.18);
+}
+
+.nota-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nota-fecha { color: var(--gris); }
+.nota-enlace { color: var(--rojo); text-decoration: none; }
+.nota-enlace:hover { text-decoration: underline; }
+
+.nota-tit {
+  margin: 8px 0 10px;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* .slot lleva height:100% para llenar los huecos de las rejillas; dentro de
+   una nota tiene que medir lo que mida la foto, o el texto se sale fuera. */
+.nota .nota-foto {
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.nota .nota-foto img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* La anotación imita la nota escrita al margen: inclinada y en rojo */
+.nota-anotacion {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--rojo);
+  transform: rotate(-1.4deg);
+  padding-left: 14px;
+  border-left: 2px solid var(--rojo);
+}
+
+.nota-texto { font-size: 15px; line-height: 1.5; color: #46443F; }
+.nota-texto :is(p) { margin: 0 0 8px; }
+.nota-texto :is(p):last-child { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .proceso-intro { padding: 4px 20px 8px; font-size: 17px; }
+  .zona { padding: 36px 20px 8px; }
+  .zona-notas { gap: 26px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nota { transition: none; }
+  .nota-anotacion { transform: none; }
 }
