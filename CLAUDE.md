@@ -90,6 +90,8 @@ npm install --no-save --prefix <scratchpad> decap-server
 cd /home/user/kiko-lareo-web && node <scratchpad>/node_modules/decap-server/dist/index.js   # puerto 8081
 
 # 2) unpkg.com está BLOQUEADO por el proxy → bajar el bundle de npm
+#    OJO: instalar decap-cms y decap-server en la MISMA carpeta hace que npm
+#    se cargue el otro. Usar prefijos distintos (p. ej. <scratchpad>/srv).
 npm install --no-save --prefix <scratchpad> decap-cms@^3.0.0
 cp <scratchpad>/node_modules/decap-cms/dist/*.js web/dist/admin/vendor/
 
@@ -115,4 +117,5 @@ Causa localizada: `min-width: 800px` en `EditorContainer` y en
 - **Entregas a clientes:** se usa Pixieset (externo), no se suben al repo.
 - **Sin datos inventados:** el dueño lleva <1 año; no poner años de experiencia, "desde 20XX" ni nº de proyectos falsos.
 - **`hidden` vs `display`:** varios elementos se ocultan con el atributo `hidden` (el visor, las tarjetas del archivo al filtrar). Si el CSS les fija un `display`, ese `display` GANA al atributo y el elemento sigue ahí. El visor cerrado llegó a tapar toda la web y a tragarse todos los clics por esto. Regla: al ocultar con `hidden`, añadir siempre `.loquesea[hidden] { display: none; }`.
+- **NO hay subida múltiple de fotos en Decap 3 (comprobado en el código, 28/09/2026).** El botón de subir crea el input **sin** el atributo `multiple` (`<input type="file" accept="image/*">`, hardcodeado en `FileUploadButton`) y el manejador se queda con el primero: `const{files:a}=e.dataTransfer||e.target, s=[...a][0]`. Probado también `allow_multiple: true` en el campo y ctrl+clic en la biblioteca: sigue insertando una sola. **No perder tiempo buscando la opción de configuración: no existe.** Salidas reales: (a) subir de una en una, (b) que el dueño pase las fotos y se suban por repo, (c) cambiar a una biblioteca externa (Cloudinary/Uploadcare), que sí soporta `multiple: true` pero saca las imágenes del repo.
 - **Visor de fotos:** entra por las imágenes dentro de `[data-visor] .slot.filled img`. Para que una galería nueva lo tenga, basta con marcar su contenedor con `data-visor`. Las tarjetas que giran (`.flip`) se excluyen a propósito.

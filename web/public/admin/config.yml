@@ -109,11 +109,11 @@ collections:
       # ---- 2. Las fotos y el vídeo (lo que más se usa) -------------------
       - { name: portada, label: Foto de portada, widget: image, required: false }
       - name: fotos
-        label: "Fotos (subida múltiple)"
+        label: "Fotos sin pie"
         widget: list
         required: false
-        field: { name: foto, label: Foto, widget: image }
-        hint: "LO MÁS RÁPIDO: pulsa Add Foto → Choose an image → y selecciona VARIAS fotos a la vez (Ctrl/Cmd o arrastrándolas). Salen en filas de 3, sin pie. Si quieres pies, usa la Galería de abajo."
+        field: { name: foto, label: Foto, widget: image, allow_multiple: true }
+        hint: "Salen en filas de 3, sin pie. Si quieres pies, usa la Galería de abajo. ⚠️ El gestor solo admite UNA foto por vez (limitación de Decap, no del sitio): pulsa Add Foto, elige la imagen, y repite. Para tandas grandes, pásamelas y las subo yo de golpe."
       - name: galeria
         label: "Galería con pies (una a una)"
         widget: list
