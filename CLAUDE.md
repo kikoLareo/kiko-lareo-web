@@ -27,9 +27,9 @@ npm run fotos -- <categoria> <carpeta> [fecha]   # volcado por lotes (scripts/su
 ## Mapa de archivos (salta directo, no explores a ciegas)
 
 - `web/src/pages/index.astro` — **portada** (hero, selección de proyectos, categorías, manifiesto, reel, sobre mí, "qué aporto", clientes, contacto). Se alimenta sola del contenido.
-- `web/src/pages/[categoria].astro` — páginas `/deportes /eventos /moda /hosteleria /naturaleza` (listado de proyectos + galería de fotos).
+- `web/src/pages/[categoria].astro` — páginas `/deportes /eventos /moda /hosteleria /naturaleza` (listado de proyectos + galería de fotos). Son la entrada por SEO; la navegación principal va a `/trabajo`.
 - `web/src/pages/proyectos/[slug].astro` — **caso de estudio** por proyecto (reto→idea→ejecución→historia→resultado, código de archivo, barra de progreso, embeds).
-- `web/src/pages/archivo.astro` — **índice de todo el trabajo**, filtrable por `tipo` (filtro en JS a mano, oculta con `hidden`).
+- `web/src/pages/trabajo.astro` — **la lista completa de proyectos** (`/trabajo`), con DOS filas de filtro que se combinan: categoría y `tipo`. Filtro en JS a mano, oculta con `hidden`. Vivía en `/archivo` hasta el 28/09/2026; el 301 está en `netlify.toml`.
 - `web/src/pages/proceso.astro` — **PROCESS BOARD** (manual de marca pág. 35): tablero con 4 zonas (AHORA / PROBANDO / YA SALIÓ / LO QUE VIENE). El giro de cada nota se calcula del `id`, así que el desorden es estable entre compilaciones.
 - `web/src/pages/gracias.astro` — confirmación del formulario (noindex, fuera del sitemap).
 - `web/src/pages/404.astro`, `web/src/pages/robots.txt.ts`

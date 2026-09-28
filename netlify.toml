@@ -5,6 +5,18 @@
   base = "web"
   command = "npm run build"
   publish = "dist"
+# La lista completa de trabajos vivió en /archivo hasta el 28/09/2026;
+# se renombró a /trabajo porque nadie la buscaba bajo "archivo".
+[[redirects]]
+  from = "/archivo"
+  to = "/trabajo/"
+  status = 301
+
+[[redirects]]
+  from = "/archivo/*"
+  to = "/trabajo/"
+  status = 301
+
 # kikolareo.es redirige al dominio principal (SEO: una sola web canónica)
 [[redirects]]
   from = "https://kikolareo.es/*"

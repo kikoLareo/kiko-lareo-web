@@ -11,15 +11,15 @@ interface Props {
 const { variante = 'portada', etiqueta } = Astro.props;
 
 // Navegación simple, como pide el manual de marca: trabajo, proceso,
-// sobre mí y contacto. Los anclajes solo funcionan en la portada, así que
-// en subpáginas se apuntan a la portada con su ancla.
+// sobre mí y contacto. "Trabajo" lleva a /trabajo, que es la lista
+// completa; los anclajes solo funcionan en la portada, así que en
+// subpáginas se apuntan a la portada con su ancla.
 const raiz = variante === 'portada' ? '' : '/';
 const ENLACES = [
-  { num: '01', texto: 'Trabajo', href: `${raiz}#trabajo` },
-  { num: '02', texto: 'Archivo', href: '/archivo/' },
-  { num: '03', texto: 'Proceso', href: '/proceso/' },
-  { num: '04', texto: 'Sobre mí', href: `${raiz}#sobre` },
-  { num: '05', texto: 'Contacto', href: `${raiz}#contacto` },
+  { num: '01', texto: 'Trabajo', href: '/trabajo/' },
+  { num: '02', texto: 'Proceso', href: '/proceso/' },
+  { num: '03', texto: 'Sobre mí', href: `${raiz}#sobre` },
+  { num: '04', texto: 'Contacto', href: `${raiz}#contacto` },
 ];
 ---
 

@@ -1,0 +1,148 @@
+---
+// TRABAJO — la lista completa. Es la única página donde se ve todo, y se
+// filtra por los dos ejes: la CATEGORÍA (de qué va) y el TIPO (qué es).
+// El tipo es lo que permite publicar logos, moodboards o documentos de
+// imagen sin meterlos a la fuerza en "deportes" o en "hostelería".
+//
+// Vivía en /archivo; se renombró a /trabajo el 28/09/2026 porque nadie
+// buscaba la lista completa bajo la palabra "archivo". El redirect 301
+// está en netlify.toml.
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Slot from '../components/Slot.astro';
+import { CATEGORIAS } from '../lib/categorias';
+import { TIPOS, tipoDe } from '../lib/tipos';
+import { codigoArchivo } from '../lib/archivo';
+import { migas } from '../lib/seo';
+
+const proyectos = (await getCollection('proyectos')).sort(
+  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
+);
+
+// Solo se ofrecen como filtro los tipos que de verdad tienen trabajo: una
+// fila de filtros vacíos hace la web más pequeña, no más grande.
+const conTrabajo = TIPOS.filter((t) => proyectos.some((p) => p.data.tipo === t.id));
+const catsConTrabajo = CATEGORIAS.filter((c) => proyectos.some((p) => p.data.categoria === c.id));
+
+const jsonLd = [
+  migas(Astro.site!, [
+    { nombre: 'Inicio', ruta: '/' },
+    { nombre: 'Trabajo', ruta: '/trabajo/' },
+  ]),
+];
+
+const ogImage = proyectos.find((p) => p.data.portada)?.data.portada;
+const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ?? id.toUpperCase();
+---
+
+<Base
+  title="Trabajo — todos los proyectos | Kiko Lareo®, fotógrafo y videógrafo en A Coruña"
+  description="Todos los trabajos de Kiko Lareo: deportes, eventos, moda, hostelería y naturaleza, en fotografía, vídeo, identidad y dirección de arte. A Coruña y Galicia."
+  ogImage={ogImage}
+  jsonLd={jsonLd}
+>
+
+<Nav variante="subpagina" etiqueta="TODO EL TRABAJO" />
+
+<main id="contenido">
+<div class="cat-header first">
+  <span class="cat-num">(TRABAJO)</span>
+  <h1 class="cat-title" style="margin:0">TODOS LOS PROYECTOS</h1>
+  <span class="cat-aside">{String(proyectos.length).padStart(2, '0')} EN TOTAL</span>
+</div>
+
+{catsConTrabajo.length > 1 && (
+  <div class="archivo-filtros" role="group" aria-label="Filtrar por categoría">
+    <span class="filtro-et">DE QUÉ VA</span>
+    <button type="button" class="filtro activo" data-cat="todo" aria-pressed="true">TODO</button>
+    {catsConTrabajo.map((c) => (
+      <button type="button" class="filtro" data-cat={c.id} aria-pressed="false">{c.titulo}</button>
+    ))}
+  </div>
+)}
+
+{conTrabajo.length > 1 && (
+  <div class="archivo-filtros" role="group" aria-label="Filtrar por tipo de trabajo">
+    <span class="filtro-et">QUÉ ES</span>
+    <button type="button" class="filtro activo" data-tipo="todo" aria-pressed="true">TODO</button>
+    {conTrabajo.map((t) => (
+      <button type="button" class="filtro" data-tipo={t.id} aria-pressed="false">
+        {t.corto}
+      </button>
+    ))}
+  </div>
+)}
+
+{proyectos.length > 0 ? (
+  <div class="archivo-grid" id="archivo-grid">
+    {proyectos.map((p) => (
+      <a href={`/proyectos/${p.id}/`} class="archivo-item reveal" data-tipo={p.data.tipo} data-cat={p.data.categoria}>
+        <div class="cover" style={`view-transition-name: proyecto-${p.id}`}>
+          <Slot
+            imagen={p.data.portada}
+            alt={`${p.data.titulo} — ${p.data.cliente}`}
+            etiqueta={`Portada de ${p.data.titulo}`}
+            ancho={700}
+          />
+        </div>
+        <div class="archivo-pie">
+          <span class="archivo-cliente">{p.data.cliente} — {p.data.titulo}</span>
+          <span class="archivo-tipo">{tipoDe(p.data.tipo).corto}</span>
+        </div>
+        <div class="archivo-code">
+          [ {codigoArchivo(p, proyectos)} ] / {nombreCat(p.data.categoria)}
+          {p.data.localidad ? ` / ${p.data.localidad.toUpperCase()}` : ''}
+        </div>
+      </a>
+    ))}
+    <p class="archivo-vacio" id="archivo-vacio" hidden>No hay trabajos de ese tipo todavía.</p>
+  </div>
+) : (
+  <div class="empty-note">Todavía no hay proyectos en el archivo.</div>
+)}
+</main>
+
+<footer class="footer-bar">
+  <span>© {new Date().getFullYear()} KIKO LAREO®</span>
+  <span class="footer-legal"><a href="/aviso-legal/">AVISO LEGAL</a><a href="/privacidad/">PRIVACIDAD</a><a href="/#contacto">CONTACTO →</a></span>
+</footer>
+
+<script>
+  // Dos filtros que se combinan: categoría (de qué va) y tipo (qué es).
+  // Sin librerías: se ocultan las tarjetas que no coinciden. Si el
+  // visitante no tiene JS se ven todas, que es lo correcto en una lista.
+  const items = Array.from(document.querySelectorAll<HTMLElement>('.archivo-item'));
+  const vacio = document.getElementById('archivo-vacio');
+  const elegido = { cat: 'todo', tipo: 'todo' };
+
+  const aplicar = () => {
+    let visibles = 0;
+    items.forEach((item) => {
+      const coincide =
+        (elegido.cat === 'todo' || item.dataset.cat === elegido.cat) &&
+        (elegido.tipo === 'todo' || item.dataset.tipo === elegido.tipo);
+      item.hidden = !coincide;
+      if (coincide) visibles++;
+    });
+    if (vacio) vacio.hidden = visibles > 0;
+  };
+
+  document.querySelectorAll<HTMLElement>('.archivo-filtros').forEach((fila) => {
+    const botones = Array.from(fila.querySelectorAll<HTMLButtonElement>('.filtro'));
+    botones.forEach((boton) => {
+      boton.addEventListener('click', () => {
+        botones.forEach((b) => {
+          const activo = b === boton;
+          b.classList.toggle('activo', activo);
+          b.setAttribute('aria-pressed', String(activo));
+        });
+        if (boton.dataset.cat !== undefined) elegido.cat = boton.dataset.cat;
+        if (boton.dataset.tipo !== undefined) elegido.tipo = boton.dataset.tipo;
+        aplicar();
+      });
+    });
+  });
+</script>
+
+</Base>
