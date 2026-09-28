@@ -125,8 +125,8 @@ el panel abierto de verdad con la receta de `CLAUDE.md`.
 tragaba cualquier clic. Si se añade otro elemento que se oculte con
 `hidden`, hay que apagar su `display` a mano.
 
-**Paso 5 (clientes como pestañas de archivador) sigue aparcado**: con los
-clientes de hoy quedaría flojo.
+**Pasos 5 y 6 sin empezar**: la sección de prensa (pedida el 28/09) y los
+clientes como pestañas de archivador.
 
 ---
 
@@ -240,7 +240,32 @@ nota; con 100 será un problema.
 - Teclado y lector de pantalla incluidos; respeta "reducir movimiento".
 - Sin librerías. Lo más barato del plan y lo que más se agradece.
 
-## Paso 5 — Clientes como pestañas de archivador
+## Paso 5 — Sección de PRENSA (pedido por Kiko el 28/09/2026)
+
+Recortes de prensa de medios que han publicado su contenido. Es la prueba
+social más fuerte que tiene: no lo dice él, lo dice un periódico.
+
+- **Colección nueva `prensa`** en el panel: `medio` (La Voz, Marca…),
+  `titular`, `fecha`, `recorte` (imagen del recorte), `url?` (enlace a la
+  noticia original), `proyecto?` (relación con un proyecto, para enlazar
+  las fotos), `nota?` (qué foto o vídeo suyo se usó).
+- **Página `/prensa`**: los recortes en rejilla, cada uno con medio, fecha
+  y titular en monoespaciada, y enlace a la noticia. Al pulsar el recorte,
+  se abre con el visor que ya existe (basta `data-visor`).
+- **En la portada**: una banda discreta tipo "HAN PUBLICADO MI TRABAJO" con
+  los nombres de los medios, junto a la de clientes. Con casilla propia en
+  `secciones` para poder apagarla.
+- **SEO**: nombrar los medios en texto real (no solo dentro de la imagen) y
+  enlazar a la noticia original. Eso sí lo lee Google.
+
+⚠️ **Aviso legal a Kiko antes de subir recortes**: la página de un
+periódico es contenido de ese periódico, aunque la foto sea suya. Lo
+prudente es subir **un recorte pequeño donde se vea su firma o crédito**,
+no la página entera, y enlazar siempre a la noticia original. Así es un
+dosier de prensa normal y corriente, que es lo que hace todo el mundo.
+Si un medio le pide retirar algo, se quita y ya está.
+
+## Paso 6 — Clientes como pestañas de archivador
 
 De cestclair.me: la lista de clientes como pestañas de carpeta, cada
 marca en la suya. Muy de archivo, muy suyo.
