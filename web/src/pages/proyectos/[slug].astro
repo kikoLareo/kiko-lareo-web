@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Slot from '../../components/Slot.astro';
 import CarruselVertical from '../../components/CarruselVertical.astro';
+import MosaicoMarca from '../../components/MosaicoMarca.astro';
 import { CATEGORIAS } from '../../lib/categorias';
 import { codigoArchivo, ACENTOS } from '../../lib/archivo';
 import { optim } from '../../lib/imagen';
@@ -50,8 +51,10 @@ const piezasCarrusel = [
   ...d.fotos.map((f) => ({ imagen: f })),
 ];
 const clips = d.galeria.filter((p) => p.clip);
-// Con una sola foto un carrusel no aporta nada: se enseña en la rejilla.
-const hayCarrusel = piezasCarrusel.length >= 2;
+// Con una sola foto ni carrusel ni mosaico aportan nada: rejilla de siempre.
+const hayGaleria = piezasCarrusel.length >= 2;
+const enMosaico = hayGaleria && d.galeria_estilo === 'mosaico';
+const enCarrusel = hayGaleria && !enMosaico;
 
 const lugar = d.localidad ?? 'Galicia';
 const descripcion =
@@ -156,7 +159,9 @@ const jsonLd = [
 
 <!-- El resultado: galería y vídeo -->
 {hayResultado && <div class="caso-label resultado-label reveal">EL RESULTADO</div>}
-{hayCarrusel ? (
+{enMosaico ? (
+  <MosaicoMarca piezas={piezasCarrusel} titulo={d.titulo} />
+) : enCarrusel ? (
   <CarruselVertical
     piezas={piezasCarrusel}
     titulo={d.titulo}
@@ -189,7 +194,7 @@ const jsonLd = [
 ) : null}
 
 <!-- Los clips de vídeo van fuera del carrusel: llevan sus propios controles -->
-{hayCarrusel && clips.length > 0 && (
+{hayGaleria && clips.length > 0 && (
   <section class="gallery-row">
     {clips.map((pieza) => (
       <div><Slot imagen={pieza.imagen} video={pieza.clip} alt={pieza.etiqueta} etiqueta={pieza.etiqueta} /></div>

@@ -136,6 +136,14 @@ collections:
           - { name: archivo, label: "Vídeo subido (MP4)", widget: file, required: false, hint: "Sube el MP4 (H.264) para reproducirlo directamente en la web. Ideal por debajo de ~30 MB. Si también hay URL, gana el archivo." }
           - { name: url, label: "URL de embed (YouTube/Vimeo, para piezas largas)", widget: string, required: false, hint: "Ej: https://player.vimeo.com/video/XXXX o https://www.youtube.com/embed/XXXX" }
           - { name: imagen, label: "Fotograma de espera", widget: image, required: false }
+      - name: galeria_estilo
+        label: "Cómo se ven las fotos"
+        widget: select
+        default: carrusel
+        hint: "CARRUSEL para una secuencia de fotos (van pasando de una en una, con relieve). MOSAICO para trabajos de marca: se ven todas juntas y a sangre, como un catálogo de piezas."
+        options:
+          - { label: "Carrusel (una a una, con relieve)", value: carrusel }
+          - { label: "Mosaico (todas juntas, a sangre)", value: mosaico }
       - name: acreditacion
         label: "Acreditación de prensa (opcional)"
         widget: object

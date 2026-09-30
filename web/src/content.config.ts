@@ -71,6 +71,12 @@ const proyectos = defineCollection({
         })
       )
       .default([]),
+    // Cómo se enseñan las fotos del proyecto. No todas las historias se
+    // cuentan igual: una secuencia de fotos pide carrusel, y un trabajo de
+    // marca pide ver todas las piezas juntas.
+    //   carrusel → pila vertical con relieve, de una en una (por defecto)
+    //   mosaico  → rejilla densa a sangre, todas a la vez
+    galeria_estilo: z.enum(['carrusel', 'mosaico']).default('carrusel'),
     // Acreditación de prensa escaneada. Es un documento real del encargo,
     // no un adorno: se muestra como un pase, junto al código de archivo.
     acreditacion: z

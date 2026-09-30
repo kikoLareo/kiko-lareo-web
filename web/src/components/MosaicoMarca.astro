@@ -1,0 +1,49 @@
+---
+// Mosaico de marca: todas las piezas del trabajo a la vez, a sangre y con
+// tamaños distintos, como un catálogo de aplicaciones. Es la forma de
+// enseñar un trabajo de identidad, donde lo que cuenta es el conjunto.
+//
+// Los tamaños NO son aleatorios: siguen un patrón fijo de doce posiciones
+// que se repite. Así el mosaico se ve igual en cada compilación y nunca
+// deja un hueco suelto al final de una fila.
+import { optim } from '../lib/imagen';
+
+export interface Pieza {
+  imagen: string;
+  etiqueta?: string;
+}
+
+interface Props {
+  piezas: Pieza[];
+  titulo: string;
+}
+
+const { piezas, titulo } = Astro.props;
+
+// columnas x filas de cada posición del patrón, sobre una rejilla de 6
+const PATRON = [
+  { c: 3, f: 2 }, { c: 3, f: 2 },
+  { c: 2, f: 1 }, { c: 2, f: 1 }, { c: 2, f: 1 },
+  { c: 4, f: 2 }, { c: 2, f: 2 },
+  { c: 2, f: 1 }, { c: 4, f: 1 },
+  { c: 3, f: 2 }, { c: 3, f: 2 },
+  { c: 6, f: 2 },
+];
+---
+
+<section class="mosaico" data-visor aria-label={`Piezas de ${titulo}`}>
+  {piezas.map((p, i) => {
+    const m = PATRON[i % PATRON.length];
+    return (
+      <div class="slot filled mosaico-pieza" style={`--c:${m.c}; --f:${m.f}`}>
+        <img
+          src={optim(p.imagen, m.c >= 4 ? 1400 : 900)}
+          alt={p.etiqueta || `${titulo} — pieza ${i + 1}`}
+          loading={i < 3 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+        {p.etiqueta && <span class="mosaico-pie">{p.etiqueta}</span>}
+      </div>
+    );
+  })}
+</section>
