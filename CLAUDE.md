@@ -57,7 +57,8 @@ npm run fotos -- <categoria> <carpeta> [fecha]   # volcado por lotes (scripts/su
 
 - Colores: `--kl-black #0B0B0B` (negro carbón), `--kl-paper #F2EFE8` (blanco papel), `--kl-red #FF4A32` (rojo flash, SOLO acento), `--kl-gray #9B9B95`. Alias: `--negro --crema --rojo --gris`.
 - Tipografías: `--display` Bricolage Grotesque (400/600/800, titulares y cuerpo), `--mono` IBM Plex Mono (400/500/600, metadatos/códigos). No añadir una tercera.
-- Titulares en mayúsculas, line-height ~0.9, letter-spacing negativo. Rojo como señal (números, líneas, estado activo), nunca como fondo dominante.
+- Titulares en mayúsculas, letter-spacing negativo. Rojo como señal (números, líneas, estado activo), nunca como fondo dominante.
+- **Escala tras la pasada del 04/11/2026 ("el silencio con tu color"):** los titulares bajaron de tamaño y de peso (800 → 600). El manual de marca lo pedía en su pág. 13: "no convertir siempre el 800 condensado en protagonista". Quedan **dos** momentos altos a propósito, y solo dos: el nombre del hero de la portada (la puerta de entrada) y `.cierre-cta` (el momento de conversión). Si añades un tercero, quita uno.
 - Toda animación respeta `prefers-reduced-motion` y no bloquea la carga. Ante la duda, gana la fotografía.
 
 ## Despliegue — IMPORTANTE
