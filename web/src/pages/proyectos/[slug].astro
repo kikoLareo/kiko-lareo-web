@@ -5,6 +5,7 @@ import Nav from '../../components/Nav.astro';
 import Slot from '../../components/Slot.astro';
 import CarruselVertical from '../../components/CarruselVertical.astro';
 import MosaicoMarca from '../../components/MosaicoMarca.astro';
+import Composicion from '../../components/Composicion.astro';
 import { CATEGORIAS } from '../../lib/categorias';
 import { codigoArchivo, ACENTOS } from '../../lib/archivo';
 import { optim } from '../../lib/imagen';
@@ -54,7 +55,8 @@ const clips = d.galeria.filter((p) => p.clip);
 // Con una sola foto ni carrusel ni mosaico aportan nada: rejilla de siempre.
 const hayGaleria = piezasCarrusel.length >= 2;
 const enMosaico = hayGaleria && d.galeria_estilo === 'mosaico';
-const enCarrusel = hayGaleria && !enMosaico;
+const enCarrusel = hayGaleria && d.galeria_estilo === 'carrusel';
+const enComposicion = hayGaleria && !enMosaico && !enCarrusel;
 
 const lugar = d.localidad ?? 'Galicia';
 const descripcion =
@@ -159,7 +161,9 @@ const jsonLd = [
 
 <!-- El resultado: galería y vídeo -->
 {hayResultado && <div class="caso-label resultado-label reveal">EL RESULTADO</div>}
-{enMosaico ? (
+{enComposicion ? (
+  <Composicion piezas={piezasCarrusel} titulo={d.titulo} />
+) : enMosaico ? (
   <MosaicoMarca piezas={piezasCarrusel} titulo={d.titulo} />
 ) : enCarrusel ? (
   <CarruselVertical

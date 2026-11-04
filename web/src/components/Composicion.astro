@@ -1,0 +1,86 @@
+---
+// Composición: las fotos de un proyecto puestas como una maqueta impresa,
+// no como una rejilla. Cada bloque tiene un reparto distinto —una sola
+// grande, una pareja descolocada, una pequeña con mucho aire al lado— y
+// el ciclo se repite cada cinco bloques.
+//
+// El reparto NO es aleatorio: sale de la posición, así que la página se ve
+// igual en cada compilación. Lo que cambia la sensación es que dos fotos
+// seguidas casi nunca tienen el mismo tamaño ni la misma altura.
+import { optim } from '../lib/imagen';
+
+export interface Pieza {
+  imagen: string;
+  etiqueta?: string;
+}
+
+interface Props {
+  piezas: Pieza[];
+  titulo: string;
+}
+
+const { piezas, titulo } = Astro.props;
+
+// Cada entrada describe un bloque: cuántas fotos lleva y cómo se reparten.
+// ancho en % de la columna · desplazamiento vertical · alineación
+const RITMO = [
+  { tipo: 'sola', a: 64, lado: 'izq' },
+  { tipo: 'pareja', a1: 34, a2: 48, caida: 70 },
+  { tipo: 'sola', a: 100, lado: 'centro' },
+  { tipo: 'pareja', a1: 52, a2: 30, caida: -40 },
+  { tipo: 'sola', a: 40, lado: 'der' },
+];
+
+// Reparte las piezas en bloques siguiendo el ritmo
+type Bloque = { r: (typeof RITMO)[number]; fotos: Pieza[] };
+const bloques: Bloque[] = [];
+let i = 0;
+let paso = 0;
+while (i < piezas.length) {
+  const r = RITMO[paso % RITMO.length];
+  const cuantas = r.tipo === 'pareja' ? 2 : 1;
+  const fotos = piezas.slice(i, i + cuantas);
+  // Una pareja a la que solo le llega una foto se convierte en sola
+  if (fotos.length === 1 && r.tipo === 'pareja') {
+    bloques.push({ r: { tipo: 'sola', a: 64, lado: 'izq' }, fotos });
+  } else {
+    bloques.push({ r, fotos });
+  }
+  i += fotos.length;
+  paso++;
+}
+
+const total = String(piezas.length).padStart(2, '0');
+---
+
+<section class="compo" aria-label={`Fotos de ${titulo}`} data-visor>
+  {bloques.map((b, bi) => (
+    <div class={`compo-bloque ${b.r.tipo} lado-${b.r.lado ?? 'izq'}`}>
+      {b.fotos.map((p, fi) => {
+        const n = b.fotos === piezas.slice(0) ? 0 : 0;
+        const ancho = b.r.tipo === 'pareja' ? (fi === 0 ? b.r.a1! : b.r.a2!) : b.r.a!;
+        const caida = b.r.tipo === 'pareja' && fi === 1 ? b.r.caida! : 0;
+        const indice = piezas.indexOf(p) + 1;
+        return (
+          <figure
+            class="compo-pieza aparece"
+            style={`--ancho:${ancho}%; --caida:${caida}px`}
+          >
+            <div class="slot filled">
+              <img
+                src={optim(p.imagen, ancho > 60 ? 1500 : 1000)}
+                alt={p.etiqueta || `${titulo} — foto ${indice}`}
+                loading={bi < 1 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </div>
+            <figcaption>
+              <span class="compo-num">({String(indice).padStart(2, '0')}/{total})</span>
+              {p.etiqueta && <span class="compo-pie">{p.etiqueta}</span>}
+            </figcaption>
+          </figure>
+        );
+      })}
+    </div>
+  ))}
+</section>

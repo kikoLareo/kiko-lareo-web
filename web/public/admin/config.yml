@@ -139,9 +139,10 @@ collections:
       - name: galeria_estilo
         label: "Cómo se ven las fotos"
         widget: select
-        default: carrusel
-        hint: "CARRUSEL para una secuencia de fotos (van pasando de una en una, con relieve). MOSAICO para trabajos de marca: se ven todas juntas y a sangre, como un catálogo de piezas."
+        default: composicion
+        hint: "COMPOSICIÓN es la de por defecto: las fotos caen como en una revista, cada una de un tamaño y a una altura, con aire. CARRUSEL para pasarlas de una en una con relieve. MOSAICO para trabajos de marca, todas juntas y a sangre."
         options:
+          - { label: "Composición (como una revista)", value: composicion }
           - { label: "Carrusel (una a una, con relieve)", value: carrusel }
           - { label: "Mosaico (todas juntas, a sangre)", value: mosaico }
       - name: acreditacion

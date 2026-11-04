@@ -2311,3 +2311,86 @@ body.visor-abierto { overflow: hidden; }
   .mosaico-pieza img { transition: none; }
   .mosaico-pieza:hover img { transform: none; }
 }
+
+/* ====================================================================
+   COMPOSICIÓN — las fotos como una maqueta impresa, no como rejilla.
+   Lo que cambia la sensación no es el color: es que dos fotos seguidas
+   casi nunca tienen el mismo tamaño ni la misma altura.
+   ==================================================================== */
+.compo {
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 5vw, 72px) clamp(40px, 7vw, 96px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vw, 128px);
+}
+
+.compo-bloque { display: flex; }
+
+/* Una sola foto: el aire de al lado es parte de la composición */
+.compo-bloque.sola.lado-izq { justify-content: flex-start; }
+.compo-bloque.sola.lado-centro { justify-content: center; }
+.compo-bloque.sola.lado-der { justify-content: flex-end; }
+
+/* Pareja descolocada: la segunda cae (o sube) respecto a la primera */
+.compo-bloque.pareja {
+  gap: clamp(16px, 3vw, 48px);
+  align-items: flex-start;
+}
+
+.compo-pieza {
+  margin: 0;
+  width: var(--ancho, 100%);
+  flex: none;
+  transform: translateY(var(--caida, 0px));
+}
+
+.compo-pieza .slot { height: auto; }
+.compo-pieza img { width: 100%; height: auto; display: block; }
+
+.compo-pieza figcaption {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  padding-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.compo-num { color: var(--acento, var(--rojo)); flex: none; }
+.compo-pie { color: var(--negro); }
+
+/* Movimiento: cada foto se posa al entrar. Visible de salida si no hay
+   JS o si el visitante pidió reducir movimiento. */
+.compo-pieza.aparece { opacity: 1; }
+
+html.js .compo-pieza.aparece {
+  opacity: 0;
+  transform: translateY(calc(var(--caida, 0px) + 26px));
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+html.js .compo-pieza.aparece.posada {
+  opacity: 1;
+  transform: translateY(var(--caida, 0px));
+}
+
+@media (max-width: 860px) {
+  /* En el móvil no cabe la pareja descolocada: se apila, pero se conserva
+     la variación de ancho, que es lo que rompe la monotonía. */
+  .compo { gap: clamp(36px, 10vw, 64px); padding: 24px 18px 48px; }
+  .compo-bloque.pareja { flex-direction: column; gap: 28px; align-items: stretch; }
+  .compo-pieza { transform: none !important; width: auto; }
+  .compo-bloque.pareja .compo-pieza:nth-child(1) { width: 86%; }
+  .compo-bloque.pareja .compo-pieza:nth-child(2) { width: 66%; align-self: flex-end; }
+  .compo-bloque.sola.lado-der .compo-pieza { width: 72%; }
+  .compo-bloque.sola.lado-izq .compo-pieza { width: 88%; }
+  html.js .compo-pieza.aparece { transform: translateY(22px); }
+  html.js .compo-pieza.aparece.posada { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .compo-pieza.aparece { opacity: 1; transform: translateY(var(--caida, 0px)); transition: none; }
+}

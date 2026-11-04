@@ -118,6 +118,36 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
   }
 
   // ------------------------------------------------------------------
+  // Las fotos de una composición se posan al entrar, escalonadas dentro
+  // de su bloque. No es un adorno: es lo que hace que la página se lea
+  // como una secuencia y no como un volcado.
+  // ------------------------------------------------------------------
+  (() => {
+    const piezas = Array.from(document.querySelectorAll<HTMLElement>('.compo-pieza.aparece'));
+    if (piezas.length === 0) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      piezas.forEach((p) => p.classList.add('posada'));
+      return;
+    }
+    const ojo = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const pieza = e.target as HTMLElement;
+          const hermanas = Array.from(pieza.parentElement?.children ?? []);
+          pieza.style.transitionDelay = `${hermanas.indexOf(pieza) * 110}ms`;
+          pieza.classList.add('posada');
+          ojo.unobserve(pieza);
+        });
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+    );
+    piezas.forEach((p) => ojo.observe(p));
+    // Red de seguridad: lo que siga apagado a los 3 segundos, se enciende
+    setTimeout(() => piezas.forEach((p) => p.classList.add('posada')), 3000);
+  })();
+
+  // ------------------------------------------------------------------
   // Menú a pantalla completa. El HTML está siempre en la página (Google
   // lee los enlaces aunque esté cerrado); aquí solo se abre y se cierra.
   // ------------------------------------------------------------------
