@@ -72,13 +72,17 @@ No hay salida a servicios externos como instagram.com (los embeds no cargan en p
 ```
 cd web && npm run build
 cd dist && python3 -m http.server 4321 &     # 'serve' puede fallar; usar python
-# Playwright: chromium en /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+# Playwright: NO fijar la versión de chromium, cambia con el entorno.
+#   ls /opt/pw-browsers/   →  p. ej. chromium-1243/chrome-linux64/chrome
 # (playwright-core se instala en el scratchpad, no en el proyecto)
 ```
 
-**ffmpeg** (para inspeccionar/convertir vídeos, p. ej. H.265 → H.264):
-`pip install imageio-ffmpeg` y luego
-`python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())"`.
+**ffmpeg** (para inspeccionar/convertir vídeos y para redimensionar fotos si Pillow
+falla): `pip install imageio-ffmpeg`. OJO: pip puede instalar en otra versión de
+Python que la del `python3` por defecto; si el import falla, coger el binario a mano
+de `/usr/local/lib/python3.*/site-packages/imageio_ffmpeg/binaries/`.
+Pillow ha aparecido roto (`cannot import name '_imaging'`): para escalar imágenes
+sirve `ffmpeg -i in.jpg -vf scale=820:-2 -q:v 6 out.jpg`.
 
 ## Probar el PANEL de Decap sin login (¡importante!)
 
