@@ -560,6 +560,33 @@ a:hover { color: var(--rojo); }
   margin-top: 10px;
 }
 
+/* Aviso de que la tarjeta entera es un enlace. En el móvil no hay ratón, así
+   que el zoom de la foto al pasar por encima no se ve nunca: sin esta línea,
+   una tarjeta de proyecto parece una foto con pie y nadie la pulsa. */
+.ir-proyecto {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--rojo);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: letter-spacing 0.25s ease;
+}
+
+.featured-card:hover .ir-proyecto,
+.featured-card:focus-visible .ir-proyecto,
+.archivo-item:hover .ir-proyecto,
+.archivo-item:focus-visible .ir-proyecto {
+  letter-spacing: 0.14em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ir-proyecto { transition: none; }
+}
+
 /* ---- Manifiesto (tipografía que se revela) ---------------------------------- */
 
 .manifiesto {

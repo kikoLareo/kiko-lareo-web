@@ -94,6 +94,7 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
           [ {codigoArchivo(p, proyectos)} ] / {nombreCat(p.data.categoria)}
           {p.data.localidad ? ` / ${p.data.localidad.toUpperCase()}` : ''}
         </div>
+        <span class="ir-proyecto">VER PROYECTO →</span>
       </a>
     ))}
     <p class="archivo-vacio" id="archivo-vacio" hidden>No hay trabajos de ese tipo todavía.</p>
