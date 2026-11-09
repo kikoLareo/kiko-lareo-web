@@ -439,6 +439,11 @@ const heroLineas = g.hero_titular
       todas.push(palabras);
     });
 
+    // Cuántas palabras llevaba encendidas cada bloque la última vez. Sin esto
+    // se reescribía la clase de TODAS las palabras en cada scroll, aunque no
+    // hubiera cambiado ninguna: mucho trabajo para nada y scroll pastoso.
+    const previo = bloques.map(() => -1);
+
     const mirar = () => {
       const alto = innerHeight || 800;
       bloques.forEach((bloque, b) => {
@@ -447,12 +452,24 @@ const heroLineas = g.hero_titular
         let t = (alto - caja.top) / (alto * 0.62);
         t = Math.max(0, Math.min(1, t));
         const corte = Math.round(t * todas[b].length);
-        todas[b].forEach((p, i) => p.classList.toggle('on', i < corte));
+        if (corte === previo[b]) return;
+        // Solo se tocan las palabras que cambian de estado
+        const desde = Math.min(corte, previo[b] < 0 ? 0 : previo[b]);
+        const hasta = Math.max(corte, previo[b]);
+        for (let i = desde; i < hasta; i++) todas[b][i]?.classList.toggle('on', i < corte);
+        previo[b] = corte;
       });
     };
 
-    addEventListener('scroll', mirar, { passive: true });
-    addEventListener('resize', mirar);
+    // Una pasada por fotograma, no una por evento de scroll
+    let pedido = false;
+    const alFotograma = () => {
+      if (pedido) return;
+      pedido = true;
+      requestAnimationFrame(() => { pedido = false; mirar(); });
+    };
+    addEventListener('scroll', alFotograma, { passive: true });
+    addEventListener('resize', alFotograma, { passive: true });
     mirar();
   }
 

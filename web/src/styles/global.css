@@ -27,7 +27,10 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* OJO: aquí NO va `scroll-behavior: smooth`. Puesto en el <html> se aplica a
+   TODO desplazamiento, y el scroll normal se siente pastoso. El deslizamiento
+   suave se hace a mano, y solo al pulsar un enlace de la misma página
+   (ver Base.astro). */
 
 body {
   margin: 0;
@@ -54,7 +57,8 @@ a:hover { color: var(--rojo); }
   opacity: 0;
   transform: translateY(26px);
   transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1);
-  will-change: opacity, transform;
+  /* Sin `will-change`: la animación ocurre una vez, y dejarlo puesto obliga al
+     navegador a mantener una capa aparte por bloque mientras dure la página. */
 }
 
 .js .reveal.visible {

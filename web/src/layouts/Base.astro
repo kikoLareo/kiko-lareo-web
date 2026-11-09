@@ -94,6 +94,22 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
     if (btn) btn.closest('.flip')?.classList.toggle('flipped');
   });
 
+  // Deslizamiento suave SOLO al pulsar un enlace de la propia página (el menú,
+  // "saltar al contenido"). Antes estaba en el CSS del <html>, y eso afectaba
+  // a TODO el desplazamiento: el scroll normal se sentía pastoso.
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest('a[href^="#"]') as HTMLAnchorElement | null;
+    if (!a) return;
+    const id = a.getAttribute('href')?.slice(1);
+    if (!id) return;
+    const destino = document.getElementById(id);
+    if (!destino) return;
+    e.preventDefault();
+    const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    destino.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+    history.pushState(null, '', '#' + id);
+  });
+
   // Aparición al hacer scroll: revela los bloques con .reveal cuando entran
   // (o cuando ya se han pasado, p. ej. al saltar con el menú, para que ninguna
   // sección quede en blanco). Con reducir-movimiento, se muestran directos.
@@ -110,9 +126,18 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
         }
       }
     };
+    // El scroll se dispara muchas más veces que los fotogramas que pinta la
+    // pantalla. Si se mide en cada uno, se obliga al navegador a recalcular la
+    // página de más y el scroll se nota pastoso. Se mide una vez por fotograma.
+    let pedido = false;
+    const alFotograma = () => {
+      if (pedido) return;
+      pedido = true;
+      requestAnimationFrame(() => { pedido = false; check(); });
+    };
     check();
-    addEventListener('scroll', check, { passive: true });
-    addEventListener('resize', check, { passive: true });
+    addEventListener('scroll', alFotograma, { passive: true });
+    addEventListener('resize', alFotograma, { passive: true });
     addEventListener('hashchange', () => setTimeout(check, 60));
     setTimeout(check, 3000); // red de seguridad
   }

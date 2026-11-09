@@ -384,7 +384,14 @@ const jsonLd = [
     const total = h.scrollHeight - h.clientHeight;
     if (relleno) relleno.style.width = `${total > 0 ? Math.min(100, (h.scrollTop / total) * 100) : 0}%`;
   };
-  addEventListener('scroll', actualizar, { passive: true });
+  // Una vez por fotograma: medir y escribir en cada evento de scroll obliga al
+  // navegador a recalcular la página de más y se nota al desplazarse.
+  let pedidoBarra = false;
+  addEventListener('scroll', () => {
+    if (pedidoBarra) return;
+    pedidoBarra = true;
+    requestAnimationFrame(() => { pedidoBarra = false; actualizar(); });
+  }, { passive: true });
   actualizar();
 
   // La barra de progreso se retira cuando el pie entra en pantalla, para
