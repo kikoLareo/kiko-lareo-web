@@ -36,7 +36,28 @@ descripcion_seo: >-
   XLIII Trofeo Manolo Martín en Muxía: triangular de pretemporada entre Muxía
   CF, Bergantiños y el filial del Pontevedra, en el campo de A Arliña.
   Reportaje fotográfico por Kiko Lareo, fotógrafo deportivo en A Coruña.
-galeria: []
+portada: /img/uploads/muxia-campo-y-mar.jpg
+galeria:
+  - etiqueta: MUXÍA — A Arliña
+    imagen: /img/uploads/muxia-a-arlina.jpg
+  - etiqueta: MUXÍA — Adri Álvarez
+    imagen: /img/uploads/muxia-adri-alvarez.jpg
+  - etiqueta: MUXÍA — Rodeado
+    imagen: /img/uploads/muxia-rodeado.jpg
+  - etiqueta: MUXÍA — Sombras
+    imagen: /img/uploads/muxia-sombras.jpg
+  - etiqueta: MUXÍA — El choque
+    imagen: /img/uploads/muxia-el-choque.jpg
+  - etiqueta: MUXÍA — A ras de hierba
+    imagen: /img/uploads/muxia-a-ras-de-hierba.jpg
+  - etiqueta: MUXÍA — El grito
+    imagen: /img/uploads/muxia-el-grito.jpg
+  - etiqueta: MUXÍA — Desde la banda
+    imagen: /img/uploads/muxia-desde-la-banda.jpg
+  - etiqueta: MUXÍA — El disparo
+    imagen: /img/uploads/muxia-el-disparo.jpg
+  - etiqueta: MUXÍA — La carrera
+    imagen: /img/uploads/muxia-la-carrera.jpg
 ---
 El XLIII Trofeo Manolo Martín se jugó en A Arliña, el campo de Muxía: un triangular de pretemporada entre el Muxía CF, el Bergantiños y el filial del Pontevedra, a partidos de cuarenta y cinco minutos.
 
