@@ -35,8 +35,35 @@ descripcion_seo: Vídeo del Cabrio Fest, la fiesta de Santa Bárbara en torno a
   los SEAT cabriolet celebrada en La Duna, en la playa de Barrañán (Arteixo),
   con djs en directo. Idea, grabación y montaje de Kiko Lareo, videógrafo en A
   Coruña.
+portada: /img/uploads/cabrio-la-duna.jpg
 fotos: []
-galeria: []
+galeria:
+  - etiqueta: BARRAÑÁN — El coche era la barra
+    imagen: /img/uploads/cabrio-la-barra.jpg
+  - etiqueta: BARRAÑÁN — Cabrio fest
+    imagen: /img/uploads/cabrio-pegatina.jpg
+  - etiqueta: BARRAÑÁN — El barista
+    imagen: /img/uploads/cabrio-barista.jpg
+  - etiqueta: BARRAÑÁN — El jardín
+    imagen: /img/uploads/cabrio-el-jardin.jpg
+  - etiqueta: BARRAÑÁN — Vinilos
+    imagen: /img/uploads/cabrio-vinilos.jpg
+  - etiqueta: BARRAÑÁN — Café y matcha
+    imagen: /img/uploads/cabrio-cafe-y-matcha.jpg
+  - etiqueta: BARRAÑÁN — Dentro del coche
+    imagen: /img/uploads/cabrio-dentro-del-coche.jpg
+  - etiqueta: BARRAÑÁN — Capota abajo
+    imagen: /img/uploads/cabrio-capota-abajo.jpg
+  - etiqueta: BARRAÑÁN — Bajo el limpiaparabrisas
+    imagen: /img/uploads/cabrio-limpiaparabrisas.jpg
+  - etiqueta: BARRAÑÁN — La merienda
+    imagen: /img/uploads/cabrio-merienda.jpg
+  - etiqueta: BARRAÑÁN — La tarde
+    imagen: /img/uploads/cabrio-la-tarde.jpg
+  - etiqueta: BARRAÑÁN — Negro mate
+    imagen: /img/uploads/cabrio-negro-mate.jpg
+  - etiqueta: BARRAÑÁN — El último café
+    imagen: /img/uploads/cabrio-ultimo-cafe.jpg
 video:
   titulo: Vídeo del Cabrio Fest
   etiqueta: Barrañán
