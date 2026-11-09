@@ -4,6 +4,7 @@ categoria: deportes
 tipo: video
 fecha: 2026-08-31
 destacado: false
+portada: /img/uploads/legado-de-campions-campana.jpg
 cliente: Hockey Club Liceo
 anio: "2026"
 servicios: Guion de planos + Grabación + Montaje
