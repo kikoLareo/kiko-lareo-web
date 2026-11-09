@@ -2386,7 +2386,9 @@ html.js .compo-pieza.aparece.posada {
      la variación de ancho, que es lo que rompe la monotonía. */
   .compo { gap: clamp(36px, 10vw, 64px); padding: 24px 18px 48px; }
   .compo-bloque.pareja { flex-direction: column; gap: 28px; align-items: stretch; }
-  .compo-pieza { transform: none !important; width: auto; }
+  /* OJO: aquí el ancho tiene que ser siempre un porcentaje. Con `auto`, la
+     foto manda y se sale de la pantalla (la grande llegó a medir 1800 px). */
+  .compo-pieza { transform: none !important; width: 100%; }
   .compo-bloque.pareja .compo-pieza:nth-child(1) { width: 86%; }
   .compo-bloque.pareja .compo-pieza:nth-child(2) { width: 66%; align-self: flex-end; }
   .compo-bloque.sola.lado-der .compo-pieza { width: 72%; }

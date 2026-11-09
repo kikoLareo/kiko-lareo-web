@@ -35,11 +35,25 @@ descripcion_seo: >-
   España 1-1 Irak, amistoso de la selección española en el estadio de Riazor
   (A Coruña) el 4 de junio de 2026. Reportaje fotográfico de Kiko Lareo,
   fotógrafo deportivo en A Coruña y Galicia.
+portada: /img/uploads/riazor-gaiteros.jpg
 galeria:
   - etiqueta: RIAZOR — El estadio lleno
+    imagen: /img/uploads/riazor-estadio-lleno.jpg
   - etiqueta: RIAZOR — Juego
+    imagen: /img/uploads/riazor-remate-area.jpg
   - etiqueta: RIAZOR — Banquillo
+    imagen: /img/uploads/riazor-banquillo.jpg
   - etiqueta: RIAZOR — La grada
+    imagen: /img/uploads/riazor-grada-banderas.jpg
+fotos:
+  - /img/uploads/riazor-de-la-fuente.jpg
+  - /img/uploads/riazor-banda.jpg
+  - /img/uploads/riazor-saludo.jpg
+  - /img/uploads/riazor-balon-trionda.jpg
+  - /img/uploads/riazor-agarron.jpg
+  - /img/uploads/riazor-control-pecho.jpg
+  - /img/uploads/riazor-porro-carrera.jpg
+  - /img/uploads/riazor-duelo.jpg
 ---
 El 4 de junio de 2026 la selección española jugó en Riazor un amistoso contra Irak. Terminó 1-1, con gol de Ferran Torres, y el estadio se llenó. Al día siguiente el equipo viajaba a Estados Unidos.
 
