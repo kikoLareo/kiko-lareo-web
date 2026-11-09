@@ -31,7 +31,7 @@ video:
   etiqueta: Entrevista
   url: https://www.instagram.com/reel/Dc3KinxtmlY/embed
 galeria_estilo: composicion
-cliente: DeporLocura y Turismo de Coruña
+cliente: Turismo de Coruña
 anio: "2026"
 servicios: Vídeo + Fotografía de eventos
 entrega: Vídeo de entrevista y reportaje de los dos actos
