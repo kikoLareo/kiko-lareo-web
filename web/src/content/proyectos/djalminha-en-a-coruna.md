@@ -4,39 +4,6 @@ categoria: eventos
 tipo: video
 fecha: 2026-08-25
 destacado: false
-cliente: Turismo de A Coruña
-anio: "2026"
-servicios: Vídeo + Fotografía de eventos
-entrega: Vídeo de entrevista y reportaje de los dos actos
-titular: |-
-  TRES DÍAS
-  CON DJALMINHA
-  EN A CORUÑA.
-reto: >-
-  Dos trabajos distintos en la misma semana y en formatos que no se parecen: un
-  vídeo de entrevista por un lado y la cobertura fotográfica de dos actos por
-  otro. Cada uno pide una forma de estar.
-
-  Y todo con una agenda apretada y sin margen para repetir: los actos pasan una vez.
-idea: >-
-  Aquí no había un concepto detrás y no lo voy a inventar: había que estar y que
-  quedara. Dar cobertura a unos actos que en A Coruña se esperaban desde hacía
-  tiempo y dejar el registro —el recuerdo— para quien los organizaba y para
-  quien estuvo allí.
-
-  En este tipo de encargo el trabajo no es lucirse: es no perderse nada, leer bien cada sala y entregar a tiempo.
-ejecucion:
-  - GRABAR LA ENTREVISTA PARA TURISMO
-  - CUBRIR LA PRESENTACIÓN DEL LIBRO
-  - FOTOGRAFIAR EL DEPOR LOCURA
-  - MONTAJE Y SELECCIÓN
-  - ENTREGA
-color: violeta
-localidad: A Coruña
-descripcion_seo: >-
-  Tres días con Djalminha en A Coruña: vídeo de entrevista para Turismo de A
-  Coruña, presentación del libro de Javier Guillén y el espectáculo Depor
-  Locura. Vídeo y fotografía de eventos por Kiko Lareo.
 portada: /img/uploads/djalminha-la-presentacion.jpg
 galeria:
   - etiqueta: EL LIBRO — ¡Es de otra galaxia!
@@ -63,6 +30,39 @@ video:
   titulo: Vídeo para Turismo de A Coruña
   etiqueta: Entrevista
   url: https://www.instagram.com/reel/Dc3KinxtmlY/embed
+galeria_estilo: composicion
+cliente: DeporLocura y Turismo de Coruña
+anio: "2026"
+servicios: Vídeo + Fotografía de eventos
+entrega: Vídeo de entrevista y reportaje de los dos actos
+titular: |-
+  TRES DÍAS
+  CON DJALMINHA
+  EN A CORUÑA.
+reto: >-
+  Dos trabajos distintos en la misma semana y en formatos que no se parecen: un
+  vídeo de entrevista por un lado y la cobertura fotográfica de dos actos por
+  otro. Cada uno pide una forma de estar.
+
+  Y todo con una agenda apretada y sin margen para repetir: los actos pasan una vez.
+idea: >-
+  Aquí no había un concepto detrás y no lo voy a inventar: había que estar y que
+  quedara. Dar cobertura a unos actos que en A Coruña se esperaban desde hacía
+  tiempo y dejar el registro —el recuerdo— para quien los organizaba y para
+  quien estuvo allí.
+
+  En este tipo de encargo el trabajo no es lucirse: es no perderse nada, leer bien cada sala y entregar a tiempo.
+ejecucion:
+  - GRABAR LA ENTREVISTA PARA TURISMO
+  - CUBRIR LA PRESENTACIÓN DEL LIBRO
+  - FOTOGRAFIAR EL DEPOR LOCURA
+  - MONTAJE Y SELECCIÓN
+  - ENTREGA
+localidad: A Coruña
+color: violeta
+descripcion_seo: "Tres días con Djalminha en A Coruña: vídeo de entrevista para
+  Turismo de A Coruña, presentación del libro de Javier Guillén y el espectáculo
+  Depor Locura. Vídeo y fotografía de eventos por Kiko Lareo."
 ---
 Djalminha volvió a A Coruña la última semana de agosto y la ciudad se le echó encima. Tres días seguidos, tres escenarios distintos.
 
