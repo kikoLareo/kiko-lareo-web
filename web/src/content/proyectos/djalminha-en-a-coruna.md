@@ -37,10 +37,32 @@ descripcion_seo: >-
   Tres días con Djalminha en A Coruña: vídeo de entrevista para Turismo de A
   Coruña, presentación del libro de Javier Guillén y el espectáculo Depor
   Locura. Vídeo y fotografía de eventos por Kiko Lareo.
-galeria: []
+portada: /img/uploads/djalminha-la-presentacion.jpg
+galeria:
+  - etiqueta: EL LIBRO — ¡Es de otra galaxia!
+    imagen: /img/uploads/djalminha-el-libro.jpg
+  - etiqueta: EL LIBRO — Escuchando
+    imagen: /img/uploads/djalminha-escuchando.jpg
+  - etiqueta: EL LIBRO — La firma
+    imagen: /img/uploads/djalminha-la-firma.jpg
+  - etiqueta: EL LIBRO — La mesa
+    imagen: /img/uploads/djalminha-la-mesa.jpg
+  - etiqueta: DEPOR LOCURA — Toques en el escenario
+    imagen: /img/uploads/djalminha-toques.jpg
+  - etiqueta: DEPOR LOCURA — Roi da Costa
+    imagen: /img/uploads/djalminha-roi-da-costa.jpg
+  - etiqueta: DEPOR LOCURA — La charla
+    imagen: /img/uploads/djalminha-la-charla.jpg
+  - etiqueta: DEPOR LOCURA — El abrazo
+    imagen: /img/uploads/djalminha-el-abrazo.jpg
+  - etiqueta: DEPOR LOCURA — En la pantalla
+    imagen: /img/uploads/djalminha-la-pantalla.jpg
+  - etiqueta: DEPOR LOCURA — De pie
+    imagen: /img/uploads/djalminha-de-pie.jpg
 video:
   titulo: Vídeo para Turismo de A Coruña
   etiqueta: Entrevista
+  url: https://www.instagram.com/reel/Dc3KinxtmlY/embed
 ---
 Djalminha volvió a A Coruña la última semana de agosto y la ciudad se le echó encima. Tres días seguidos, tres escenarios distintos.
 
