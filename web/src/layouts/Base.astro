@@ -24,7 +24,13 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 <script is:inline>
   // Marca que hay JS antes de pintar: evita el "flash" de contenido oculto
   document.documentElement.classList.add('js');
+  // Tono guardado: se aplica antes de pintar para que no haya un fogonazo de
+  // blanco al entrar a una página en tono oscuro. Por defecto, claro (papel).
+  try {
+    if (localStorage.getItem('kl-tono') === 'oscuro') document.documentElement.dataset.tema = 'oscuro';
+  } catch (e) {}
 </script>
+<meta name="theme-color" content="#F2EFE8" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" href="/favicon.png" />
@@ -93,6 +99,27 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
     const btn = (e.target as Element).closest('.flip-btn');
     if (btn) btn.closest('.flip')?.classList.toggle('flipped');
   });
+
+  // Botón de tono claro / oscuro. La elección se recuerda en este navegador.
+  (() => {
+    const boton = document.getElementById('cambiarTono');
+    if (!boton) return;
+    const raiz = document.documentElement;
+    const barra = document.querySelector('meta[name="theme-color"]');
+    const pinta = () => {
+      const oscuro = raiz.dataset.tema === 'oscuro';
+      boton.setAttribute('aria-pressed', String(oscuro));
+      boton.setAttribute('aria-label', oscuro ? 'Cambiar a tono claro' : 'Cambiar a tono oscuro');
+      barra?.setAttribute('content', oscuro ? '#0B0B0B' : '#F2EFE8');
+    };
+    boton.addEventListener('click', () => {
+      const oscuro = raiz.dataset.tema !== 'oscuro';
+      if (oscuro) raiz.dataset.tema = 'oscuro'; else delete raiz.dataset.tema;
+      try { localStorage.setItem('kl-tono', oscuro ? 'oscuro' : 'claro'); } catch (e) {}
+      pinta();
+    });
+    pinta();
+  })();
 
   // Deslizamiento suave SOLO al pulsar un enlace de la propia página (el menú,
   // "saltar al contenido"). Antes estaba en el CSS del <html>, y eso afectaba

@@ -32,6 +32,12 @@ const ENLACES = [
 
   <div class="nav-der">
     {etiqueta && <span class="nav-label">{etiqueta}</span>}
+    <button type="button" class="nav-tono" id="cambiarTono" aria-pressed="false" aria-label="Cambiar a tono oscuro" title="Tono claro / oscuro">
+      <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false">
+        <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+        <path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="currentColor" />
+      </svg>
+    </button>
     <button type="button" class="nav-menu-btn" id="abrirMenu" aria-expanded="false" aria-controls="menuPlena">
       MENÚ
     </button>

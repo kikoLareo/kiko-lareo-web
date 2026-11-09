@@ -20,10 +20,35 @@
   --gris:  var(--kl-gray);
   --slot-bg: #E8E4DA;
 
+  /* Tono de la página. --crema y --negro NO cambian nunca (son la paleta fija:
+     el papel de las notas, el negro de las pantallas completas, el texto sobre
+     fotos). Lo que cambia con el tono son estos cuatro. */
+  --fondo: var(--kl-paper);   /* fondo de la página */
+  --tinta: var(--kl-black);   /* texto y líneas sobre ese fondo */
+  --bloque: var(--kl-black);  /* secciones oscuras: reel, contacto, pie, menú */
+
   --display: 'Bricolage Grotesque', Arial, sans-serif;
   --body: 'Bricolage Grotesque', Arial, sans-serif;
   --mono: 'IBM Plex Mono', 'Courier New', monospace;
 }
+
+/* Tono oscuro: se activa con el botón de la cabecera (data-tema en <html>).
+   Fondo en negro carbón y tinta en blanco papel, que es la misma paleta del
+   manual, invertida. Los bloques oscuros suben un poco de claridad para no
+   fundirse con la página. */
+html[data-tema="oscuro"] {
+  color-scheme: dark;
+  --fondo: var(--kl-black);
+  --tinta: var(--kl-paper);
+  --bloque: #1B1B19;
+  --slot-bg: #1E1E1C;
+}
+
+/* Color de acento del proyecto: la página de proyecto trae dos versiones y se
+   elige la que se lee sobre el fondo del tono activo. En el resto de páginas no
+   hay ninguna y todo cae al rojo flash. */
+#contenido { --acento: var(--acento-c); }
+html[data-tema="oscuro"] #contenido { --acento: var(--acento-o); }
 
 * { box-sizing: border-box; }
 
@@ -34,8 +59,8 @@
 
 body {
   margin: 0;
-  background: var(--crema);
-  color: var(--negro);
+  background: var(--fondo);
+  color: var(--tinta);
   font-family: var(--body);
   min-height: 100vh;
 }
@@ -115,7 +140,7 @@ a:hover { color: var(--rojo); }
   width: 100%;
   height: 100%;
   background: var(--slot-bg);
-  border: 1px dashed rgba(11, 11, 11, 0.45);
+  border: 1px dashed color-mix(in srgb, var(--tinta) 45%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,7 +172,7 @@ a:hover { color: var(--rojo); }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--crema);
+  background: var(--fondo);
   border-bottom: 2px solid var(--rojo);
   display: flex;
   justify-content: space-between;
@@ -189,16 +214,30 @@ a:hover { color: var(--rojo); }
   padding: 9px 14px;
   min-height: 38px;
   background: transparent;
-  color: var(--negro);
-  border: 1px solid rgba(11, 11, 11, 0.3);
+  color: var(--tinta);
+  border: 1px solid color-mix(in srgb, var(--tinta) 30%, transparent);
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
+.nav-tono {
+  width: 38px;
+  height: 38px;
+  display: inline-grid;
+  place-items: center;
+  background: transparent;
+  color: var(--tinta);
+  border: 1px solid color-mix(in srgb, var(--tinta) 30%, transparent);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.nav-tono:hover { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); }
+
 .nav-menu-btn:hover {
-  background: var(--negro);
-  color: var(--crema);
-  border-color: var(--negro);
+  background: var(--tinta);
+  color: var(--fondo);
+  border-color: var(--tinta);
 }
 
 /* ---- Menú a pantalla completa ---- */
@@ -206,7 +245,7 @@ a:hover { color: var(--rojo); }
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   display: flex;
   flex-direction: column;
@@ -349,7 +388,7 @@ a:hover { color: var(--rojo); }
   /* Altura fija: el nombre completo se ve sin hacer scroll y la foto
      se recorta sola (object-fit: cover), sea vertical u horizontal */
   height: clamp(520px, 86vh, 900px);
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
 }
 
 .hero-split .izq {
@@ -407,7 +446,7 @@ a:hover { color: var(--rojo); }
 }
 
 .marquee {
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   overflow: hidden;
   white-space: nowrap;
@@ -436,7 +475,7 @@ a:hover { color: var(--rojo); }
   justify-content: center;
   gap: 48px;
   padding: 18px 40px;
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
   font-family: var(--mono);
   font-size: 13px;
   flex-wrap: wrap;
@@ -446,7 +485,7 @@ a:hover { color: var(--rojo); }
 
 .cat-header {
   padding: 40px 40px 20px;
-  border-top: 2px solid var(--negro);
+  border-top: 2px solid var(--tinta);
   display: flex;
   align-items: baseline;
   gap: 20px;
@@ -620,15 +659,15 @@ a:hover { color: var(--rojo); }
   width: 44px;
   height: 44px;
   background: transparent;
-  border: 1px solid var(--negro);
-  color: var(--negro);
+  border: 1px solid var(--tinta);
+  color: var(--tinta);
   font-family: var(--mono);
   font-size: 16px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.tira-mandos button:hover:not(:disabled) { background: var(--negro); color: var(--crema); }
+.tira-mandos button:hover:not(:disabled) { background: var(--tinta); color: var(--fondo); }
 .tira-mandos button:disabled { opacity: 0.3; cursor: default; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -713,7 +752,7 @@ a:hover { color: var(--rojo); }
 
 .manifiesto {
   padding: 120px 40px 128px;
-  border-top: 2px solid var(--negro);
+  border-top: 2px solid var(--tinta);
 }
 
 .mani-linea {
@@ -733,15 +772,15 @@ a:hover { color: var(--rojo); }
 /* El texto se enciende palabra a palabra al bajar. Sin JS, o con
    "reducir movimiento", sale entero desde el principio. */
 .encender .pal {
-  color: rgba(11, 11, 11, 0.16);
+  color: color-mix(in srgb, var(--tinta) 16%, transparent);
   transition: color 0.45s ease;
 }
 
-.encender .pal.on { color: var(--negro); }
+.encender .pal.on { color: var(--tinta); }
 .encender .pal.on.mani-acento { color: var(--rojo); }
 
 @media (prefers-reduced-motion: reduce) {
-  .encender .pal { color: var(--negro); transition: none; }
+  .encender .pal { color: var(--tinta); transition: none; }
   .encender .pal.mani-acento { color: var(--rojo); }
 }
 
@@ -771,7 +810,7 @@ a:hover { color: var(--rojo); }
 
 .flip-back {
   transform: rotateY(180deg);
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   padding: 28px;
   display: flex;
@@ -842,7 +881,7 @@ a:hover { color: var(--rojo); }
 /* ---- Reel ------------------------------------------------------------------ */
 
 .reel {
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   padding: 64px 40px;
 }
@@ -900,7 +939,7 @@ a:hover { color: var(--rojo); }
   grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
   gap: 56px;
   padding: 72px 40px;
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
 }
 
 .about-photo { height: 520px; }
@@ -935,7 +974,7 @@ a:hover { color: var(--rojo); }
 
 .services {
   padding: 64px 40px;
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
 }
 
 .services .section-title { margin-bottom: 32px; }
@@ -946,13 +985,13 @@ a:hover { color: var(--rojo); }
   align-items: center;
   gap: 16px;
   padding: 24px 0;
-  border-top: 2px solid var(--negro);
+  border-top: 2px solid var(--tinta);
   font-size: 24px;
   font-weight: 600;
   transition: padding-left 0.25s ease;
 }
 
-.service-row:last-child { border-bottom: 2px solid var(--negro); }
+.service-row:last-child { border-bottom: 2px solid var(--tinta); }
 .service-row:hover { padding-left: 16px; }
 
 .service-row .tag {
@@ -997,7 +1036,7 @@ a:hover { color: var(--rojo); }
 
 .clients {
   padding: 56px 40px;
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
 }
 
 .clients-label {
@@ -1025,7 +1064,7 @@ a:hover { color: var(--rojo); }
 /* ---- Contacto ------------------------------------------------------------------ */
 
 .contact {
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   padding: 72px 40px 48px;
 }
@@ -1320,7 +1359,7 @@ a:hover { color: var(--rojo); }
   position: absolute;
   top: 16px;
   left: 16px;
-  background: var(--crema);
+  background: var(--fondo);
   color: var(--acento, var(--rojo));
   font-family: var(--mono);
   font-weight: 500;
@@ -1409,8 +1448,8 @@ a:hover { color: var(--rojo); }
   display: flex;
   justify-content: space-between;
   padding: 7px 16px 8px;
-  background: var(--crema);
-  border-top: 1px solid rgba(11, 11, 11, 0.25);
+  background: var(--fondo);
+  border-top: 1px solid color-mix(in srgb, var(--tinta) 25%, transparent);
   transition: opacity 0.25s ease, transform 0.25s ease;
   font-family: var(--mono);
   font-weight: 500;
@@ -1461,12 +1500,12 @@ a:hover { color: var(--rojo); }
 .project-meta {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
 }
 
 .project-meta > div {
   padding: 24px 32px;
-  border-right: 2px solid var(--negro);
+  border-right: 2px solid var(--tinta);
 }
 
 .project-meta > div:last-child { border-right: none; }
@@ -1534,7 +1573,7 @@ a:hover { color: var(--rojo); }
 .gallery-row > div { height: 420px; }
 
 .aftermovie {
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   padding: 64px 40px;
   margin-top: 56px;
@@ -1596,7 +1635,7 @@ a:hover { color: var(--rojo); }
   align-items: center;
   gap: 24px;
   padding: 48px 40px;
-  border-top: 2px solid var(--negro);
+  border-top: 2px solid var(--tinta);
 }
 
 .next-project .label {
@@ -1623,7 +1662,7 @@ a:hover { color: var(--rojo); }
   display: flex;
   justify-content: space-between;
   padding: 24px 40px;
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   font-family: var(--mono);
   font-size: 12px;
@@ -1671,7 +1710,7 @@ a:hover { color: var(--rojo); }
 
   .project-hero { height: 60vh; min-height: 380px; }
   .project-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .project-meta > div { border-bottom: 2px solid var(--negro); }
+  .project-meta > div { border-bottom: 2px solid var(--tinta); }
   .project-meta > div:nth-child(even) { border-right: none; }
   .project-meta > div:nth-child(n+3) { border-bottom: none; }
 
@@ -1933,18 +1972,18 @@ a:hover { color: var(--rojo); }
   padding: 9px 14px;
   min-height: 38px;
   background: transparent;
-  color: var(--negro);
-  border: 1px solid rgba(11, 11, 11, 0.25);
+  color: var(--tinta);
+  border: 1px solid color-mix(in srgb, var(--tinta) 25%, transparent);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.archivo-filtros .filtro:hover { border-color: var(--negro); }
+.archivo-filtros .filtro:hover { border-color: var(--tinta); }
 
 .archivo-filtros .filtro.activo {
-  background: var(--negro);
-  color: var(--crema);
-  border-color: var(--negro);
+  background: var(--tinta);
+  color: var(--fondo);
+  border-color: var(--tinta);
 }
 
 .archivo-grid {
@@ -1970,7 +2009,7 @@ a:hover { color: var(--rojo); }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding-top: 10px;
-  border-top: 1px solid rgba(11, 11, 11, 0.18);
+  border-top: 1px solid color-mix(in srgb, var(--tinta) 18%, transparent);
   margin-top: 10px;
 }
 
@@ -2085,7 +2124,7 @@ body.visor-abierto { overflow: hidden; }
 .carrusel {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  background: var(--negro);
+  background: var(--bloque);
   color: var(--crema);
   margin-top: 8px;
 }
@@ -2243,7 +2282,7 @@ body.visor-abierto { overflow: hidden; }
   max-width: 58ch;
   font-size: 19px;
   line-height: 1.5;
-  color: var(--negro);
+  color: var(--tinta);
 }
 
 .zona { padding: 48px 40px 8px; }
@@ -2254,7 +2293,7 @@ body.visor-abierto { overflow: hidden; }
   gap: 8px 20px;
   flex-wrap: wrap;
   padding-bottom: 16px;
-  border-bottom: 2px solid var(--negro);
+  border-bottom: 2px solid var(--tinta);
   margin-bottom: 30px;
 }
 
@@ -2293,6 +2332,7 @@ body.visor-abierto { overflow: hidden; }
 }
 
 .nota {
+  color: var(--negro); /* papel en los dos tonos: el texto no hereda la tinta de la página */
   background: var(--crema);
   border: 1px solid rgba(11, 11, 11, 0.16);
   padding: 14px 15px 16px;
@@ -2403,7 +2443,7 @@ body.visor-abierto { overflow: hidden; }
   grid-auto-rows: clamp(120px, 13vw, 190px);
   gap: 6px;
   padding: 8px 6px 6px;
-  background: var(--negro);
+  background: var(--bloque);
 }
 
 .mosaico-pieza {
@@ -2513,7 +2553,7 @@ body.visor-abierto { overflow: hidden; }
 }
 
 .compo-num { color: var(--acento, var(--rojo)); flex: none; }
-.compo-pie { color: var(--negro); }
+.compo-pie { color: var(--tinta); }
 
 /* Movimiento: cada foto se posa al entrar. Visible de salida si no hay
    JS o si el visitante pidió reducir movimiento. */

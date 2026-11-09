@@ -7,7 +7,7 @@ import CarruselVertical from '../../components/CarruselVertical.astro';
 import MosaicoMarca from '../../components/MosaicoMarca.astro';
 import Composicion from '../../components/Composicion.astro';
 import { CATEGORIAS } from '../../lib/categorias';
-import { codigoArchivo, ACENTOS } from '../../lib/archivo';
+import { codigoArchivo, ACENTOS, ACENTOS_OSCURO } from '../../lib/archivo';
 import { optim } from '../../lib/imagen';
 import { migas, persona } from '../../lib/seo';
 
@@ -34,6 +34,7 @@ const { Content } = await render(proyecto);
 const cat = CATEGORIAS.find((c) => c.id === d.categoria)!;
 const haySiguiente = siguiente.id !== proyecto.id;
 const acento = ACENTOS[d.color] ?? ACENTOS.rojo;
+const acentoOscuro = ACENTOS_OSCURO[d.color] ?? ACENTOS_OSCURO.rojo;
 const hayResultado = d.galeria.length > 0 || d.fotos.length > 0 || d.video;
 
 // Los embeds de Instagram/TikTok son verticales: se muestran en un marco
@@ -86,7 +87,7 @@ const jsonLd = [
 
 <Nav variante="subpagina" etiqueta={`${cat.titulo} / ${codigo}`} />
 
-<main id="contenido" style={`--acento:${acento}`}>
+<main id="contenido" style={`--acento-c:${acento};--acento-o:${acentoOscuro}`}>
 <!-- Hero: la portada llega "creciendo" desde la tarjeta (view transition) -->
 <header class="project-hero" style={`view-transition-name: proyecto-${proyecto.id}`}>
   <Slot imagen={d.portada} etiqueta="Portada del proyecto" ancho={2000} prioridad />
