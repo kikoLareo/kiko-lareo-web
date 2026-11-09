@@ -14,7 +14,7 @@ titular: |-
   DE UN COCHE.
 reto: >-
   Contar una fiesta en la que el protagonista no es el escenario ni el cartel,
-  sino un coche. Los SEAT cabriolet eran el hilo de todo, y el vídeo tenía que
+  sino un coche. Los Volkswagen Golf Cabriolet eran el hilo de todo, y el vídeo tenía que
   hacerlos protagonistas sin convertirse en un anuncio de coches.
 
   Además, en un evento de un día no hay ensayo: la luz, la gente y los coches están donde están.
@@ -32,7 +32,7 @@ ejecucion:
 color: azul
 localidad: Barrañán, Arteixo
 descripcion_seo: Vídeo del Cabrio Fest, la fiesta de Santa Bárbara en torno a
-  los SEAT cabriolet celebrada en La Duna, en la playa de Barrañán (Arteixo),
+  los Volkswagen Golf Cabriolet celebrada en La Duna, en la playa de Barrañán (Arteixo),
   con djs en directo. Idea, grabación y montaje de Kiko Lareo, videógrafo en A
   Coruña.
 portada: /img/uploads/cabrio-la-duna.jpg
@@ -69,7 +69,7 @@ video:
   etiqueta: Barrañán
   url: https://www.instagram.com/reel/DcbY6VkI5cY/embed
 ---
-El Cabrio Fest fue una fiesta organizada por Santa Bárbara en La Duna, en la playa de Barrañán (Arteixo), que giraba alrededor de los SEAT cabriolet. Con djs pinchando durante toda la tarde.
+El Cabrio Fest fue una fiesta organizada por Santa Bárbara en La Duna, en la playa de Barrañán (Arteixo), que giraba alrededor de los Volkswagen Golf Cabriolet. Con djs pinchando durante toda la tarde.
 
 La premisa era sencilla: si la fiesta gira alrededor de un coche, el vídeo también. El descapotable como centro y, alrededor, todo lo demás —la arena, la música, la gente y una tarde de verano en la costa de Arteixo.
 

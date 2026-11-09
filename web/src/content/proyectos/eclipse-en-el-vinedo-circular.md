@@ -37,7 +37,12 @@ descripcion_seo: >-
   Casa de Outeiro, en Quiroga (Ribeira Sacra, Lugo), con violín en directo
   durante la totalidad. Grabación de vídeo por Kiko Lareo, videógrafo en A
   Coruña y Galicia.
-galeria: []
+portada: /img/uploads/eclipse-totalidad.jpg
+galeria:
+  - etiqueta: QUIROGA — El violín al atardecer
+    imagen: /img/uploads/eclipse-violin.jpg
+  - etiqueta: QUIROGA — La totalidad
+    imagen: /img/uploads/eclipse-totalidad.jpg
 video:
   titulo: Vídeo del eclipse
   etiqueta: Casa de Outeiro

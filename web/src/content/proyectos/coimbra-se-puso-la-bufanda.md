@@ -38,8 +38,36 @@ descripcion_seo: >-
   Campaña del Hockey Club Liceo para la Final Eight de la WSE Champions League:
   la bufanda del equipo apareció en la vida cotidiana de Coimbra. Concepto,
   dirección creativa y vídeo de Kiko Lareo.
-portada: /img/uploads/coimbra-se-puso-la-bufanda.png
-galeria: []
+portada: /img/uploads/coimbra-la-pina.jpg
+galeria:
+  - etiqueta: COIMBRA — La piña antes de salir
+    imagen: /img/uploads/coimbra-la-pina.jpg
+  - etiqueta: COIMBRA — Contra el Porto
+    imagen: /img/uploads/coimbra-contra-el-porto.jpg
+  - etiqueta: CLIP 02
+    clip: /img/uploads/coimbra-clip-02.mp4
+    imagen: /img/uploads/coimbra-clip-02.jpg
+  - etiqueta: CLIP 03
+    clip: /img/uploads/coimbra-clip-03.mp4
+    imagen: /img/uploads/coimbra-clip-03.jpg
+  - etiqueta: CLIP 04
+    clip: /img/uploads/coimbra-clip-04.mp4
+    imagen: /img/uploads/coimbra-clip-04.jpg
+  - etiqueta: CLIP 05
+    clip: /img/uploads/coimbra-clip-05.mp4
+    imagen: /img/uploads/coimbra-clip-05.jpg
+  - etiqueta: CLIP 06
+    clip: /img/uploads/coimbra-clip-06.mp4
+    imagen: /img/uploads/coimbra-clip-06.jpg
+  - etiqueta: CLIP 07
+    clip: /img/uploads/coimbra-clip-07.mp4
+    imagen: /img/uploads/coimbra-clip-07.jpg
+  - etiqueta: CLIP 08
+    clip: /img/uploads/coimbra-clip-08.mp4
+    imagen: /img/uploads/coimbra-clip-08.jpg
+  - etiqueta: CLIP 09
+    clip: /img/uploads/coimbra-clip-09.mp4
+    imagen: /img/uploads/coimbra-clip-09.jpg
 video:
   titulo: Publicación
   etiqueta: 9 Clips
