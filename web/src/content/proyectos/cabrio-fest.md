@@ -3,6 +3,7 @@ titulo: Cabrio Fest
 categoria: eventos
 tipo: video
 fecha: 2026-08-24
+borrador: false
 destacado: false
 cliente: Santa Bárbara
 anio: "2026"

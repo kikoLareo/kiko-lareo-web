@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { proyectosVisibles, fotosVisibles } from '../lib/contenido';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
@@ -13,12 +13,8 @@ export async function getStaticPaths() {
 
 const { cat } = Astro.props;
 
-const fotos = (await getCollection('fotos', (f) => f.data.categoria === cat.id)).sort(
-  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
-);
-const proyectos = (await getCollection('proyectos', (p) => p.data.categoria === cat.id)).sort(
-  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
-);
+const fotos = await fotosVisibles(cat.id);
+const proyectos = await proyectosVisibles(cat.id);
 
 const jsonLd = [
   migas(Astro.site!, [

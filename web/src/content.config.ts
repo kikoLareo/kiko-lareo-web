@@ -44,6 +44,10 @@ const proyectos = defineCollection({
     fecha: z.coerce.date(),
     // Los destacados llenan la "Selección de proyectos" de portada;
     // si no hay ninguno marcado, salen los más recientes.
+    // Borrador: el proyecto existe pero NO sale en la web. Regla del dueño
+    // (09/11/2026): nada se publica a medias, así que se crea en borrador y se
+    // publica cuando tiene todas sus fotos. Ver src/lib/contenido.ts.
+    borrador: z.boolean().default(false),
     destacado: z.boolean().default(false),
     cliente: z.string(),
     anio: z.coerce.string(),

@@ -3,6 +3,7 @@ titulo: Djalminha en A Coruña
 categoria: eventos
 tipo: video
 fecha: 2026-08-25
+borrador: false
 destacado: false
 portada: /img/uploads/djalminha-la-presentacion.jpg
 galeria:

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { proyectosVisibles, fotosVisibles } from '../lib/contenido';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
@@ -25,12 +26,8 @@ const jsonLd = [
   }),
 ];
 
-const fotos = (await getCollection('fotos')).sort(
-  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
-);
-const proyectos = (await getCollection('proyectos')).sort(
-  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
-);
+const fotos = await fotosVisibles();
+const proyectos = await proyectosVisibles();
 
 // Por categoría: una tira con TODAS las fotos de sus proyectos (galería y fotos
 // sueltas del proyecto) más las fotos sueltas de la categoría. Se reparten en

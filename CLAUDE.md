@@ -46,7 +46,7 @@ npm run fotos -- <categoria> <carpeta> [fecha]   # volcado por lotes (scripts/su
 ## Modelo de contenido (colecciones; esquema en `content.config.ts`, panel en `config.yml`)
 
 - **fotos** (`.md`): `titulo`, `categoria`, `fecha`, `imagen?`, `clip?` (MP4 corto), `alt?`, `historia?` {titulo, meta, texto, proyecto?}. Alimentan portada y galería de categoría. Con `historia` → tarjeta flip.
-- **proyectos** (`.md`): `titulo`, `categoria`, `tipo` (eje distinto: qué ES el trabajo → `/archivo`, ver `src/lib/tipos.ts`), `fecha`, `destacado` (portada), `cliente`, `anio`, `servicios`, `entrega`, `titular`, `reto?`, `idea?`, `ejecucion[]`, `color` (rojo/azul/verde/violeta/mostaza), `localidad?`, `descripcion_seo?`, `portada?`, `galeria[]` {etiqueta, imagen?, clip?}, `fotos[]`, `galeria_estilo` (composicion|carrusel|mosaico), `acreditacion?` {imagen, pie?}, `video?` {titulo, etiqueta, archivo? (MP4), url? (embed), imagen?}. El cuerpo md es la historia.
+- **proyectos** (`.md`): `borrador` (los nuevos nacen en borrador; ver «Contenido sin fotos»), `titulo`, `categoria`, `tipo` (eje distinto: qué ES el trabajo → `/archivo`, ver `src/lib/tipos.ts`), `fecha`, `destacado` (portada), `cliente`, `anio`, `servicios`, `entrega`, `titular`, `reto?`, `idea?`, `ejecucion[]`, `color` (rojo/azul/verde/violeta/mostaza), `localidad?`, `descripcion_seo?`, `portada?`, `galeria[]` {etiqueta, imagen?, clip?}, `fotos[]`, `galeria_estilo` (composicion|carrusel|mosaico), `acreditacion?` {imagen, pie?}, `video?` {titulo, etiqueta, archivo? (MP4), url? (embed), imagen?}. El cuerpo md es la historia.
   - Los campos del panel están ordenados para el móvil: básicos → fotos y vídeo → ficha → textos → lo que casi nunca se toca. Si añades un campo, colócalo en su bloque.
 - **proceso** (`.md`): `titulo`, `zona` (now/building/released/next), `fecha`, `imagen?`, `anotacion?`, `proyecto?`. El cuerpo md explica qué es. Alimenta `/proceso`.
 - **paginas/general.json** (singleton): textos globales — hero (`hero_titular`, `hero_estilo` fondo/tarjeta/letras, `hero_imagen`), `manifiesto`, `aportes[]`, `aportes_cierre`, `cierre`, `sobre_mi`, `clientes[]`, `redes[]`, `reel`, `email`, `telefono`, `seo`, `direccion`, `marquesina`, `localizacion`, `secciones` (8 casillas para encender/apagar bloques de la portada; todas `true` por defecto).
@@ -100,7 +100,7 @@ cd /home/user/kiko-lareo-web && node <scratchpad>/node_modules/decap-server/dist
 # 2) unpkg.com está BLOQUEADO por el proxy → bajar el bundle de npm
 #    OJO: instalar decap-cms y decap-server en la MISMA carpeta hace que npm
 #    se cargue el otro. Usar prefijos distintos (p. ej. <scratchpad>/srv).
-npm install --no-save --prefix <scratchpad> decap-cms@^3.0.0
+npm install --no-save --prefix <scratchpad>/cms decap-cms@^3.0.0   # OJO: `npm init -y` antes en cada carpeta; sin package.json npm sube al padre y BORRA lo que haya (se llevó playwright-core y decap-cms el 09/11/2026)
 cp <scratchpad>/node_modules/decap-cms/dist/*.js web/dist/admin/vendor/
 
 # 3) admin de PRUEBA en dist (NO tocar web/public/admin/index.html,
@@ -116,6 +116,16 @@ Visto así, con viewport 390x844: la lista de entradas se ve bien, pero
 Causa localizada: `min-width: 800px` en `EditorContainer` y en
 `ToolbarContainer` (clases de emotion con hash → usar selectores
 `[class*="EditorContainer"]`, nunca el hash completo).
+
+## Contenido sin fotos: NUNCA se publica (regla del dueño, 09/11/2026)
+
+«A partir de ahora no dejemos proyectos o cosas sin fotos: las dejamos en borrador y publicamos cuando esté completo.»
+
+- **Un proyecto nuevo solo se crea cuando ya se tienen TODAS sus fotos** (portada incluida). Si el dueño pasa la lista de lo pendiente sin fotos, NO se crean archivos: se apunta y se espera.
+- Para lo que se cree desde el panel hay un campo `borrador` (casilla; **por defecto marcada en fichas nuevas**). Un proyecto es visible solo si `borrador` es falso **y** tiene `portada`. Si se desmarca sin portada, el compilador lo avisa con `⚠ "X" NO se publica` y no sale.
+- **Todas las páginas leen proyectos y fotos por `src/lib/contenido.ts` (`proyectosVisibles()`, `fotosVisibles()`), NUNCA con `getCollection` directo.** Si una página nueva usa `getCollection('proyectos')`, un borrador se colará en portada, `/trabajo`, «siguiente proyecto» y sitemap.
+- **Los proyectos existentes llevan `borrador: false` escrito a propósito.** Decap rellena con el `default` (marcado) cualquier campo que falte en el archivo: sin la línea, abrir un proyecto publicado desde el panel y guardarlo lo escondería de la web.
+- Pendiente de aplicar la misma regla: el retrato de «Sobre mí» y el fotograma del reel siguen saliendo como recuadro gris hasta que haya foto.
 
 ## Gotchas aprendidos
 

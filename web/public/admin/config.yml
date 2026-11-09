@@ -76,6 +76,9 @@ collections:
     identifier_field: titulo
     summary: "{{titulo}} ({{anio}})"
     sort_by: ["fecha"]
+    view_filters:
+      - { label: "Solo borradores", field: borrador, pattern: true }
+      - { label: "Solo publicados", field: borrador, pattern: false }
     # Orden pensado para el MÓVIL: primero lo que se toca cada día (lo que
     # identifica el proyecto y las fotos), luego la ficha, luego los textos
     # largos, y al final lo que casi nunca se cambia.
@@ -103,6 +106,12 @@ collections:
           - { label: "Identidad (logos, marca)", value: identidad }
           - { label: "Dirección de arte", value: direccion-arte }
           - { label: "Documento de imagen (moodboard, dosier)", value: documento }
+      - name: borrador
+        label: "Borrador (no se ve en la web)"
+        widget: boolean
+        default: true
+        required: false
+        hint: "Los proyectos nuevos empiezan en borrador: NO salen en la web. Cuando tengan TODAS sus fotos (portada incluida), desmárcalo y guárdalo. Sin foto de portada no se publica aunque lo desmarques."
       - { name: fecha, label: Fecha, widget: datetime, format: "YYYY-MM-DD", time_format: false }
       - { name: destacado, label: "Destacado en portada", widget: boolean, default: false, required: false, hint: "Márcalo para que salga en la Selección de proyectos de la portada. Si no marcas ninguno, salen los más recientes." }
 

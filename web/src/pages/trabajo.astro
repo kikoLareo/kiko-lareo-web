@@ -7,7 +7,7 @@
 // Vivía en /archivo; se renombró a /trabajo el 28/09/2026 porque nadie
 // buscaba la lista completa bajo la palabra "archivo". El redirect 301
 // está en netlify.toml.
-import { getCollection } from 'astro:content';
+import { proyectosVisibles } from '../lib/contenido';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
@@ -16,9 +16,7 @@ import { TIPOS, tipoDe } from '../lib/tipos';
 import { codigoArchivo } from '../lib/archivo';
 import { migas } from '../lib/seo';
 
-const proyectos = (await getCollection('proyectos')).sort(
-  (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
-);
+const proyectos = await proyectosVisibles();
 
 // Solo se ofrecen como filtro los tipos que de verdad tienen trabajo: una
 // fila de filtros vacíos hace la web más pequeña, no más grande.

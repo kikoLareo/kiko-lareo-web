@@ -3,6 +3,7 @@ titulo: Trofeo Manolo Martín en Muxía
 categoria: deportes
 tipo: fotografia
 fecha: 2026-08-23
+borrador: false
 destacado: false
 cliente: CD Bergantiños · Iniciativa propia
 anio: "2026"

@@ -3,6 +3,7 @@ titulo: Legado de campións
 categoria: deportes
 tipo: video
 fecha: 2026-08-31
+borrador: false
 destacado: false
 portada: /img/uploads/legado-de-campions-campana.jpg
 cliente: Hockey Club Liceo

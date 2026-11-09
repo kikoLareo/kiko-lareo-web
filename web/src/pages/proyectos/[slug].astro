@@ -1,5 +1,6 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import { proyectosVisibles } from '../../lib/contenido';
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Slot from '../../components/Slot.astro';
@@ -12,9 +13,7 @@ import { optim } from '../../lib/imagen';
 import { migas, persona } from '../../lib/seo';
 
 export async function getStaticPaths() {
-  const proyectos = (await getCollection('proyectos')).sort(
-    (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
-  );
+  const proyectos = await proyectosVisibles();
   return proyectos.map((proyecto, i) => ({
     params: { slug: proyecto.id },
     // Encadena los proyectos: el "siguiente" es el anterior en el tiempo
