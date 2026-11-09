@@ -32,7 +32,18 @@ descripcion_seo: >-
   Final autonómica de la Copa Federación en Noia entre Bergantiños y Boiro
   (3-1). Reportaje fotográfico del partido y de la celebración del título, por
   Kiko Lareo, fotógrafo deportivo en A Coruña y Galicia.
-galeria: []
+portada: /img/uploads/noia-campions-equipo.jpg
+galeria:
+  - etiqueta: NOIA — El balón
+    imagen: /img/uploads/noia-balon-en-la-linea.jpg
+  - etiqueta: NOIA — Saque de banda
+    imagen: /img/uploads/noia-saque-de-banda.jpg
+  - etiqueta: NOIA — El partido
+    imagen: /img/uploads/noia-el-ocho-golpea.jpg
+  - etiqueta: NOIA — El trofeo
+    imagen: /img/uploads/noia-trofeo-pedestal.jpg
+  - etiqueta: NOIA — Campións
+    imagen: /img/uploads/noia-copa-campions.jpg
 ---
 El 22 de agosto, Bergantiños y Boiro jugaron en el campo Julio Mato de Noia la final autonómica de la Copa Federación, con el billete para la fase nacional en juego.
 
