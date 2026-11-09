@@ -1,0 +1,229 @@
+---
+// Tira de fotos de una categoría: un carrusel horizontal con relieve 3D.
+// La foto del centro mira de frente y las de los lados se giran hacia ella,
+// se echan hacia atrás y se oscurecen un poco. Es scroll nativo (dedo,
+// trackpad, rueda con Mayús) con imanes: el relieve lo calcula un script a
+// partir de lo lejos que está cada foto del centro.
+//
+// Sin JS sigue siendo una tira que se desliza con imanes, solo que plana, y
+// todos los enlaces están en el HTML.
+import { optim } from '../lib/imagen';
+
+export interface Item {
+  src: string;
+  alt: string;
+  /** Adónde lleva al pulsar la foto (el proyecto, o la categoría) */
+  href: string;
+  /** Título que se enseña bajo el carrusel cuando esta foto está al centro */
+  titulo: string;
+  /** Segunda línea: cliente · año, o lo que toque */
+  sub?: string;
+  /** Lo que dice el enlace de debajo: VER PROYECTO / VER TODO */
+  verbo: string;
+}
+
+interface Props {
+  items: Item[];
+  /** Para el nombre accesible del carrusel */
+  nombre: string;
+}
+
+const { items, nombre } = Astro.props;
+const total = String(items.length).padStart(2, '0');
+const primero = items[0];
+---
+
+<div class="tira" data-tira>
+  <ul class="tira-pista" tabindex="0" aria-label={`Fotos de ${nombre}`}>
+    {items.map((it, i) => (
+      <li class="tira-item" data-i={i}>
+        <a
+          href={it.href}
+          data-titulo={it.titulo}
+          data-sub={it.sub ?? ''}
+          data-verbo={it.verbo}
+        >
+          <img
+            src={optim(it.src, 720)}
+            alt={it.alt}
+            width="720"
+            height="900"
+            loading="lazy"
+            decoding="async"
+            draggable="false"
+          />
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="tira-pie">
+    <div class="tira-info">
+      <span class="tira-n"><b data-n>01</b> / {total}</span>
+      <span class="tira-tit" data-c-tit>{primero.titulo}</span>
+      <span class="tira-sub" data-c-sub>{primero.sub}</span>
+    </div>
+    <div class="tira-cola">
+      <a class="ir-proyecto" data-ir href={primero.href}>{primero.verbo} →</a>
+      <div class="tira-mandos">
+        <button type="button" data-ant aria-label="Foto anterior">←</button>
+        <button type="button" data-sig aria-label="Foto siguiente">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Relieve y manejo de las tiras. Un único script para todas las de la página.
+  const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const topar = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+
+  document.querySelectorAll<HTMLElement>('[data-tira]').forEach((raiz) => {
+    const pista = raiz.querySelector<HTMLElement>('.tira-pista')!;
+    const items = Array.from(pista.children) as HTMLElement[];
+    const enlaces = items.map((li) => li.querySelector<HTMLAnchorElement>('a')!);
+    const nEl = raiz.querySelector<HTMLElement>('[data-n]')!;
+    const titEl = raiz.querySelector<HTMLElement>('[data-c-tit]')!;
+    const subEl = raiz.querySelector<HTMLElement>('[data-c-sub]')!;
+    const irEl = raiz.querySelector<HTMLAnchorElement>('[data-ir]')!;
+    const ant = raiz.querySelector<HTMLButtonElement>('[data-ant]')!;
+    const sig = raiz.querySelector<HTMLButtonElement>('[data-sig]')!;
+
+    let centros: number[] = [];
+    let paso = 1;
+    let actual = -1;
+    // A qué foto se va desde un botón o una flecha. Mientras dura el
+    // deslizamiento sigue siendo la de destino, para que pulsar dos veces
+    // seguidas avance dos fotos y no una.
+    let objetivo = 0;
+    let enTransito = 0;
+    let visible = false;
+    let pendiente = false;
+    const previo = items.map(() => [NaN, NaN]);
+
+    // Las posiciones se miden una vez (y al cambiar de tamaño), no en cada
+    // fotograma de scroll: leer medidas mientras se escribe estilos es lo que
+    // hace que un scroll se sienta pastoso.
+    const medir = () => {
+      centros = items.map((li) => li.offsetLeft + li.offsetWidth / 2);
+      paso = items.length > 1 ? (centros[items.length - 1] - centros[0]) / (items.length - 1) : 1;
+      pintar();
+    };
+
+    const poner = (i: number) => {
+      if (performance.now() > enTransito) objetivo = i;
+      if (i === actual) return;
+      actual = i;
+      const a = enlaces[i];
+      nEl.textContent = String(i + 1).padStart(2, '0');
+      titEl.textContent = a.dataset.titulo ?? '';
+      subEl.textContent = a.dataset.sub ?? '';
+      irEl.href = a.href;
+      irEl.textContent = `${a.dataset.verbo ?? 'VER'} →`;
+      // Solo la foto del centro entra en el orden del tabulador: si no, el
+      // teclado tendría que pasar por todas.
+      enlaces.forEach((e, k) => e.setAttribute('tabindex', k === i ? '0' : '-1'));
+      ant.disabled = i === 0;
+      sig.disabled = i === items.length - 1;
+    };
+
+    const pintar = () => {
+      pendiente = false;
+      if (!centros.length) return;
+      const medio = pista.scrollLeft + pista.clientWidth / 2;
+      let mejor = 0;
+      let distMin = Infinity;
+      for (let i = 0; i < items.length; i++) {
+        const d = (centros[i] - medio) / paso;
+        const ad = Math.abs(d);
+        if (ad < distMin) { distMin = ad; mejor = i; }
+        if (sinMovimiento) continue;
+        // Más allá de 2,5 fotos de distancia el relieve ya no cambia: se
+        // topa, y si ya estaba topada no se vuelve a escribir.
+        const dd = Math.round(topar(d, -2.5, 2.5) * 1000) / 1000;
+        const aa = Math.abs(dd);
+        const p = previo[i];
+        if (p[0] === dd) continue;
+        p[0] = dd; p[1] = aa;
+        items[i].style.setProperty('--d', String(dd));
+        items[i].style.setProperty('--a', String(aa));
+      }
+      poner(mejor);
+    };
+
+    const pedir = () => {
+      if (pendiente || !visible) return;
+      pendiente = true;
+      requestAnimationFrame(pintar);
+    };
+
+    const ir = (i: number, suave = true) => {
+      const k = topar(i, 0, items.length - 1);
+      objetivo = k;
+      enTransito = performance.now() + 700;
+      pista.scrollTo({
+        left: centros[k] - pista.clientWidth / 2,
+        behavior: suave && !sinMovimiento ? 'smooth' : 'auto',
+      });
+    };
+
+    pista.addEventListener('scroll', pedir, { passive: true });
+    new ResizeObserver(medir).observe(pista);
+    // Solo se trabaja mientras la tira está a la vista
+    new IntersectionObserver(
+      ([e]) => { visible = e.isIntersecting; if (visible) pintar(); },
+      { rootMargin: '200px 0px' }
+    ).observe(raiz);
+
+    ant.addEventListener('click', () => ir(objetivo - 1));
+    sig.addEventListener('click', () => ir(objetivo + 1));
+
+    // Pulsar una foto del lateral la trae al centro; pulsar la del centro
+    // abre el proyecto.
+    pista.addEventListener('click', (e) => {
+      const li = (e.target as Element).closest<HTMLElement>('.tira-item');
+      if (!li) return;
+      const i = items.indexOf(li);
+      if (i !== actual) { e.preventDefault(); ir(i); }
+    });
+
+    pista.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); ir(objetivo + 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); ir(objetivo - 1); }
+      else if (e.key === 'Enter' && document.activeElement === pista) enlaces[actual]?.click();
+    });
+
+    // Con ratón no hay gesto de dedo: se puede arrastrar la tira.
+    let arrastre: { x: number; izq: number; movido: boolean } | null = null;
+    pista.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      arrastre = { x: e.clientX, izq: pista.scrollLeft, movido: false };
+    });
+    addEventListener('pointermove', (e) => {
+      if (!arrastre) return;
+      const dx = e.clientX - arrastre.x;
+      if (!arrastre.movido && Math.abs(dx) > 5) {
+        arrastre.movido = true;
+        pista.classList.add('arrastrando');
+      }
+      if (arrastre.movido) pista.scrollLeft = arrastre.izq - dx;
+    });
+    addEventListener('pointerup', () => {
+      if (!arrastre) return;
+      const movido = arrastre.movido;
+      arrastre = null;
+      if (!movido) return;
+      // Al soltar se quitan los imanes un instante para que no salten, y se
+      // asienta en la foto más cercana. El clic que sigue al arrastre se anula.
+      const centro = pista.scrollLeft + pista.clientWidth / 2;
+      const cercana = centros.reduce((m, c, i) => (Math.abs(c - centro) < Math.abs(centros[m] - centro) ? i : m), 0);
+      pista.classList.remove('arrastrando');
+      ir(cercana);
+      const anular = (ev: Event) => { ev.preventDefault(); ev.stopPropagation(); };
+      pista.addEventListener('click', anular, { capture: true, once: true });
+      setTimeout(() => pista.removeEventListener('click', anular, true), 0);
+    });
+
+    medir();
+  });
+</script>

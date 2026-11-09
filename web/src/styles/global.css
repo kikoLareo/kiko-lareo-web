@@ -500,19 +500,141 @@ a:hover { color: var(--rojo); }
 .link:hover::after,
 .link:focus-visible::after { width: 100%; }
 
-.cat-grid {
-  display: grid;
-  gap: 16px;
-  padding: 8px 40px 56px;
+/* ---- Tira de fotos por categoría (carrusel con relieve) --------------------
+   Scroll horizontal nativo con imanes. El script de TiraCategoria.astro
+   escribe en cada foto --d (cuántas fotos se aleja del centro, con signo) y
+   --a (lo mismo sin signo); aquí se convierte en giro, profundidad y sombra.
+   Sin JS esas variables valen 0: queda una tira plana que también se desliza. */
+
+.tira {
+  --w: clamp(230px, 25vw, 360px);
+  --paso-gap: clamp(14px, 2vw, 30px);
+  padding-bottom: 32px;
 }
 
-.cat-grid.lead-left   { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); }
-.cat-grid.lead-right  { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr); }
-.cat-grid.lead-center { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); }
-.cat-grid.last { padding-bottom: 64px; }
+.tira-pista {
+  list-style: none;
+  margin: 0;
+  position: relative;            /* offsetLeft de las fotos se mide contra esta caja */
+  display: flex;
+  gap: var(--paso-gap);
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Aire a los lados para que la primera y la última puedan llegar al centro */
+  padding: 28px calc(50% - var(--w) / 2) 64px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain; /* no arrastra la página atrás al llegar al final */
+  perspective: 1100px;
+  perspective-origin: 50% 45%;
+  cursor: grab;
+  outline-offset: -4px;
+}
 
-.cat-cell { height: 440px; }
-.cat-grid.tall .cat-cell { height: 480px; }
+.tira-pista::-webkit-scrollbar { display: none; }
+.tira-pista.arrastrando { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+
+/* El giro va en el <a>, NO en el <li>: el imán de scroll (scroll-snap) calcula
+   sus puntos con la caja ya transformada, y con las fotos lejanas hundidas por
+   la perspectiva el recorrido se cortaba a media tira. El <li> queda sin tocar
+   y con preserve-3d para que el <a> siga viendo la perspectiva de la pista. */
+.tira-item {
+  flex: none;
+  width: var(--w);
+  aspect-ratio: 4 / 5;
+  scroll-snap-align: center;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.tira-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--slot-bg);
+  transform:
+    translateZ(calc(var(--a, 0) * -150px))
+    rotateY(calc(var(--d, 0) * -26deg))
+    scale(calc(1 - var(--a, 0) * 0.05));
+  transform-origin: 50% 50%;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, calc(0.28 - var(--a, 0) * 0.08));
+}
+
+.tira-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Las de los lados se apagan con una capa negra, no con un filtro: un
+   filtro de desenfoque sobre treinta fotos haría pesado el scroll. */
+.tira-item a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--negro);
+  opacity: calc(var(--a, 0) * 0.3);
+  pointer-events: none;
+}
+
+.tira-pie {
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.tira-info { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+
+.tira-n {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--rojo);
+}
+.tira-n b { font-weight: 500; }
+
+.tira-tit {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: min(2vw, 23px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.tira-sub { font-family: var(--mono); font-size: 12px; color: var(--gris); min-height: 1.2em; }
+
+.tira-cola { display: flex; align-items: center; gap: 20px; }
+
+.tira-mandos { display: flex; gap: 8px; }
+
+.tira-mandos button {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--negro);
+  color: var(--negro);
+  font-family: var(--mono);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tira-mandos button:hover:not(:disabled) { background: var(--negro); color: var(--crema); }
+.tira-mandos button:disabled { opacity: 0.3; cursor: default; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tira-item a { transform: none; box-shadow: none; }
+  .tira-item a::after { opacity: 0; }
+}
 
 /* ---- Selección de proyectos (portada) --------------------------------------- */
 
@@ -1521,7 +1643,7 @@ a:hover { color: var(--rojo); }
   .quicklinks { gap: 20px; padding: 16px 20px; }
 
   .cat-header,
-  .cat-grid,
+  .tira-pie,
   .services,
   .clients,
   .reel,
@@ -1533,13 +1655,9 @@ a:hover { color: var(--rojo); }
   .aftermovie,
   .next-project { padding-left: 20px; padding-right: 20px; }
 
-  .cat-grid.lead-left,
-  .cat-grid.lead-right,
-  .cat-grid.lead-center { grid-template-columns: minmax(0, 1fr); }
-
-  .cat-cell,
-  .cat-grid.tall .cat-cell { height: 380px; }
-  .flip.cat-cell { height: 440px; }
+  .tira { --w: min(66vw, 300px); padding-bottom: 40px; }
+  .tira-tit { font-size: 20px; }
+  .tira-cola { width: 100%; justify-content: space-between; }
 
   .about { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .about-photo { height: 420px; }

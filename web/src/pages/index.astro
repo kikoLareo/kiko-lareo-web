@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
-import FlipCard from '../components/FlipCard.astro';
+import TiraCategoria from '../components/TiraCategoria.astro';
+import type { Item } from '../components/TiraCategoria.astro';
 import { CATEGORIAS } from '../lib/categorias';
 import { codigoArchivo } from '../lib/archivo';
 import { optim } from '../lib/imagen';
@@ -31,32 +32,65 @@ const proyectos = (await getCollection('proyectos')).sort(
   (a, b) => b.data.fecha.getTime() - a.data.fecha.getTime()
 );
 
-// Por categoría: la tarjeta con historia más reciente + las 2 fotos más
-// recientes. Si faltan fotos, se muestran los huecos etiquetados.
+// Por categoría: una tira con TODAS las fotos de sus proyectos (galería y fotos
+// sueltas del proyecto) más las fotos sueltas de la categoría. Se reparten en
+// rondas —una de cada proyecto, luego otra de cada uno— para que no salgan
+// treinta seguidas del mismo trabajo. La portada de cada proyecto no entra
+// (ya sale arriba, en su tarjeta), salvo que sea la única foto que tiene.
+const MAX_TIRA = 40;
+
 const secciones = CATEGORIAS.map((cat) => {
-  const propias = fotos.filter((f) => f.data.categoria === cat.id);
-  const card = propias.find((f) => f.data.historia);
-  const resto = propias.filter((f) => f !== card).slice(0, 2);
   const ultimoProyecto = proyectos.find((p) => p.data.categoria === cat.id);
 
-  type Celda =
-    | { tipo: 'card'; foto: typeof card }
-    | { tipo: 'foto'; foto: (typeof resto)[number] }
-    | { tipo: 'hueco'; etiqueta: string };
+  const grupos: Item[][] = proyectos
+    .filter((p) => p.data.categoria === cat.id)
+    .map((p) => {
+      const d = p.data;
+      const propias = [
+        ...d.galeria.filter((g) => g.imagen && !g.clip).map((g) => ({ src: g.imagen!, pie: g.etiqueta })),
+        ...d.fotos.map((f) => ({ src: f, pie: undefined as string | undefined })),
+      ];
+      const lista = propias.length ? propias : d.portada ? [{ src: d.portada, pie: undefined }] : [];
+      return lista.map((f, n) => ({
+        src: f.src,
+        alt: f.pie ?? `${d.titulo} — foto ${n + 1}`,
+        href: `/proyectos/${p.id}/`,
+        titulo: d.titulo,
+        sub: `${d.cliente} · ${d.anio}`,
+        verbo: 'VER PROYECTO',
+      }));
+    });
 
-  const celdas: Celda[] = [];
-  const fotosPendientes = [...resto];
-  for (let i = 0; i < 3; i++) {
-    if (i === cat.cardPos) {
-      celdas.push({ tipo: 'card', foto: card });
-    } else if (fotosPendientes.length) {
-      celdas.push({ tipo: 'foto', foto: fotosPendientes.shift()! });
-    } else {
-      celdas.push({ tipo: 'hueco', etiqueta: cat.placeholders[i] });
+  grupos.push(
+    fotos
+      .filter((f) => f.data.categoria === cat.id && f.data.imagen)
+      .map((f) => ({
+        src: f.data.imagen!,
+        alt: f.data.alt ?? f.data.titulo,
+        href: `/${cat.id}/`,
+        titulo: f.data.titulo,
+        sub: cat.titulo,
+        verbo: 'VER TODO',
+      }))
+  );
+
+  const vistas = new Set<string>();
+  const tira: Item[] = [];
+  for (let ronda = 0; tira.length < MAX_TIRA; ronda++) {
+    let alguna = false;
+    for (const g of grupos) {
+      const it = g[ronda];
+      if (!it) continue;
+      alguna = true;
+      if (vistas.has(it.src)) continue;
+      vistas.add(it.src);
+      tira.push(it);
+      if (tira.length >= MAX_TIRA) break;
     }
+    if (!alguna) break;
   }
 
-  return { cat, celdas, ultimoProyecto };
+  return { cat, tira, ultimoProyecto };
 });
 
 const marquesina = `${g.marquesina.trim()} `;
@@ -212,7 +246,7 @@ const heroLineas = g.hero_titular
   </section>
 )}
 
-{s.categorias && secciones.map(({ cat, celdas, ultimoProyecto }, i) => (
+{s.categorias && secciones.map(({ cat, tira, ultimoProyecto }, i) => (
   <section id={cat.id}>
     <div class={`cat-header reveal${i === 0 && !(s.proyectos && seleccion.length) ? ' first' : ''}`}>
       <span class="cat-num">({cat.num})</span>
@@ -226,29 +260,11 @@ const heroLineas = g.hero_titular
         <a href={`/${cat.id}/`} class="link">VER TODO →</a>
       </div>
     </div>
-    <div class={`cat-grid ${cat.grid}${cat.tall ? ' tall' : ''}${i === secciones.length - 1 ? ' last' : ''}`}>
-      {celdas.map((celda, pos) =>
-        celda.tipo === 'card' ? (
-          celda.foto ? (
-            <FlipCard
-              class="cat-cell"
-              imagen={celda.foto.data.imagen}
-              alt={celda.foto.data.alt}
-              etiqueta={celda.foto.data.titulo}
-              historia={celda.foto.data.historia!}
-            />
-          ) : (
-            <div class="cat-cell"><Slot etiqueta={cat.placeholders[pos]} /></div>
-          )
-        ) : celda.tipo === 'foto' ? (
-          <div class="cat-cell">
-            <Slot imagen={celda.foto.data.imagen} video={celda.foto.data.clip} alt={celda.foto.data.alt} etiqueta={celda.foto.data.titulo} />
-          </div>
-        ) : (
-          <div class="cat-cell"><Slot etiqueta={celda.etiqueta} /></div>
-        )
-      )}
-    </div>
+    {tira.length > 0 ? (
+      <TiraCategoria items={tira} nombre={cat.titulo.toLowerCase()} />
+    ) : (
+      <div class="tira" style="padding:8px 40px 56px"><div style="height:380px"><Slot etiqueta={`${cat.titulo} — aún sin fotos`} /></div></div>
+    )}
   </section>
 ))}
 
