@@ -37,12 +37,24 @@ descripcion_seo: >-
   57 Rally de Ferrol a su paso por Monfero, junto al monasterio de Santa María.
   Serie fotográfica de deporte del motor por Kiko Lareo, fotógrafo deportivo en
   A Coruña y Galicia.
+portada: /img/uploads/ferrol-c3-frente.jpg
 galeria:
   - etiqueta: MONFERO — El monasterio y el tramo
+    imagen: /img/uploads/ferrol-monasterio-monfero.jpg
   - etiqueta: MONFERO — Velocidad
+    imagen: /img/uploads/ferrol-polvo-trasera.jpg
   - etiqueta: MONFERO — Detalle
+    imagen: /img/uploads/ferrol-frontal-roto.jpg
   - etiqueta: MONFERO — Punto de enfoque
+    imagen: /img/uploads/ferrol-yaris-entre-ramas.jpg
   - etiqueta: MONFERO — Público
+    imagen: /img/uploads/ferrol-publico-bmw.jpg
+fotos:
+  - /img/uploads/ferrol-fachada-barroca.jpg
+  - /img/uploads/ferrol-corredoira.jpg
+  - /img/uploads/ferrol-bmw-28-curva.jpg
+  - /img/uploads/ferrol-opel-adam.jpg
+  - /img/uploads/ferrol-marcas-asfalto.jpg
 ---
 El 57 Rally de Ferrol se corrió del 21 al 23 de agosto. El sábado los coches pasaban dos veces por Monfero, en los tramos Irixoa-Monfero y Monfero-Monfero.
 
