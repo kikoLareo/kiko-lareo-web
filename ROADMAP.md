@@ -17,7 +17,7 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 - **Tipografías alojadas en la web** (jul 2026): Bricolage + IBM Plex Mono
   servidas desde /fonts/ (woff2, OFL); fuera Google Fonts. Sin peticiones
   a Google, más rápido y sin enviar IP del visitante fuera de la UE.
-- **Logo y favicon** (jul 2026): wordmark KIKO LAREO® + monograma KL. (con
+- **Logo y favicon** (jul 2026): wordmark KIKO LAREO + monograma KL. (con
   cuadrado rojo) en /public/marca/ (PNG negro/crema + SVG + avatares);
   favicon y apple-touch-icon montados.
 - **Índice del proyecto**: CLAUDE.md en la raíz (se carga solo en cada
@@ -48,7 +48,7 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
   librerías); barra de progreso IDEA━FORMA━RESULTADO; color de acento por
   proyecto (lista cerrada de 5); "SIGUIENTE HISTORIA →" y fórmula de pies
   de foto en el panel. Ajustes de identidad de la misma fecha: hero partido
-  con máscara, titular del hero editable (KIKO LAREO®), categoría
+  con máscara, titular del hero editable (KIKO LAREO), categoría
   Comida→Hostelería (URL incluida) y retirada de fechas/cifras sin respaldo.
 - **Fase 2 — Portada editorial** (17/07/2026): hero con titular
   "HISTORIAS CON LUZ" en tres estilos (fondo / tarjeta / **letras-máscara**,

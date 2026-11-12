@@ -1,4 +1,4 @@
-# Kiko Lareo® — Web con gestor de contenidos
+# Kiko Lareo — Web con gestor de contenidos
 
 Versión definitiva de la web: [Astro](https://astro.build) (generador estático,
 mismo diseño que el prototipo de Claude Design) + [Decap CMS](https://decapcms.org)

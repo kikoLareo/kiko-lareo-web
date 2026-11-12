@@ -23,7 +23,7 @@ export const CATEGORIAS: Categoria[] = [
     cardPos: 0,
     placeholders: ['Deportes — acción principal', 'Deportes — detalle', 'Deportes — ambiente'],
     seo: {
-      titulo: 'Fotógrafo deportivo en A Coruña y Galicia — Kiko Lareo®',
+      titulo: 'Fotógrafo deportivo en A Coruña y Galicia — Kiko Lareo',
       descripcion:
         'Fotografía y vídeo deportivo en A Coruña y toda Galicia: carreras, ciclismo, competiciones y clubes. Cobertura profesional de eventos deportivos por Kiko Lareo.',
     },
@@ -37,7 +37,7 @@ export const CATEGORIAS: Categoria[] = [
     cardPos: 2,
     placeholders: ['Eventos — público', 'Eventos — escenario', 'Eventos — momento clave'],
     seo: {
-      titulo: 'Fotógrafo de eventos y conciertos en A Coruña — Kiko Lareo®',
+      titulo: 'Fotógrafo de eventos y conciertos en A Coruña — Kiko Lareo',
       descripcion:
         'Fotografía y vídeo de eventos, festivales y conciertos en A Coruña y Galicia: foto, vídeo y aftermovie. Entrega rápida para redes sociales.',
     },
@@ -52,7 +52,7 @@ export const CATEGORIAS: Categoria[] = [
     tall: true,
     placeholders: ['Moda — look 1', 'Moda — editorial principal', 'Moda — detalle'],
     seo: {
-      titulo: 'Fotógrafo de moda y lookbooks en A Coruña — Kiko Lareo®',
+      titulo: 'Fotógrafo de moda y lookbooks en A Coruña — Kiko Lareo',
       descripcion:
         'Fotografía editorial de moda en A Coruña y Galicia: lookbooks, campañas y dirección de arte para marcas y diseñadores.',
     },
@@ -66,7 +66,7 @@ export const CATEGORIAS: Categoria[] = [
     cardPos: 0,
     placeholders: ['Hostelería — plato estrella', 'Hostelería — sala / ambiente', 'Hostelería — proceso'],
     seo: {
-      titulo: 'Fotógrafo gastronómico y de hostelería en Galicia — Kiko Lareo®',
+      titulo: 'Fotógrafo gastronómico y de hostelería en Galicia — Kiko Lareo',
       descripcion:
         'Fotografía para hostelería en A Coruña y Galicia: restaurantes, gastronomía, producto y contenido para redes sociales. Fotos que hacen que el plato se pida solo.',
     },
@@ -80,7 +80,7 @@ export const CATEGORIAS: Categoria[] = [
     cardPos: 2,
     placeholders: ['Naturaleza — costa', 'Naturaleza — luz', 'Naturaleza — detalle'],
     seo: {
-      titulo: 'Fotografía de naturaleza y paisaje en A Coruña — Kiko Lareo®',
+      titulo: 'Fotografía de naturaleza y paisaje en A Coruña — Kiko Lareo',
       descripcion:
         'Fotografía de naturaleza y paisaje en A Coruña y Galicia: playas, costa, mar y luz atlántica. La mirada personal de Kiko Lareo fuera de los encargos.',
     },

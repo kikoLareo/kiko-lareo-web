@@ -106,7 +106,9 @@ const maniResto = maniPalabras.join(' ');
 
 const [cierre1, cierre2] = g.cierre.split('\n');
 
-// Titular gigante del hero, línea a línea; el ® final se hace pequeño
+// Titular gigante del hero, línea a línea. Hoy NO lleva ® (el nombre no está
+// registrado, 12/11/2026). Si algún día se registra, basta con escribir ® al
+// final del titular en el panel: ya se pinta pequeño, como superíndice.
 const heroLineas = g.hero_titular
   .split('\n')
   .map((l) => l.trim())
@@ -114,7 +116,7 @@ const heroLineas = g.hero_titular
 ---
 
 <Base
-  title="Kiko Lareo® — Fotógrafo y Videógrafo en A Coruña, Galicia"
+  title="Kiko Lareo — Fotógrafo y Videógrafo en A Coruña, Galicia"
   description={g.seo.descripcion}
   ogImage={g.seo.imagen_compartir ?? g.hero_imagen}
   jsonLd={jsonLd}
@@ -404,11 +406,11 @@ const heroLineas = g.hero_titular
     {cierre2 && <span>{cierre2} →</span>}
   </a>
   <div class="registro">
-    <span>KIKO LAREO® ─────────── HISTORIAS CON LUZ</span>
+    <span>KIKO LAREO ─────────── HISTORIAS CON LUZ</span>
     <span><span class="rec" aria-hidden="true">●</span> REC / KL_ARCHIVE</span>
   </div>
   <div class="contact-footer">
-    <span>© {new Date().getFullYear()} KIKO LAREO®</span>
+    <span>© {new Date().getFullYear()} KIKO LAREO</span>
     <span class="footer-legal">
       <a href="/aviso-legal/">AVISO LEGAL</a>
       <a href="/privacidad/">PRIVACIDAD</a>

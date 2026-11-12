@@ -153,7 +153,7 @@ const paginas = defineCollection({
     // 'letras': la foto se ve DENTRO de las letras gigantes (máscara)
     hero_estilo: z.enum(['fondo', 'tarjeta', 'letras']).default('fondo'),
     // Titular gigante del hero. El nombre no caduca; una frase, encasilla.
-    hero_titular: z.string().default('KIKO\nLAREO®'),
+    hero_titular: z.string().default('KIKO\nLAREO'),
     reel: z.object({
       titulo: z.string(),
       etiqueta: z.string(),
