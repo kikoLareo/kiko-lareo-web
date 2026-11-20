@@ -120,7 +120,7 @@ textarea.inp{min-height:84px;resize:vertical}
 .ptarea-partido{font-family:var(--mono);font-size:12px;color:var(--muted)}
 /* ajustes */
 .tabla{display:grid;gap:8px;margin-top:12px}
-.fila{display:grid;grid-template-columns:1.2fr 1fr 1.4fr auto;gap:8px;align-items:center}
+.fila{display:grid;grid-template-columns:1.2fr 1fr auto;gap:8px;align-items:center}
 .fila.dep{grid-template-columns:auto 1fr auto auto}
 /* modal */
 .modal-bg{position:fixed;inset:0;z-index:20;background:rgba(10,16,12,.55);display:grid;place-items:start center;overflow:auto;padding:max(24px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 24px max(12px,env(safe-area-inset-left,0px))}
@@ -139,8 +139,7 @@ textarea.inp{min-height:84px;resize:vertical}
   .partido{grid-template-columns:auto 1fr}
   .prog{grid-column:1/-1;text-align:left}
   .balance,.modal .dos,.filtros{grid-template-columns:1fr}
-  .fila{grid-template-columns:1fr 1fr}
-  .fila .email{grid-column:1/-1}
+  .fila{grid-template-columns:1fr 1fr auto}
   .tarea{grid-template-columns:auto 1fr}
   .tarea .t-acts{grid-column:2}
 }
@@ -354,10 +353,9 @@ function vistaAjustes(){
     ${ps.map(p=>`<div class="fila">
       <input class="inp" id="pn-${esc(p.id)}" data-col="personas" data-id="${esc(p.id)}" data-f="nombre" value="${esc(p.nombre)}" aria-label="Nombre" ${ro}>
       <input class="inp" id="pr-${esc(p.id)}" data-col="personas" data-id="${esc(p.id)}" data-f="rol" value="${esc(p.rol||"")}" placeholder="Función" aria-label="Función" ${ro}>
-      <input class="inp email" id="pe-${esc(p.id)}" data-col="personas" data-id="${esc(p.id)}" data-f="email" value="${esc(p.email||"")}" placeholder="Correo" aria-label="Correo" ${ro}>
       ${S.puede?`<button class="btn sm danger" data-act="borrar" data-col="personas" data-id="${esc(p.id)}" title="${usoP(p.id)} tareas asignadas">Quitar</button>`:""}
     </div>`).join("")}
-    ${S.puede?`<div class="fila"><input class="inp" id="np-nombre" placeholder="Nombre nuevo"><input class="inp" id="np-rol" placeholder="Función"><input class="inp email" id="np-email" placeholder="Correo (opcional)"><button class="btn sm pri" data-act="add-persona">Añadir</button></div>`:""}
+    ${S.puede?`<div class="fila"><input class="inp" id="np-nombre" placeholder="Nombre nuevo"><input class="inp" id="np-rol" placeholder="Función"><button class="btn sm pri" data-act="add-persona">Añadir</button></div>`:""}
   </div>
   <div class="sec-tit"><h2>Departamentos y áreas</h2><span class="muted">El orden es el de la ficha del partido</span></div>
   <div class="tabla">
@@ -487,12 +485,12 @@ document.addEventListener("click",async e=>{
   if(a==="fp"){const pid=pidActual();if(!pid)return;S.ui.fp[pid]=b.dataset.v;guardaUI();render();const h=document.querySelector(".personas-sel");if(h&&h.getBoundingClientRect().top<0)h.scrollIntoView({block:"start"});return}
   if(a==="toggle"){const t=S.tareas.find(x=>x.id===id);if(!t)return;return updDoc("tareas",id,{estado:t.estado==="hecho"?"pendiente":"hecho"})}
   if(a==="quick-persona"){const inp=$("#ft-nuevaP");const n=inp.value.trim();if(!n)return;const pid=nid("u");
-    if(await setDoc("personas",pid,{nombre:n,rol:"",email:""})){const l=document.createElement("label");l.innerHTML=`<input type="checkbox" name="personas" value="${esc(pid)}" checked>${esc(n)}`;$("#ft-pick").append(l);inp.value=""}return}
+    if(await setDoc("personas",pid,{nombre:n,rol:""})){const l=document.createElement("label");l.innerHTML=`<input type="checkbox" name="personas" value="${esc(pid)}" checked>${esc(n)}`;$("#ft-pick").append(l);inp.value=""}return}
   if(a==="borrar"||a==="borrar-partido"){
     if(!b.classList.contains("arm")){b.classList.add("arm");b.dataset.txt=b.textContent;b.textContent=a==="borrar-partido"?"¿Seguro? Se borran también sus tareas":"¿Seguro? Pulsa otra vez";setTimeout(()=>{if(b.isConnected){b.classList.remove("arm");b.textContent=b.dataset.txt}},4000);return}
     if(a==="borrar-partido"){const ts=tareasDe(id);await escribe(db=>Promise.all(ts.map(t=>db.doc("tareas/"+t.id).delete())));await delDoc("partidos",id,"Partido borrado");cierraModal();location.hash="partidos";return}
     await delDoc(b.dataset.col,id,"Borrado");if(b.dataset.cerrar)cierraModal();return}
-  if(a==="add-persona"){const n=$("#np-nombre").value.trim();if(!n)return $("#np-nombre").focus();await setDoc("personas",nid("u"),{nombre:n,rol:$("#np-rol").value.trim(),email:$("#np-email").value.trim()},"Persona añadida");return}
+  if(a==="add-persona"){const n=$("#np-nombre").value.trim();if(!n)return $("#np-nombre").focus();await setDoc("personas",nid("u"),{nombre:n,rol:$("#np-rol").value.trim()},"Persona añadida");return}
   if(a==="add-dep"){const n=$("#nd-nombre").value.trim();if(!n)return $("#nd-nombre").focus();const max=Math.max(0,...S.deps.map(d=>d.orden||0));await setDoc("departamentos",nid("d"),{nombre:n,orden:max+1},"Departamento añadido");return}
   if(a==="subir"||a==="bajar"){const ds=[...S.deps].sort((x,y)=>(x.orden||0)-(y.orden||0));const i=ds.findIndex(d=>d.id===id);const j=a==="subir"?i-1:i+1;if(j<0||j>=ds.length)return;
     await escribe(db=>Promise.all(ds.map((d,k)=>{const o=k===i?j:k===j?i:k;return (d.orden===o)?null:db.doc("departamentos/"+d.id).update({orden:o})}).filter(Boolean)));return}
