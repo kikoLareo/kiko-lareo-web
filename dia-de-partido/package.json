@@ -1,0 +1,11 @@
+{
+  "name": "dia-de-partido",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.9"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^6.0.0"
+  }
+}

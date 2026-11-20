@@ -1,0 +1,11 @@
+# Proyecto «Día de partido» (HC Liceo). Independiente de la web del portfolio:
+# en Netlify es OTRO proyecto con «Base directory» = dia-de-partido.
+[build]
+  publish = "public"
+  command = "echo 'sin compilación'"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "no-referrer"
