@@ -1,0 +1,35 @@
+# Kiko Studio: app privada de gestión. Es un proyecto de Netlify APARTE de
+# la web del portfolio (kikolareo.com). En Netlify, este proyecto tiene como
+# carpeta base "studio".
+[build]
+  command = "echo 'Kiko Studio: sin compilación'"
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+
+# Nada de esto debe salir en buscadores.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "same-origin"
+    X-Content-Type-Options = "nosniff"
+
+# El service worker y la página se revisan siempre, para que las
+# actualizaciones lleguen al móvil sin reinstalar.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Cualquier ruta que no sea un archivo abre la app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

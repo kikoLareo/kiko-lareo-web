@@ -1,0 +1,9 @@
+{
+  "name": "kiko-studio",
+  "private": true,
+  "type": "module",
+  "description": "Kiko Studio: gestión privada de trabajos, clientes, tareas y cobros.",
+  "dependencies": {
+    "@netlify/blobs": "11.1.7"
+  }
+}

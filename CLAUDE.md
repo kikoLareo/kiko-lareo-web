@@ -9,6 +9,13 @@ videógrafo en A Coruña (Galicia). Él publica el contenido, no es programador:
 - **Estado y hoja de ruta:** ver `ROADMAP.md` (fases hechas/pendientes, decisiones, descartes).
   Si vas a planificar o retomar trabajo, lee ROADMAP.md, no hace falta releer todo el código.
 
+## Kiko Studio (app privada de gestión, 23/11/2026)
+
+- Vive en `studio/` y es **otro proyecto de Netlify** (`kiko-studio`, base `studio`). No tocar `web/` por ella ni al revés.
+- Diseño funcional completo (pantallas, reglas del dinero, fases): pedirlo al dueño o ver el artifact «KIKO STUDIO».
+- Datos en Netlify Blobs vía `studio/netlify/functions/api.mjs`; clave en la variable `KS_CLAVE`. **Nunca** meter datos de clientes o importes en el repo.
+- Hecha la fase 1 (Hoy, trabajos, clientes, tareas, calendario, facturas/cobros, importar Sheets). Fase 2: gastos, suscripciones, rentabilidad, previsión, impuestos.
+
 ## Stack
 
 - **Astro 5** estático + **Decap CMS** en `/admin` (backend git-gateway + Netlify Identity).
