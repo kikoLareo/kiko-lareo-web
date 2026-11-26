@@ -2647,13 +2647,15 @@ html.js .compo-pieza.aparece.posada {
 .libro-libro {
   position: relative;
   width: min(100%, 940px);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 3;            /* páginas verticales 2:3 */
   margin: 0 auto;
   cursor: pointer;
   outline-offset: 8px;
   transition: transform 0.9s cubic-bezier(0.65, 0, 0.25, 1);
 }
 /* cerrado solo tiene página derecha: se desplaza para quedar centrado */
+/* Libro de fotos apaisadas: páginas 3:2, así que el libro es mucho más ancho que alto */
+.libro-apaisado .libro-libro { width: min(100%, 1280px); aspect-ratio: 3 / 1; }
 .libro-libro[data-estado='inicio'] { transform: translateX(-25%); }
 .libro-libro[data-estado='fin'] { transform: translateX(25%); }
 
@@ -2689,6 +2691,9 @@ html.js .compo-pieza.aparece.posada {
   display: block;
   user-select: none;
 }
+/* una foto que no tiene la forma de las páginas se enseña entera, sin recortar */
+.libro-cara.entera img { object-fit: contain; }
+
 /* sombra del lomo: cada página se oscurece donde se une con la otra */
 .libro-cara::after {
   content: '';
@@ -2749,8 +2754,10 @@ html.js .compo-pieza.aparece.posada {
     align-items: flex-start;
   }
   .libro-tira::-webkit-scrollbar { display: none; }
-  .libro-tira figure { flex: 0 0 80%; margin: 0; scroll-snap-align: center; }
-  .libro-tira img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18); }
+  .libro-tira figure { margin: 0; scroll-snap-align: center; }
+  .libro-tira figure.vert { flex: 0 0 76%; }
+  .libro-tira figure.ap { flex: 0 0 90%; }
+  .libro-tira img { width: 100%; height: auto; display: block; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18); }
   .libro-tira figcaption {
     padding-top: 8px;
     font-family: var(--mono);

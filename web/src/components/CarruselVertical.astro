@@ -32,7 +32,7 @@ const total = String(piezas.length).padStart(2, '0');
     {piezas.map((p, i) => (
       <figure data-i={i} role="option" aria-selected={i === 0 ? 'true' : 'false'}>
         <img
-          src={optim(p.imagen, 900)}
+          src={optim(p.imagen, 1200)}
           alt={p.etiqueta || `${titulo} — foto ${i + 1}`}
           loading={i < 2 ? 'eager' : 'lazy'}
           decoding="async"

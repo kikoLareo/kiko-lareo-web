@@ -28,10 +28,10 @@ bloques:
       - /img/uploads/auara-3331.jpg
       - /img/uploads/auara-3317.jpg
       - /img/uploads/auara-3330.jpg
+      - /img/uploads/auara-3337.jpg
   - estilo: libro
     titulo: Los dos
     fotos:
-      - /img/uploads/auara-3337.jpg
       - /img/uploads/auara-3349.jpg
       - /img/uploads/auara-3357.jpg
       - /img/uploads/auara-3362.jpg

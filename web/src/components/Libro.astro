@@ -7,7 +7,7 @@
 // En el móvil no caben dos páginas con tamaño decente: el libro se cambia por
 // una tira que se desliza de lado, con las mismas fotos. Sin JS el libro se ve
 // cerrado (la primera foto) y todas las fotos siguen en el HTML.
-import { optim } from '../lib/imagen';
+import { optim, dimensiones } from '../lib/imagen';
 
 export interface Pieza {
   imagen: string;
@@ -25,27 +25,37 @@ const { piezas, titulo } = Astro.props;
 const hojas = [] as { frente: Pieza; dorso?: Pieza }[];
 for (let i = 0; i < piezas.length; i += 2) hojas.push({ frente: piezas[i], dorso: piezas[i + 1] });
 const total = String(piezas.length).padStart(2, '0');
+
+// Las páginas toman la forma de la MAYORÍA de las fotos (apaisadas o verticales).
+// Una foto que no encaje con esa forma se enseña entera, sin recortar, sobre papel.
+const apaisada = (p: Pieza) => {
+  const d = dimensiones(p.imagen);
+  return d ? d.w >= d.h : false;
+};
+const nApaisadas = piezas.filter(apaisada).length;
+const paisaje = nApaisadas > piezas.length / 2;
+const ajuste = (p: Pieza) => (apaisada(p) === paisaje ? 'cubre' : 'entera');
 const alt = (p: Pieza, i: number) => p.etiqueta || `${titulo} — foto ${i + 1}`;
 ---
 
-<section class="libro" data-libro data-total={piezas.length} aria-label={`Libro de fotos de ${titulo}`}>
+<section class={`libro ${paisaje ? 'libro-apaisado' : 'libro-vertical'}`} data-libro data-total={piezas.length} aria-label={`Libro de fotos de ${titulo}`}>
   <div class="libro-escena">
     <div class="libro-libro" data-estado="inicio" style={`--n:${hojas.length}`} tabindex="0">
       {hojas.map((h, j) => (
         <div class="libro-hoja" style={`--j:${j}`}>
-          <div class="libro-cara frente">
+          <div class={`libro-cara frente ${ajuste(h.frente)}`}>
             <img
-              src={optim(h.frente.imagen, 1000)}
+              src={optim(h.frente.imagen, 1600)}
               alt={alt(h.frente, 2 * j)}
               loading={j < 2 ? 'eager' : 'lazy'}
               decoding="async"
               draggable="false"
             />
           </div>
-          <div class="libro-cara dorso">
+          <div class={`libro-cara dorso ${h.dorso ? ajuste(h.dorso) : ''}`}>
             {h.dorso ? (
               <img
-                src={optim(h.dorso.imagen, 1000)}
+                src={optim(h.dorso.imagen, 1600)}
                 alt={alt(h.dorso, 2 * j + 1)}
                 loading={j < 2 ? 'eager' : 'lazy'}
                 decoding="async"
@@ -68,8 +78,8 @@ const alt = (p: Pieza, i: number) => p.etiqueta || `${titulo} — foto ${i + 1}`
 
   <div class="libro-tira">
     {piezas.map((p, i) => (
-      <figure>
-        <img src={optim(p.imagen, 900)} alt={alt(p, i)} loading="lazy" decoding="async" draggable="false" />
+      <figure class={apaisada(p) ? 'ap' : 'vert'}>
+        <img src={optim(p.imagen, 1600)} alt={alt(p, i)} loading="lazy" decoding="async" draggable="false" />
         <figcaption>({String(i + 1).padStart(2, '0')}/{total})</figcaption>
       </figure>
     ))}
