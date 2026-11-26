@@ -76,7 +76,7 @@ galeria:
     imagen: /img/uploads/auara-clip-05.jpg
 galeria_estilo: composicion
 ---
-Sesión en Studio Follow el 17 de noviembre de 2026 para la sudadera de Cero de Costa y Auara. Las luces las monté yo.
+Sesión en Studio Follow el 17 de noviembre de 2026 para la sudadera de Cero de Costa y Auara.
 
 Delante lleva «Auara x Cero de Costa». En la espalda, un mapa de África con siete países: Tanzania, Madagascar, Kenia, Benín, Mozambique, Malaui y Ghana.
 
