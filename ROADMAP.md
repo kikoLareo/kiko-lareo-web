@@ -66,6 +66,17 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
   operativo, SEO por categoría, sitemap, robots, JSON-LD y página 404.
 - Redirects 301 de kikolareo.es → kikolareo.com confirmados.
 
+## 🎞️ Pasada de movimiento (pedida por Kiko, 26/11/2026)
+
+«Ahora son muy dinámicas todas [las webs]. Y la nuestra en muchos lados quedó muy estática y aburrida.» Le gustaron las 14 ideas. **Esto sustituye a la regla de «no añadir más movimiento sin quitar otro» (28/09).** Siguen mandando la foto, el peso bajo (CSS y JS a mano, sin librerías), el móvil primero (los visitantes llegan de Instagram) y `prefers-reduced-motion`.
+
+Orden acordado:
+1. ✅ **Bloques de fotos por proyecto** (campo `bloques` en `proyectos`: composición · libro · carrusel · hoja de contactos · mosaico, cada uno con su rótulo). Libro = hojas 3D en escritorio y tira deslizable en móvil. Probado en AUARA x CERO DE COSTA.
+2. ⏳ Transición entre páginas con la propia foto (tarjeta → portada del proyecto).
+3. ⏳ `/trabajo` como índice (lista/rejilla, miniaturas al pasar, filtros que reordenan con animación).
+4. ⏳ Titular de la portada vivo (la foto que hay dentro de las letras cambia o se mueve).
+5. ⏳ Detalles: fotos que «revelan» al entrar, portada de proyecto que se encoge al bajar, «Selección» como lista grande con foto flotante, sección fijada con scroll horizontal, cursor propio («VER», «ARRASTRA»), retrato de «Sobre mí» con cambio, clientes que entran uno a uno, **el punto rojo de la marca como cursor / progreso / «cargando»**.
+
 ## ✔️ Decisiones tomadas
 
 1. **Frase de portada** (17/07/2026): se sigue con **"HISTORIAS CON LUZ"**.

@@ -1,0 +1,134 @@
+---
+// Libro: las fotos como un álbum de hojas que se pasan. Cada hoja tiene una
+// foto delante y otra detrás, así que se ven de dos en dos, como en una doble
+// página. Se maneja con los botones, con las flechas del teclado, pulsando la
+// mitad izquierda o derecha del libro, o arrastrando.
+//
+// En el móvil no caben dos páginas con tamaño decente: el libro se cambia por
+// una tira que se desliza de lado, con las mismas fotos. Sin JS el libro se ve
+// cerrado (la primera foto) y todas las fotos siguen en el HTML.
+import { optim } from '../lib/imagen';
+
+export interface Pieza {
+  imagen: string;
+  etiqueta?: string;
+}
+
+interface Props {
+  piezas: Pieza[];
+  titulo: string;
+}
+
+const { piezas, titulo } = Astro.props;
+
+// La hoja j lleva delante la foto 2j y detrás la 2j+1
+const hojas = [] as { frente: Pieza; dorso?: Pieza }[];
+for (let i = 0; i < piezas.length; i += 2) hojas.push({ frente: piezas[i], dorso: piezas[i + 1] });
+const total = String(piezas.length).padStart(2, '0');
+const alt = (p: Pieza, i: number) => p.etiqueta || `${titulo} — foto ${i + 1}`;
+---
+
+<section class="libro" data-libro data-total={piezas.length} aria-label={`Libro de fotos de ${titulo}`}>
+  <div class="libro-escena">
+    <div class="libro-libro" data-estado="inicio" style={`--n:${hojas.length}`} tabindex="0">
+      {hojas.map((h, j) => (
+        <div class="libro-hoja" style={`--j:${j}`}>
+          <div class="libro-cara frente">
+            <img
+              src={optim(h.frente.imagen, 1000)}
+              alt={alt(h.frente, 2 * j)}
+              loading={j < 2 ? 'eager' : 'lazy'}
+              decoding="async"
+              draggable="false"
+            />
+          </div>
+          <div class="libro-cara dorso">
+            {h.dorso ? (
+              <img
+                src={optim(h.dorso.imagen, 1000)}
+                alt={alt(h.dorso, 2 * j + 1)}
+                loading={j < 2 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable="false"
+              />
+            ) : (
+              <span class="libro-fin">FIN</span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="libro-mandos">
+    <button type="button" class="libro-btn" data-libro-prev aria-label="Hoja anterior" disabled>←</button>
+    <span class="libro-contador" data-libro-contador aria-live="polite">(01/{total})</span>
+    <button type="button" class="libro-btn" data-libro-next aria-label="Hoja siguiente">→</button>
+  </div>
+
+  <div class="libro-tira">
+    {piezas.map((p, i) => (
+      <figure>
+        <img src={optim(p.imagen, 900)} alt={alt(p, i)} loading="lazy" decoding="async" draggable="false" />
+        <figcaption>({String(i + 1).padStart(2, '0')}/{total})</figcaption>
+      </figure>
+    ))}
+    <span class="libro-pista" aria-hidden="true">DESLIZA →</span>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-libro]').forEach((el) => {
+    const libro = el.querySelector<HTMLElement>('.libro-libro');
+    const hojas = Array.from(el.querySelectorAll<HTMLElement>('.libro-hoja'));
+    const prev = el.querySelector<HTMLButtonElement>('[data-libro-prev]');
+    const next = el.querySelector<HTMLButtonElement>('[data-libro-next]');
+    const contador = el.querySelector<HTMLElement>('[data-libro-contador]');
+    if (!libro || !hojas.length) return;
+
+    const total = Number(el.dataset.total) || 0;
+    // Si la última hoja no tiene foto detrás, el libro se queda abierto en ella
+    const ultimaConDorso = total % 2 === 0;
+    const max = ultimaConDorso ? hojas.length : hojas.length - 1;
+    let k = 0; // hojas ya pasadas
+
+    const num = (n: number) => String(n).padStart(2, '0');
+    const pinta = () => {
+      hojas.forEach((h, j) => h.classList.toggle('vuelta', j < k));
+      libro.dataset.estado = k === 0 ? 'inicio' : k === max && ultimaConDorso ? 'fin' : 'medio';
+      // fotos a la vista: la de la izquierda (dorso de la hoja k-1) y la de la derecha (frente de la hoja k)
+      const izq = k > 0 ? 2 * k : 0;
+      const der = k < hojas.length ? 2 * k + 1 : 0;
+      const vistas = [izq, der].filter(Boolean);
+      if (contador) contador.textContent = `(${vistas.map(num).join('–')}/${num(total)})`;
+      if (prev) prev.disabled = k === 0;
+      if (next) next.disabled = k >= max;
+    };
+    const ir = (d: number) => {
+      const n = Math.max(0, Math.min(max, k + d));
+      if (n !== k) { k = n; pinta(); }
+    };
+
+    prev?.addEventListener('click', () => ir(-1));
+    next?.addEventListener('click', () => ir(1));
+    libro.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); ir(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); ir(-1); }
+    });
+
+    // Pulsar la mitad derecha pasa a la siguiente; la izquierda, a la anterior.
+    // Arrastrar más de 40 px hace lo mismo. Se distingue por la distancia.
+    let x0 = 0;
+    libro.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+    libro.addEventListener('pointerup', (e) => {
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 40) { ir(dx < 0 ? 1 : -1); return; }
+      const r = libro.getBoundingClientRect();
+      const enDerecha = e.clientX > r.left + r.width / 2;
+      // el libro cerrado solo tiene página derecha: pulsar donde sea abre
+      ir(k === 0 || enDerecha ? 1 : -1);
+    });
+
+    pinta();
+  });
+</script>

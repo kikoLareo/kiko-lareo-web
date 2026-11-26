@@ -18,60 +18,53 @@ descripcion_seo: >-
   con Auara: dos modelos, botellas de agua y un mapa de África en la espalda.
   Fotografía e iluminación de Kiko Lareo.
 portada: /img/uploads/auara-3373.jpg
+bloques:
+  - estilo: composicion
+    titulo: En el sofá
+    fotos:
+      - /img/uploads/auara-3305.jpg
+      - /img/uploads/auara-3309.jpg
+      - /img/uploads/auara-3312.jpg
+      - /img/uploads/auara-3331.jpg
+      - /img/uploads/auara-3317.jpg
+      - /img/uploads/auara-3330.jpg
+  - estilo: libro
+    titulo: Los dos
+    fotos:
+      - /img/uploads/auara-3337.jpg
+      - /img/uploads/auara-3349.jpg
+      - /img/uploads/auara-3357.jpg
+      - /img/uploads/auara-3362.jpg
+      - /img/uploads/auara-3372.jpg
+  - estilo: carrusel
+    titulo: Las botellas
+    fotos:
+      - /img/uploads/auara-3377.jpg
+      - /img/uploads/auara-3385.jpg
+      - /img/uploads/auara-3402.jpg
+      - /img/uploads/auara-3408.jpg
+  - estilo: contactos
+    titulo: La espalda y ella
+    fotos:
+      - /img/uploads/auara-3419.jpg
+      - /img/uploads/auara-3516.jpg
+      - /img/uploads/auara-3519.jpg
+      - /img/uploads/auara-3441.jpg
+      - /img/uploads/auara-3456.jpg
 galeria:
-  - etiqueta: AUARA — 01
-    imagen: /img/uploads/auara-3305.jpg
-  - etiqueta: AUARA — 02
-    imagen: /img/uploads/auara-3309.jpg
-  - etiqueta: AUARA — 03
-    imagen: /img/uploads/auara-3312.jpg
-  - etiqueta: DURANTE — 01
+  - etiqueta: DETRÁS DE CÁMARAS — 01
     clip: /img/uploads/auara-clip-01.mp4
     imagen: /img/uploads/auara-clip-01.jpg
-  - etiqueta: AUARA — 04
-    imagen: /img/uploads/auara-3331.jpg
-  - etiqueta: AUARA — 05
-    imagen: /img/uploads/auara-3317.jpg
-  - etiqueta: AUARA — 06
-    imagen: /img/uploads/auara-3330.jpg
-  - etiqueta: AUARA — 07
-    imagen: /img/uploads/auara-3337.jpg
-  - etiqueta: AUARA — 08
-    imagen: /img/uploads/auara-3349.jpg
-  - etiqueta: AUARA — 09
-    imagen: /img/uploads/auara-3357.jpg
-  - etiqueta: DURANTE — 02
+  - etiqueta: DETRÁS DE CÁMARAS — 02
     clip: /img/uploads/auara-clip-02.mp4
     imagen: /img/uploads/auara-clip-02.jpg
-  - etiqueta: AUARA — 10
-    imagen: /img/uploads/auara-3362.jpg
-  - etiqueta: AUARA — 11
-    imagen: /img/uploads/auara-3372.jpg
-  - etiqueta: AUARA — 12
-    imagen: /img/uploads/auara-3377.jpg
-  - etiqueta: AUARA — 13
-    imagen: /img/uploads/auara-3385.jpg
-  - etiqueta: AUARA — 14
-    imagen: /img/uploads/auara-3402.jpg
-  - etiqueta: DURANTE — 03
+  - etiqueta: DETRÁS DE CÁMARAS — 03
     clip: /img/uploads/auara-clip-03.mp4
     imagen: /img/uploads/auara-clip-03.jpg
-  - etiqueta: AUARA — 15
-    imagen: /img/uploads/auara-3408.jpg
-  - etiqueta: AUARA — 16
-    imagen: /img/uploads/auara-3419.jpg
-  - etiqueta: AUARA — 17
-    imagen: /img/uploads/auara-3516.jpg
-  - etiqueta: DURANTE — 04
+  - etiqueta: DETRÁS DE CÁMARAS — 04
     clip: /img/uploads/auara-clip-04.mp4
     imagen: /img/uploads/auara-clip-04.jpg
-  - etiqueta: AUARA — 18
-    imagen: /img/uploads/auara-3519.jpg
-  - etiqueta: AUARA — 19
-    imagen: /img/uploads/auara-3441.jpg
-  - etiqueta: AUARA — 20
-    imagen: /img/uploads/auara-3456.jpg
-  - etiqueta: DURANTE — 05
+  - etiqueta: DETRÁS DE CÁMARAS — 05
     clip: /img/uploads/auara-clip-05.mp4
     imagen: /img/uploads/auara-clip-05.jpg
 galeria_estilo: composicion

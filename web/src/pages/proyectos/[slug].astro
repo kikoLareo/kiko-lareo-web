@@ -7,6 +7,7 @@ import Slot from '../../components/Slot.astro';
 import CarruselVertical from '../../components/CarruselVertical.astro';
 import MosaicoMarca from '../../components/MosaicoMarca.astro';
 import Composicion from '../../components/Composicion.astro';
+import Bloques from '../../components/Bloques.astro';
 import { CATEGORIAS } from '../../lib/categorias';
 import { codigoArchivo, ACENTOS, ACENTOS_OSCURO } from '../../lib/archivo';
 import { optim } from '../../lib/imagen';
@@ -34,7 +35,8 @@ const cat = CATEGORIAS.find((c) => c.id === d.categoria)!;
 const haySiguiente = siguiente.id !== proyecto.id;
 const acento = ACENTOS[d.color] ?? ACENTOS.rojo;
 const acentoOscuro = ACENTOS_OSCURO[d.color] ?? ACENTOS_OSCURO.rojo;
-const hayResultado = d.galeria.length > 0 || d.fotos.length > 0 || d.video;
+const hayBloques = d.bloques.some((b) => b.fotos.length > 0);
+const hayResultado = hayBloques || d.galeria.length > 0 || d.fotos.length > 0 || d.video;
 
 // Los embeds de Instagram/TikTok son verticales: se muestran en un marco
 // estrecho centrado (no en la caja ancha de YouTube/Vimeo).
@@ -163,7 +165,9 @@ const jsonLd = [
 
 <!-- El resultado: galería y vídeo -->
 {hayResultado && <div class="caso-label resultado-label reveal">EL RESULTADO</div>}
-{enComposicion ? (
+{hayBloques ? (
+  <Bloques bloques={d.bloques} titulo={d.titulo} localidad={d.localidad} anio={d.anio} />
+) : enComposicion ? (
   <Composicion piezas={piezasCarrusel} titulo={d.titulo} />
 ) : enMosaico ? (
   <MosaicoMarca piezas={piezasCarrusel} titulo={d.titulo} />
@@ -200,7 +204,7 @@ const jsonLd = [
 ) : null}
 
 <!-- Los clips de vídeo van fuera del carrusel: llevan sus propios controles -->
-{hayGaleria && clips.length > 0 && (
+{(hayGaleria || hayBloques) && clips.length > 0 && (
   <section class="gallery-row">
     {clips.map((pieza) => (
       <div><Slot imagen={pieza.imagen} video={pieza.clip} alt={pieza.etiqueta} etiqueta={pieza.etiqueta} /></div>

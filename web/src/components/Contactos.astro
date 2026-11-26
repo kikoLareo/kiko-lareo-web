@@ -1,0 +1,41 @@
+---
+// Hoja de contactos: todas las fotos pequeñas sobre fondo oscuro, como una tira
+// de negativos, cada una con su número. Se tocan y se abren grandes en el visor
+// (lo da el contenedor con data-visor). Sirve para enseñar MUCHAS fotos de una
+// sesión sin alargar la página.
+import { optim } from '../lib/imagen';
+
+export interface Pieza {
+  imagen: string;
+  etiqueta?: string;
+}
+
+interface Props {
+  piezas: Pieza[];
+  titulo: string;
+}
+
+const { piezas, titulo } = Astro.props;
+---
+
+<section class="contactos" data-visor aria-label={`Hoja de contactos de ${titulo}`}>
+  <div class="contactos-hoja">
+    {piezas.map((p, i) => (
+      <figure class="contactos-foto">
+        <div class="slot filled">
+          <img
+            src={optim(p.imagen, 520)}
+            alt={p.etiqueta || `${titulo} — foto ${i + 1}`}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption>
+          <span>{String(i + 1).padStart(2, '0')}</span>
+          <span>▸</span>
+          <span>{String(i + 1).padStart(2, '0')}A</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

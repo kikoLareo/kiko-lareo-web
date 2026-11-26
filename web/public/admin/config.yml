@@ -145,11 +145,37 @@ collections:
           - { name: archivo, label: "Vídeo subido (MP4)", widget: file, required: false, hint: "Sube el MP4 (H.264) para reproducirlo directamente en la web. Ideal por debajo de ~30 MB. Si también hay URL, gana el archivo." }
           - { name: url, label: "URL de embed (YouTube/Vimeo, para piezas largas)", widget: string, required: false, hint: "Ej: https://player.vimeo.com/video/XXXX o https://www.youtube.com/embed/XXXX" }
           - { name: imagen, label: "Fotograma de espera", widget: image, required: false }
+      - name: bloques
+        label: "Bloques de fotos (mezclar estilos)"
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{fields.estilo}} — {{fields.titulo}}"
+        hint: "Para que un mismo proyecto combine formas de ver las fotos: una parte como revista, otra en libro, otra en carrusel… Si hay bloques, MANDAN sobre «Cómo se ven las fotos» y sobre las fotos de arriba (los clips de la galería siguen saliendo aparte)."
+        fields:
+          - name: estilo
+            label: "Cómo se ven"
+            widget: select
+            default: composicion
+            hint: "COMPOSICIÓN: como una revista. LIBRO: se pasan las hojas, dos fotos por página doble (en el móvil, deslizando). CARRUSEL: una a una, con relieve. HOJA DE CONTACTOS: todas pequeñas como una tira de negativos; al tocar una se abre grande. MOSAICO: todas juntas a sangre."
+            options:
+              - { label: "Composición (como una revista)", value: composicion }
+              - { label: "Libro (pasar hojas)", value: libro }
+              - { label: "Carrusel (una a una, con relieve)", value: carrusel }
+              - { label: "Hoja de contactos (tira de negativos)", value: contactos }
+              - { label: "Mosaico (todas juntas, a sangre)", value: mosaico }
+          - { name: titulo, label: "Título del bloque (opcional)", widget: string, required: false, hint: "Ej: La espalda · Entre bastidores. Sale como un rótulo pequeño encima del bloque." }
+          - name: fotos
+            label: Fotos
+            widget: list
+            required: false
+            field: { name: foto, label: Foto, widget: image }
+            hint: "Una foto cada vez (limitación del gestor). Para tandas grandes, pásamelas y las subo yo."
       - name: galeria_estilo
         label: "Cómo se ven las fotos"
         widget: select
         default: composicion
-        hint: "COMPOSICIÓN es la de por defecto: las fotos caen como en una revista, cada una de un tamaño y a una altura, con aire. CARRUSEL para pasarlas de una en una con relieve. MOSAICO para trabajos de marca, todas juntas y a sangre."
+        hint: "Solo cuenta si NO hay bloques. COMPOSICIÓN es la de por defecto: las fotos caen como en una revista, cada una de un tamaño y a una altura, con aire. CARRUSEL para pasarlas de una en una con relieve. MOSAICO para trabajos de marca, todas juntas y a sangre."
         options:
           - { label: "Composición (como una revista)", value: composicion }
           - { label: "Carrusel (una a una, con relieve)", value: carrusel }

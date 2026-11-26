@@ -1,0 +1,53 @@
+---
+// Bloques de fotos: un proyecto puede combinar formas de enseñar las fotos
+// (maqueta, libro, carrusel, hoja de contactos, mosaico), cada una con su
+// rótulo. Si un bloque tiene menos de dos fotos, no hay nada que "pasar" ni
+// que "juntar": se enseña en maqueta, que con una foto queda como una sola.
+import Composicion from './Composicion.astro';
+import CarruselVertical from './CarruselVertical.astro';
+import MosaicoMarca from './MosaicoMarca.astro';
+import Libro from './Libro.astro';
+import Contactos from './Contactos.astro';
+
+interface Bloque {
+  estilo: 'composicion' | 'libro' | 'carrusel' | 'contactos' | 'mosaico';
+  titulo?: string;
+  fotos: string[];
+}
+
+interface Props {
+  bloques: Bloque[];
+  titulo: string;
+  localidad?: string;
+  anio?: string;
+}
+
+const { bloques, titulo, localidad, anio } = Astro.props;
+const llenos = bloques.filter((b) => b.fotos.length > 0);
+---
+
+{llenos.map((b, i) => {
+  const piezas = b.fotos.map((imagen) => ({ imagen }));
+  const estilo = piezas.length < 2 ? 'composicion' : b.estilo;
+  return (
+    <div class={`bloque bloque-${estilo}`}>
+      {b.titulo && (
+        <div class="bloque-rotulo">
+          <span class="bloque-n">({String(i + 1).padStart(2, '0')})</span>
+          <span>{b.titulo}</span>
+        </div>
+      )}
+      {estilo === 'libro' ? (
+        <Libro piezas={piezas} titulo={titulo} />
+      ) : estilo === 'carrusel' ? (
+        <CarruselVertical piezas={piezas} titulo={titulo} localidad={localidad} anio={anio} />
+      ) : estilo === 'contactos' ? (
+        <Contactos piezas={piezas} titulo={titulo} />
+      ) : estilo === 'mosaico' ? (
+        <MosaicoMarca piezas={piezas} titulo={titulo} />
+      ) : (
+        <Composicion piezas={piezas} titulo={titulo} />
+      )}
+    </div>
+  );
+})}

@@ -82,6 +82,20 @@ const proyectos = defineCollection({
     //   carrusel    → pila vertical con relieve, de una en una
     //   mosaico     → rejilla densa a sangre, todas a la vez
     galeria_estilo: z.enum(['composicion', 'carrusel', 'mosaico']).default('composicion'),
+    // Bloques de fotos: un proyecto puede mezclar estilos (una parte en maqueta, otra
+    // en libro, otra en carrusel…). Si hay bloques, mandan sobre `galeria_estilo`;
+    // los clips de la galería siguen saliendo aparte, en su fila.
+    bloques: z
+      .array(
+        z.object({
+          estilo: z
+            .enum(['composicion', 'libro', 'carrusel', 'contactos', 'mosaico'])
+            .default('composicion'),
+          titulo: z.string().optional(),
+          fotos: z.array(z.string()).default([]),
+        })
+      )
+      .default([]),
     // Acreditación de prensa escaneada. Es un documento real del encargo,
     // no un adorno: se muestra como un pase, junto al código de archivo.
     acreditacion: z
