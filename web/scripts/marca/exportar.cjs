@@ -70,6 +70,10 @@ const url = (f) => 'file://' + f;
     return `<div style="display:block">${t}</div>`;
   };
 
+  // --- avatares solo con el monograma (sin el nombre), centrado en el cuadrado
+  await hoja(path.join(MARCA, 'avatar-kl-carbon.png'), ajustado('monograma-crema.svg', 880), 1440, 1440, NEGRO);
+  await hoja(path.join(MARCA, 'avatar-kl-crema.png'), ajustado('monograma.svg', 880), 1440, 1440, CREMA);
+
   // --- favicon y icono de Apple: monograma grande sobre carbón, sin texto
   await hoja(path.join(RAIZ, 'public/favicon.png'), ajustado('monograma-crema.svg', 720), 1024, 1024, NEGRO);
   // iconos pequeños de pestaña: monograma casi a sangre, para que se lea a 16-32 px
