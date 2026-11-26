@@ -377,6 +377,8 @@ retoma cuando haya más.
 
 ## 📋 Pendientes de contenido (Kiko, desde el panel)
 
+- **Torneo Pádel For You en la pista M9** (sesión de vídeo, cliente Pádel For You; reel https://www.instagram.com/reel/Dey-XzdtR0C/, publicado el 22/10/2026; la fecha del torneo no la recuerda). **Falta una imagen de portada** (un fotograma del vídeo vale): sin portada no se crea. Se monta como sesión de tipo vídeo.
+
 - URLs reales de redes (Instagram, Vimeo, YouTube, TikTok) — hoy vacías.
 - Teléfono de contacto.
 - Clientes reales (hoy hay placeholders).
