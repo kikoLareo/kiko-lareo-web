@@ -91,7 +91,7 @@ const jsonLd = [
 <main id="contenido" style={`--acento-c:${acento};--acento-o:${acentoOscuro}`}>
 <!-- Hero: la portada llega "creciendo" desde la tarjeta (view transition) -->
 <header class="project-hero" style={`view-transition-name: proyecto-${proyecto.id}`}>
-  <Slot imagen={d.portada} etiqueta="Portada del proyecto" ancho={2000} prioridad />
+  <Slot imagen={d.portada} video={d.portada_clip} fondo etiqueta="Portada del proyecto" ancho={2000} prioridad />
   <div class="project-hero-code">[ {codigo} ] / {cat.titulo}{d.formato === 'sesion' ? ' / SESIÓN' : ''}{d.localidad ? ` / ${d.localidad.toUpperCase()}` : ''}</div>
   <h1 class="project-hero-title" style="margin:0">{d.titulo.toUpperCase()}</h1>
 </header>

@@ -13,14 +13,30 @@ interface Props {
   ancho?: number;
   /** true en la imagen del hero: carga prioritaria en vez de diferida. */
   prioridad?: boolean;
+  /** Clip de fondo: se reproduce solo, en bucle y sin controles (la portada en vídeo). */
+  fondo?: boolean;
 }
 
-const { imagen, video, alt, etiqueta, ancho = 1400, prioridad = false } = Astro.props;
+const { imagen, video, alt, etiqueta, ancho = 1400, prioridad = false, fondo = false } = Astro.props;
 const src = optim(imagen, ancho);
 const poster = optim(imagen, ancho);
 ---
 
-{video ? (
+{video && fondo ? (
+  <div class="slot filled">
+    <video
+      src={video}
+      poster={poster ?? undefined}
+      data-fondo
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-label={alt ?? etiqueta}
+    ></video>
+  </div>
+) : video ? (
   <div class="slot filled">
     <video
       src={video}
@@ -46,3 +62,13 @@ const poster = optim(imagen, ancho);
 ) : (
   <div class="slot"><span>{etiqueta}</span></div>
 )}
+
+<script>
+  // Quien pidió reducir el movimiento ve la foto fija, no el vídeo en bucle
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLVideoElement>('video[data-fondo]').forEach((v) => {
+      v.pause();
+      v.removeAttribute('autoplay');
+    });
+  }
+</script>

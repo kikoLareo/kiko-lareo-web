@@ -68,6 +68,10 @@ const proyectos = defineCollection({
     localidad: z.string().optional(), // dónde se hizo (SEO local): "A Coruña", "Santiago"…
     descripcion_seo: z.string().optional(), // meta description propia; si falta se genera
     portada: z.string().optional(),
+    // Portada en movimiento: MP4 corto que se reproduce solo, en bucle y sin sonido, en la
+    // cabecera del proyecto. `portada` (la foto) sigue siendo obligatoria: es el fotograma de
+    // espera, la que salen en las tarjetas y al compartir el enlace.
+    portada_clip: z.string().optional(),
     // Galería mixta: cada pieza puede ser una foto, un clip de vídeo
     // subido (MP4 corto) o ambos (la imagen hace de fotograma de espera)
     galeria: z

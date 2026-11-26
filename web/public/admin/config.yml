@@ -125,6 +125,7 @@ collections:
 
       # ---- 2. Las fotos y el vídeo (lo que más se usa) -------------------
       - { name: portada, label: Foto de portada, widget: image, required: false }
+      - { name: portada_clip, label: "Portada en vídeo (opcional)", widget: file, required: false, hint: "MP4 corto (H.264, sin sonido, ideal de 5 a 15 segundos y por debajo de ~15 MB). Se reproduce solo y en bucle en la cabecera del proyecto. La «Foto de portada» de arriba sigue siendo obligatoria: sale en las tarjetas y al compartir el enlace, y hace de fotograma mientras carga el vídeo." }
       - name: fotos
         label: "Fotos sin pie"
         widget: list
