@@ -7,8 +7,8 @@ borrador: false
 destacado: false
 cliente: Auara
 anio: "2026"
-servicios: Fotografía + Iluminación + Clips del making of
-entrega: Reportaje de fotos y clips del durante
+servicios: Fotografía + Iluminación
+entrega: Reportaje de fotos
 titular: |-
   AUARA X
   CERO DE COSTA.
@@ -82,4 +82,4 @@ Delante lleva «Auara x Cero de Costa». En la espalda, un mapa de África con s
 
 Dos modelos, un sofá, una mesa de metal y las botellas de Auara. Unas veces las llevan en brazos; otras están esparcidas por el sofá.
 
-Los clips son del durante, sin audio.
+Los clips son del detrás de cámaras, sin audio.
