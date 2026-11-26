@@ -3,7 +3,7 @@ titulo: TORNEO PÁDEL FOR YOU
 categoria: eventos
 tipo: video
 formato: sesion
-fecha: 2026-10-22
+fecha: 2026-09-10
 borrador: false
 destacado: false
 cliente: Pádel For You
@@ -24,6 +24,6 @@ video:
   etiqueta: Reel
   url: https://www.instagram.com/reel/Dey-XzdtR0C/embed
 ---
-Torneo Pádel For You en la pista de pádel M9. Grabé y edité el vídeo allí mismo.
+Torneo Pádel For You el 10 de septiembre de 2026, en la pista de pádel M9. Grabé y edité el vídeo allí mismo.
 
-Se publicó el 22 de octubre de 2026.
+Se publicó el 22 de octubre.
