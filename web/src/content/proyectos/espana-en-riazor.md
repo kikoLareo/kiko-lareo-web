@@ -2,7 +2,7 @@
 titulo: España en Riazor
 categoria: deportes
 tipo: fotografia
-formato: proyecto
+formato: sesion
 fecha: 2026-06-04
 borrador: false
 destacado: false

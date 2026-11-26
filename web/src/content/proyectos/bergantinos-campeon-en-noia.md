@@ -2,7 +2,7 @@
 titulo: Bergantiños, campeón en Noia
 categoria: deportes
 tipo: fotografia
-formato: proyecto
+formato: sesion
 fecha: 2026-08-22
 borrador: false
 destacado: false

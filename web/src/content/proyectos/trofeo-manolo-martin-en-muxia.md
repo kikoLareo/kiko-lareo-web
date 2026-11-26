@@ -2,7 +2,7 @@
 titulo: Trofeo Manolo Martín en Muxía
 categoria: deportes
 tipo: fotografia
-formato: proyecto
+formato: sesion
 fecha: 2026-08-23
 borrador: false
 destacado: false
