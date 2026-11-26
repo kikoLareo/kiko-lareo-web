@@ -181,10 +181,18 @@ a:hover { color: var(--rojo); }
 }
 
 .nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--display);
   font-weight: 800;
   font-size: 18px;
+  line-height: 1;
 }
+
+/* La firma kiko.lareo (Firma.astro): se dimensiona por el alto y toma el color del texto */
+.firma { display: block; height: 19px; width: auto; }
+.nav-flecha { font-family: var(--mono); font-weight: 500; font-size: 14px; }
 
 .nav-links {
   display: flex;
@@ -365,13 +373,13 @@ a:hover { color: var(--rojo); }
 
 .hero-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;      /* las líneas se leen seguidas: kiko.lareo */
   font-family: var(--display);
   font-weight: 800;
-  font-size: min(9.2vw, 124px);
-  line-height: 0.88;
-  letter-spacing: -0.055em;
-  text-transform: uppercase;
+  font-size: min(14vw, 190px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: none;             /* la firma va en minúsculas (identidad v3.1) */
 }
 
 .hero-title sup {
@@ -409,8 +417,8 @@ a:hover { color: var(--rojo); }
 .hero-title.mask {
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.04em;
-  font-size: min(11.5vw, 165px);
+  gap: 0.02em;
+  font-size: min(15.5vw, 215px);
   background-size: cover;
   background-position: center;
   /* El gris multiplica la foto dentro de las letras: gana contraste sobre
@@ -1761,7 +1769,8 @@ a:hover { color: var(--rojo); }
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 16px;
+  flex-wrap: wrap;          /* si el cliente es largo, baja a la línea de abajo en vez de desbordar la página */
+  gap: 6px 16px;
   padding: 14px 0 0;
 }
 
@@ -1775,7 +1784,7 @@ a:hover { color: var(--rojo); }
 .project-card .meta {
   font-family: var(--mono);
   font-size: 12px;
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 /* Página de categoría: galería de fotos */
@@ -1894,7 +1903,7 @@ a:hover { color: var(--rojo); }
   .hero-split { grid-template-columns: minmax(0, 1fr); height: auto; }
   .hero-split .izq { padding: 20px 20px 32px; gap: 40px; }
   .hero-split .der { height: 58vh; min-height: 320px; }
-  .hero-title.mask { font-size: min(16vw, 96px); }
+  .hero-title.mask { font-size: min(27vw, 170px); }
 }
 
 /* Responsive del caso de estudio */

@@ -1,4 +1,5 @@
 ---
+import Firma from './Firma.astro';
 // Nav fijo: logo + botón MENÚ. El menú es una pantalla completa con la
 // tipografía al tamaño que se merece; el HTML de los enlaces está siempre
 // en la página (Google lo lee aunque el menú esté cerrado).
@@ -25,9 +26,9 @@ const ENLACES = [
 
 <nav class="nav">
   {variante === 'portada' ? (
-    <a href="#top" class="nav-logo">KIKO LAREO</a>
+    <a href="#top" class="nav-logo" aria-label="Kiko Lareo, inicio"><Firma /></a>
   ) : (
-    <a href="/" class="nav-logo">← KIKO LAREO</a>
+    <a href="/" class="nav-logo" aria-label="Kiko Lareo, volver a la portada"><span class="nav-flecha" aria-hidden="true">←</span><Firma /></a>
   )}
 
   <div class="nav-der">
