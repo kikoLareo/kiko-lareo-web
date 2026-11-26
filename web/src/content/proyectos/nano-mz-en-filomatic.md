@@ -14,10 +14,10 @@ titular: |-
   NANO MZ
   EN FILOMATIC.
 color: rojo
-localidad: Arteixo
+localidad: A Coruña
 descripcion_seo: >-
-  Fotos del concierto de Nano Mz, artista de Arteixo, en la sala Filomatic el
-  11 de abril de 2026. Fotografía de Kiko Lareo.
+  Fotos del concierto de Nano Mz en la sala Filomatic de A Coruña el 11 de
+  abril de 2026. Fotografía de Kiko Lareo.
 portada: /img/uploads/nanomz-portada.jpg
 bloques:
   - estilo: libro
@@ -44,4 +44,4 @@ bloques:
       - /img/uploads/nanomz-7498.jpg
 galeria_estilo: composicion
 ---
-Nano Mz es un artista de Arteixo y lo escucho muchísimo. Lo fotografié el 11 de abril de 2026 en la sala Filomatic, y por eso fue una sesión especial para mí.
+Nano Mz es un cantante que escucho muchísimo. Lo fotografié el 11 de abril de 2026 en la sala Filomatic, en A Coruña, y por eso fue una sesión especial para mí.
