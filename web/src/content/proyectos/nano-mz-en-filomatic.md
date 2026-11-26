@@ -32,7 +32,6 @@ bloques:
   - estilo: composicion
     titulo: En color
     fotos:
-      - /img/uploads/nanomz-6554.jpg
       - /img/uploads/nanomz-5108.jpg
       - /img/uploads/nanomz-5013.jpg
       - /img/uploads/nanomz-4661.jpg
