@@ -62,13 +62,3 @@ const poster = optim(imagen, ancho);
 ) : (
   <div class="slot"><span>{etiqueta}</span></div>
 )}
-
-<script>
-  // Quien pidió reducir el movimiento ve la foto fija, no el vídeo en bucle
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll<HTMLVideoElement>('video[data-fondo]').forEach((v) => {
-      v.pause();
-      v.removeAttribute('autoplay');
-    });
-  }
-</script>

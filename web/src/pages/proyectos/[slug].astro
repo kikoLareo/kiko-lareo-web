@@ -283,6 +283,16 @@ const jsonLd = [
 </footer>
 
 <script>
+  // La portada en vídeo no se reproduce para quien pidió reducir el movimiento
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLVideoElement>('video[data-fondo]').forEach((v) => {
+      v.pause();
+      v.removeAttribute('autoplay');
+    });
+  }
+</script>
+
+<script>
   // ------------------------------------------------------------------
   // Carrusel vertical con relieve: la foto elegida viene al frente y las
   // demás se van hacia atrás. Sin JS se ve la primera y los pies siguen
