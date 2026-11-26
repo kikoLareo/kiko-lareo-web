@@ -57,6 +57,9 @@ const url = (f) => 'file://' + f;
 
   // --- favicon y icono de Apple: monograma grande sobre carbón, sin texto
   await hoja(path.join(RAIZ, 'public/favicon.png'), img('monograma-crema.svg', 760), 1024, 1024, NEGRO);
+  // iconos pequeños de pestaña: monograma casi a sangre, para que se lea a 16-32 px
+  await hoja(path.join(RAIZ, 'public/favicon-32.png'), img('monograma-crema.svg', 35), 32, 32, NEGRO);
+  await hoja(path.join(RAIZ, 'public/favicon-48.png'), img('monograma-crema.svg', 53), 48, 48, NEGRO);
   await hoja(path.join(RAIZ, 'public/apple-touch-icon.png'), img('monograma-crema.svg', 260), 360, 360, NEGRO);
 
   // --- firma EXPRESIVA: el mismo dibujo con desgaste controlado (rugosidad en el borde y

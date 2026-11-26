@@ -33,8 +33,11 @@ const ogImg = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 <meta name="theme-color" content="#F2EFE8" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/png" href="/favicon.png" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<!-- ?v=: los navegadores guardan el icono durante días; al cambiar el número bajan el nuevo -->
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=3" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
+<link rel="icon" type="image/png" href="/favicon.png?v=3" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
 <title>{title}</title>
 <meta name="description" content={description} />
 {noindex && <meta name="robots" content="noindex" />}
