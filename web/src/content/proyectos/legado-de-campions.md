@@ -2,6 +2,7 @@
 titulo: Legado de campións
 categoria: deportes
 tipo: video
+formato: proyecto
 fecha: 2026-08-31
 borrador: false
 destacado: false

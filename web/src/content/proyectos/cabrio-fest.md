@@ -2,6 +2,7 @@
 titulo: Cabrio Fest
 categoria: eventos
 tipo: video
+formato: proyecto
 fecha: 2026-08-24
 borrador: false
 destacado: false

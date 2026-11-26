@@ -2,6 +2,7 @@
 titulo: COIMBRA SE PUSO LA BUFANDA
 categoria: deportes
 tipo: direccion-arte
+formato: proyecto
 fecha: 2026-05-06
 borrador: false
 destacado: false

@@ -27,3 +27,20 @@ export const TIPOS: Tipo[] = [
 ];
 
 export const tipoDe = (id: string): Tipo => TIPOS.find((t) => t.id === id) ?? TIPOS[0];
+
+// Formato = el PESO del trabajo, otro eje más (lo decide el dueño en el panel):
+//   proyecto → encargo con caso de estudio (reto, idea, ejecución)
+//   sesión   → reportaje: fotos y una explicación corta
+export interface Formato {
+  id: 'proyecto' | 'sesion';
+  titulo: string;
+  plural: string;
+  corto: string;
+}
+
+export const FORMATOS: Formato[] = [
+  { id: 'proyecto', titulo: 'Proyecto', plural: 'Proyectos', corto: 'PROYECTO' },
+  { id: 'sesion', titulo: 'Sesión', plural: 'Sesiones', corto: 'SESIÓN' },
+];
+
+export const formatoDe = (id: string): Formato => FORMATOS.find((f) => f.id === id) ?? FORMATOS[0];

@@ -2,6 +2,7 @@
 titulo: AUARA x CERO DE COSTA
 categoria: moda
 tipo: fotografia
+formato: proyecto
 fecha: 2026-11-17
 borrador: false
 destacado: false

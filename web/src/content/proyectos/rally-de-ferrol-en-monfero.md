@@ -2,6 +2,7 @@
 titulo: Rally de Ferrol en Monfero
 categoria: deportes
 tipo: fotografia
+formato: proyecto
 fecha: 2026-08-22
 borrador: false
 destacado: false

@@ -2,6 +2,7 @@
 titulo: Eclipse en el viñedo circular
 categoria: hosteleria
 tipo: video
+formato: proyecto
 fecha: 2026-08-12
 borrador: false
 destacado: false

@@ -12,7 +12,7 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
 import { CATEGORIAS } from '../lib/categorias';
-import { TIPOS, tipoDe } from '../lib/tipos';
+import { TIPOS, tipoDe, FORMATOS, formatoDe } from '../lib/tipos';
 import { codigoArchivo } from '../lib/archivo';
 import { migas } from '../lib/seo';
 
@@ -21,6 +21,7 @@ const proyectos = await proyectosVisibles();
 // Solo se ofrecen como filtro los tipos que de verdad tienen trabajo: una
 // fila de filtros vacíos hace la web más pequeña, no más grande.
 const conTrabajo = TIPOS.filter((t) => proyectos.some((p) => p.data.tipo === t.id));
+const formatosConTrabajo = FORMATOS.filter((f) => proyectos.some((p) => p.data.formato === f.id));
 const catsConTrabajo = CATEGORIAS.filter((c) => proyectos.some((p) => p.data.categoria === c.id));
 
 const jsonLd = [
@@ -35,7 +36,7 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
 ---
 
 <Base
-  title="Trabajo — todos los proyectos | Kiko Lareo, fotógrafo y videógrafo en A Coruña"
+  title="Trabajo — proyectos y sesiones | Kiko Lareo, fotógrafo y videógrafo en A Coruña"
   description="Todos los trabajos de Kiko Lareo: deportes, eventos, moda, hostelería y naturaleza, en fotografía, vídeo, identidad y dirección de arte. A Coruña y Galicia."
   ogImage={ogImage}
   jsonLd={jsonLd}
@@ -46,7 +47,7 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
 <main id="contenido">
 <div class="cat-header first">
   <span class="cat-num">(TRABAJO)</span>
-  <h1 class="cat-title" style="margin:0">TODOS LOS PROYECTOS</h1>
+  <h1 class="cat-title" style="margin:0">TODO EL TRABAJO</h1>
   <span class="cat-aside">{String(proyectos.length).padStart(2, '0')} EN TOTAL</span>
 </div>
 
@@ -72,10 +73,20 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
   </div>
 )}
 
+{formatosConTrabajo.length > 1 && (
+  <div class="archivo-filtros" role="group" aria-label="Filtrar por proyecto o sesión">
+    <span class="filtro-et">PESO</span>
+    <button type="button" class="filtro activo" data-formato="todo" aria-pressed="true">TODO</button>
+    {formatosConTrabajo.map((f) => (
+      <button type="button" class="filtro" data-formato={f.id} aria-pressed="false">{f.plural.toUpperCase()}</button>
+    ))}
+  </div>
+)}
+
 {proyectos.length > 0 ? (
   <div class="archivo-grid" id="archivo-grid">
     {proyectos.map((p) => (
-      <a href={`/proyectos/${p.id}/`} class="archivo-item reveal" data-tipo={p.data.tipo} data-cat={p.data.categoria}>
+      <a href={`/proyectos/${p.id}/`} class="archivo-item reveal" data-tipo={p.data.tipo} data-cat={p.data.categoria} data-formato={p.data.formato}>
         <div class="cover" style={`view-transition-name: proyecto-${p.id}`}>
           <Slot
             imagen={p.data.portada}
@@ -86,7 +97,7 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
         </div>
         <div class="archivo-pie">
           <span class="archivo-cliente">{p.data.cliente} — {p.data.titulo}</span>
-          <span class="archivo-tipo">{tipoDe(p.data.tipo).corto}</span>
+          <span class="archivo-tipo">{tipoDe(p.data.tipo).corto}{p.data.formato === 'sesion' && <span class="formato-sesion"> · {formatoDe(p.data.formato).corto}</span>}</span>
         </div>
         <div class="archivo-code">
           [ {codigoArchivo(p, proyectos)} ] / {nombreCat(p.data.categoria)}
@@ -95,7 +106,7 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
         <span class="ir-proyecto">VER PROYECTO →</span>
       </a>
     ))}
-    <p class="archivo-vacio" id="archivo-vacio" hidden>No hay trabajos de ese tipo todavía.</p>
+    <p class="archivo-vacio" id="archivo-vacio" hidden>No hay trabajos con esa combinación todavía.</p>
   </div>
 ) : (
   <div class="empty-note">Todavía no hay proyectos en el archivo.</div>
@@ -108,19 +119,20 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
 </footer>
 
 <script>
-  // Dos filtros que se combinan: categoría (de qué va) y tipo (qué es).
+  // Tres filtros que se combinan: categoría (de qué va), tipo (qué es) y peso (proyecto o sesión).
   // Sin librerías: se ocultan las tarjetas que no coinciden. Si el
   // visitante no tiene JS se ven todas, que es lo correcto en una lista.
   const items = Array.from(document.querySelectorAll<HTMLElement>('.archivo-item'));
   const vacio = document.getElementById('archivo-vacio');
-  const elegido = { cat: 'todo', tipo: 'todo' };
+  const elegido = { cat: 'todo', tipo: 'todo', formato: 'todo' };
 
   const aplicar = () => {
     let visibles = 0;
     items.forEach((item) => {
       const coincide =
         (elegido.cat === 'todo' || item.dataset.cat === elegido.cat) &&
-        (elegido.tipo === 'todo' || item.dataset.tipo === elegido.tipo);
+        (elegido.tipo === 'todo' || item.dataset.tipo === elegido.tipo) &&
+        (elegido.formato === 'todo' || item.dataset.formato === elegido.formato);
       item.hidden = !coincide;
       if (coincide) visibles++;
     });
@@ -138,6 +150,7 @@ const nombreCat = (id: string) => CATEGORIAS.find((c) => c.id === id)?.titulo ??
         });
         if (boton.dataset.cat !== undefined) elegido.cat = boton.dataset.cat;
         if (boton.dataset.tipo !== undefined) elegido.tipo = boton.dataset.tipo;
+        if (boton.dataset.formato !== undefined) elegido.formato = boton.dataset.formato;
         aplicar();
       });
     });

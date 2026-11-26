@@ -95,6 +95,14 @@ collections:
           - { label: Moda, value: moda }
           - { label: Hostelería, value: hosteleria }
           - { label: Naturaleza, value: naturaleza }
+      - name: formato
+        label: "Proyecto o sesión"
+        widget: select
+        default: proyecto
+        hint: "PROYECTO: un encargo con su historia (reto, idea, cómo se hizo). SESIÓN: un reportaje, fotos con una explicación corta. Se nota en la etiqueta de cada tarjeta y en el filtro de /trabajo."
+        options:
+          - { label: "Proyecto (con su historia)", value: proyecto }
+          - { label: "Sesión (reportaje)", value: sesion }
       - name: tipo
         label: "Tipo de trabajo"
         widget: select

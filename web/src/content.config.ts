@@ -36,6 +36,10 @@ const proyectos = defineCollection({
   schema: z.object({
     titulo: z.string(),
     categoria,
+    // Peso del trabajo: un PROYECTO es un encargo con su caso de estudio (reto, idea,
+    // ejecución); una SESIÓN es un reportaje: fotos y una explicación corta.
+    // Es el dueño quien lo decide (26/11/2026). Alimenta la etiqueta y el filtro de /trabajo.
+    formato: z.enum(['proyecto', 'sesion']).default('proyecto'),
     // Qué ES el trabajo (eje distinto de la categoría, que dice de qué VA).
     // Alimenta el índice filtrable de /archivo. Ver src/lib/tipos.ts.
     tipo: z

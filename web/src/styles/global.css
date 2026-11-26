@@ -2816,3 +2816,6 @@ html.js .compo-pieza.aparece.posada {
   .libro-libro, .libro-hoja { transition: none; }
   .contactos-foto img { transition: none; }
 }
+
+/* Etiqueta de las sesiones (reportajes) frente a los proyectos: va en el mismo mono, en rojo */
+.formato-sesion { color: var(--tinta); }
