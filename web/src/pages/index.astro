@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { proyectosVisibles, fotosVisibles } from '../lib/contenido';
 import Base from '../layouts/Base.astro';
+import FirmaApilada from '../components/FirmaApilada.astro';
 import Nav from '../components/Nav.astro';
 import Slot from '../components/Slot.astro';
 import TiraCategoria from '../components/TiraCategoria.astro';
@@ -106,13 +107,6 @@ const maniResto = maniPalabras.join(' ');
 
 const [cierre1, cierre2] = g.cierre.split('\n');
 
-// Titular gigante del hero, línea a línea. Hoy NO lleva ® (el nombre no está
-// registrado, 12/11/2026). Si algún día se registra, basta con escribir ® al
-// final del titular en el panel: ya se pinta pequeño, como superíndice.
-const heroLineas = g.hero_titular
-  .split('\n')
-  .map((l) => l.trim())
-  .filter(Boolean);
 ---
 
 <Base
@@ -135,15 +129,9 @@ const heroLineas = g.hero_titular
         <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
         <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
       </div>
-      <h1 class="hero-title" style="margin:0">
+      <h1 class="hero-title">
         <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-        {heroLineas.map((l) =>
-        l.endsWith('®') ? (
-          <span>{l.slice(0, -1)}<sup>®</sup></span>
-        ) : (
-          <span>{l}</span>
-        )
-      )}
+        <FirmaApilada class="hero-firma" />
       </h1>
     </div>
   </header>
@@ -154,18 +142,9 @@ const heroLineas = g.hero_titular
         <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
         <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
       </div>
-      <h1
-        class="hero-title mask"
-        style={`margin:0; background-image:url('${optim(g.hero_imagen, 1400)}')`}
-      >
+      <h1 class="hero-title mask">
         <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-        {heroLineas.map((l) =>
-          l.endsWith('®') ? (
-            <span>{l.slice(0, -1)}<sup>®</sup></span>
-          ) : (
-            <span>{l}</span>
-          )
-        )}
+        <FirmaApilada class="hero-firma" foto={optim(g.hero_imagen, 1400)} />
       </h1>
     </div>
     <div class="der">
@@ -178,16 +157,10 @@ const heroLineas = g.hero_titular
       <div set:html={g.claim_izquierda.replace(/\n/g, '<br>')} />
       <div class="right" set:html={g.claim_derecha.replace(/\n/g, '<br>')} />
     </div>
-    <h1 class="hero-title" style="margin:0">
-      <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
-      {heroLineas.map((l) =>
-        l.endsWith('®') ? (
-          <span>{l.slice(0, -1)}<sup>®</sup></span>
-        ) : (
-          <span>{l}</span>
-        )
-      )}
-    </h1>
+    <h1 class="hero-title">
+        <span class="sr-only">Kiko Lareo, fotógrafo y videógrafo en A Coruña — </span>
+        <FirmaApilada class="hero-firma" />
+      </h1>
     <div class="hero-media">
       <div>
         <Slot imagen={g.hero_imagen} etiqueta="Foto principal — súbela desde el panel (Páginas → Portada)" />

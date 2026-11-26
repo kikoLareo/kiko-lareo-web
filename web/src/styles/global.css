@@ -371,22 +371,14 @@ a:hover { color: var(--rojo); }
 
 .hero-meta .right { text-align: right; }
 
-.hero-title {
-  display: flex;
-  justify-content: flex-start;      /* las líneas se leen seguidas: kiko.lareo */
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: min(14vw, 190px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  text-transform: none;             /* la firma va en minúsculas (identidad v3.1) */
-}
+.hero-title { margin: 0; line-height: 0; }
+.hero .hero-title { padding: 0 16px; margin: 16px 0 28px; }   /* hero «tarjeta»: alineada con el texto de arriba y con aire hasta la foto */
+.hero .hero-firma { width: min(100%, 520px); }
 
-.hero-title sup {
-  font-size: 0.34em;
-  vertical-align: super;
-  line-height: 0;
-}
+/* La firma apilada (kiko. / lareo) ES el titular: es un dibujo, no texto. El punto es el
+   rojo de la marca; las letras toman el color del texto que las rodea. */
+.hero-firma { display: block; width: min(100%, 760px); height: auto; }
+.firma-punto { fill: var(--rojo); }
 
 /* Hero "letras": partido en dos. Izquierda, el nombre gigante con la foto
    dentro de las letras (máscara); derecha, la misma foto a sangre. */
@@ -414,29 +406,15 @@ a:hover { color: var(--rojo); }
 
 .hero-split .der .slot { position: absolute; inset: 0; }
 
-.hero-title.mask {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.02em;
-  font-size: min(15.5vw, 215px);
-  background-size: cover;
-  background-position: center;
-  /* El gris multiplica la foto dentro de las letras: gana contraste sobre
-     el blanco papel sin trazos que dejen costuras. Si la foto no carga,
-     las letras quedan de este gris. */
-  background-color: #A9A59C;
-  background-blend-mode: multiply;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+/* En el hero partido la firma se ajusta al hueco: alta como mucho el 58 % de la pantalla */
+.hero-title.mask .hero-firma { width: auto; max-width: 100%; height: min(58vh, 520px); }
 
 .hero-split + .marquee { margin-top: 0; }
 
 .hero-media {
   display: flex;
   justify-content: center;
-  margin-top: -40px;
+  margin-top: 0;
 }
 
 .hero-media > div {
@@ -1685,7 +1663,7 @@ a:hover { color: var(--rojo); }
   .nav-links { gap: 16px; font-size: 12px; flex-wrap: wrap; justify-content: flex-end; }
 
   .hero-media > div { width: 80vw; height: 56vw; }
-  .hero-media { margin-top: -12px; }
+  .hero-media { margin-top: 0; }
 
   .quicklinks { gap: 20px; padding: 16px 20px; }
 
@@ -1862,7 +1840,7 @@ a:hover { color: var(--rojo); }
 .hero-bg .hero-meta { padding: 0; }
 
 .hero-bg .hero-title {
-  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
+  filter: drop-shadow(0 2px 20px rgba(0, 0, 0, 0.45));
 }
 
 .hero-bg + .marquee { margin-top: 0; }
@@ -1903,7 +1881,7 @@ a:hover { color: var(--rojo); }
   .hero-split { grid-template-columns: minmax(0, 1fr); height: auto; }
   .hero-split .izq { padding: 20px 20px 32px; gap: 40px; }
   .hero-split .der { height: 58vh; min-height: 320px; }
-  .hero-title.mask { font-size: min(27vw, 170px); }
+  .hero-title.mask .hero-firma { width: 100%; height: auto; }
 }
 
 /* Responsive del caso de estudio */

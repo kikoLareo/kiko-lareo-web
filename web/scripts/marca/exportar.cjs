@@ -38,29 +38,44 @@ const url = (f) => 'file://' + f;
 
   const img = (f, w) => `<img src="${url(path.join(MARCA, f))}" width="${w}" style="display:block">`;
 
-  // --- firma sobre transparente
-  await hoja(path.join(MARCA, 'wm-negro.png'), img('wordmark.svg', 2400), 2400, Math.round(2400 * (768 + 500) / (4563 + 500)), null);
-  await hoja(path.join(MARCA, 'wm-crema.png'), img('wordmark-crema.svg', 2400), 2400, Math.round(2400 * (768 + 500) / (4563 + 500)), null);
-  // --- monograma sobre transparente
-  const mw = 1200, mh = Math.round(1200 * (721 + 500) / (1009 + 500));
-  await hoja(path.join(MARCA, 'mono-negro.png'), img('monograma.svg', mw), mw, mh, null);
-  await hoja(path.join(MARCA, 'mono-crema.png'), img('monograma-crema.svg', mw), mw, mh, null);
+  // medidas de cada SVG (su viewBox), para no fijar proporciones a mano
+  const medidas = (f) => {
+    const v = fs.readFileSync(path.join(MARCA, f), 'utf8').match(/viewBox="([^"]+)"/)[1].split(' ').map(Number);
+    return { w: v[2], h: v[3] };
+  };
+  const alto = (f, ancho) => Math.round(ancho * medidas(f).h / medidas(f).w);
+
+  // --- firma sobre transparente (punto rojo)
+  await hoja(path.join(MARCA, 'wm-negro.png'), img('wordmark.svg', 2400), 2400, alto('wordmark.svg', 2400), null);
+  await hoja(path.join(MARCA, 'wm-crema.png'), img('wordmark-crema.svg', 2400), 2400, alto('wordmark-crema.svg', 2400), null);
+  // --- monograma sobre transparente (punto rojo)
+  await hoja(path.join(MARCA, 'mono-negro.png'), img('monograma.svg', 1200), 1200, alto('monograma.svg', 1200), null);
+  await hoja(path.join(MARCA, 'mono-crema.png'), img('monograma-crema.svg', 1200), 1200, alto('monograma-crema.svg', 1200), null);
 
   // --- avatares: monograma + nombre en mono, sobre carbón y sobre papel
   const avatar = (svgFile, color, nombre) => `
     <div style="display:flex;flex-direction:column;align-items:center;gap:70px;margin-top:20px">
-      ${img(svgFile, 760)}
-      <span style="font:400 56px Plex,monospace;letter-spacing:.22em;color:${color};margin-top:-120px">${nombre}</span>
+      ${img(svgFile, 820)}
+      <span style="font:400 56px Plex,monospace;letter-spacing:.22em;color:${color};margin-top:-60px">${nombre}</span>
     </div>`;
   await hoja(path.join(MARCA, 'avatar-carbon.png'), avatar('monograma-crema.svg', CREMA, 'kiko.lareo'), 1440, 1440, NEGRO);
   await hoja(path.join(MARCA, 'avatar-crema.png'), avatar('monograma.svg', NEGRO, 'kiko.lareo'), 1440, 1440, CREMA);
 
+  // mismo monograma pero SIN el aire de los SVG (viewBox recortado a la tinta): así se centra y se
+  // controla cuánto ocupa en los cuadrados pequeños
+  const ajustado = (f, w) => {
+    let t = fs.readFileSync(path.join(MARCA, f), 'utf8');
+    const [x, y, vw, vh] = t.match(/viewBox="([^"]+)"/)[1].split(' ').map(Number);
+    t = t.replace(/viewBox="[^"]+"/, `viewBox="${x + 250} ${y + 250} ${vw - 500} ${vh - 500}" width="${w}"`);
+    return `<div style="display:block">${t}</div>`;
+  };
+
   // --- favicon y icono de Apple: monograma grande sobre carbón, sin texto
-  await hoja(path.join(RAIZ, 'public/favicon.png'), img('monograma-crema.svg', 760), 1024, 1024, NEGRO);
+  await hoja(path.join(RAIZ, 'public/favicon.png'), ajustado('monograma-crema.svg', 720), 1024, 1024, NEGRO);
   // iconos pequeños de pestaña: monograma casi a sangre, para que se lea a 16-32 px
-  await hoja(path.join(RAIZ, 'public/favicon-32.png'), img('monograma-crema.svg', 35), 32, 32, NEGRO);
-  await hoja(path.join(RAIZ, 'public/favicon-48.png'), img('monograma-crema.svg', 53), 48, 48, NEGRO);
-  await hoja(path.join(RAIZ, 'public/apple-touch-icon.png'), img('monograma-crema.svg', 260), 360, 360, NEGRO);
+  await hoja(path.join(RAIZ, 'public/favicon-32.png'), ajustado('monograma-crema.svg', 28), 32, 32, NEGRO);
+  await hoja(path.join(RAIZ, 'public/favicon-48.png'), ajustado('monograma-crema.svg', 42), 48, 48, NEGRO);
+  await hoja(path.join(RAIZ, 'public/apple-touch-icon.png'), ajustado('monograma-crema.svg', 240), 360, 360, NEGRO);
 
   // --- firma EXPRESIVA: el mismo dibujo con desgaste controlado (rugosidad en el borde y
   // grano suelto). Solo para portadas y piezas que pidan energía; en la web va la limpia.
@@ -68,7 +83,7 @@ const url = (f) => 'file://' + f;
   const dsDe = (f) => [...svgTxt(f).matchAll(/ d="([^"]+)"/g)].map((m) => m[1]);
   const vb = svgTxt('wordmark.svg').match(/viewBox="([^"]+)"/)[1];
   const expresiva = (color) => {
-    const [d1, d2] = dsDe('wordmark.svg');
+    const [d1, d2] = dsDe('wordmark.svg');   // letras, punto
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="2400" style="display:block">
       <defs><filter id="d" x="-3%" y="-8%" width="106%" height="116%" color-interpolation-filters="sRGB">
         <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="4" result="ruido"/>
@@ -77,9 +92,9 @@ const url = (f) => 'file://' + f;
         <feColorMatrix in="grano" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  16 0 0 0 -3.5" result="huecos"/>
         <feComposite in="borde" in2="huecos" operator="in"/>
       </filter></defs>
-      <g filter="url(#d)" fill="${color}"><path d="${d1}"/><path d="${d2}"/></g></svg>`;
+      <g filter="url(#d)"><path fill="${color}" fill-rule="evenodd" d="${d1}"/><path fill="#FF4A32" fill-rule="evenodd" d="${d2}"/></g></svg>`;
   };
-  const altoExp = Math.round(2400 * (768 + 500) / (4563 + 500));
+  const altoExp = alto('wordmark.svg', 2400);
   await hoja(path.join(MARCA, 'wm-expresivo-negro.png'), expresiva(NEGRO), 2400, altoExp, null);
   await hoja(path.join(MARCA, 'wm-expresivo-crema.png'), expresiva(CREMA), 2400, altoExp, null);
 

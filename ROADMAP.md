@@ -17,7 +17,7 @@ publican al fusionar a `main` (Netlify despliega automáticamente).
 - **Tipografías alojadas en la web** (jul 2026): Bricolage + IBM Plex Mono
   servidas desde /fonts/ (woff2, OFL); fuera Google Fonts. Sin peticiones
   a Google, más rápido y sin enviar IP del visitante fuera de la UE.
-- **Identidad v3.1** (26/11/2026): la firma pasa a `kiko.lareo` en minúsculas y vectores, monograma `kl.` con punto rojo redondo, generador en `web/scripts/marca/`; ver CLAUDE.md. (Antes —**Logo y favicon**, jul 2026—: wordmark KIKO LAREO + monograma KL. (con
+- **Identidad v3.1** (26/11/2026): la firma pasa a `kiko.lareo` en minúsculas y vectores, monograma `kl.` con punto rojo redondo, generador en `web/scripts/marca/`; ver CLAUDE.md. Versión final = el dibujo del propio dueño (vectorizado), con el punto pegado a la `l`; portada con la firma apilada `kiko.`/`lareo`. (Antes —**Logo y favicon**, jul 2026—: wordmark KIKO LAREO + monograma KL. (con
   cuadrado rojo) en /public/marca/ (PNG negro/crema + SVG + avatares);
   favicon y apple-touch-icon montados.)
 - **Índice del proyecto**: CLAUDE.md en la raíz (se carga solo en cada
