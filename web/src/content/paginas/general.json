@@ -3,7 +3,7 @@
     "parrafos": [
       "Hola, soy Kiko Lareo.",
       "Soy fotógrafo, creativo audiovisual y una persona a la que le gusta involucrarse un poco más de la cuenta en cada proyecto.",
-    "También soy ingeniero informático: lo estudié y llevo tres años trabajando de ello. Esa parte técnica también puede entrar en tus proyectos.",
+      "También soy ingeniero informático: lo estudié y llevo tres años trabajando de ello. Esa parte técnica también puede entrar en tus proyectos.",
       "Trabajo con marcas, profesionales y personas que tienen algo que contar. A través de la fotografía, el vídeo y la dirección creativa, busco dar forma a ideas que conecten con quienes están al otro lado.",
       "Me gusta participar en todo el proceso. Desde esa primera conversación en la que todavía no sabemos muy bien qué vamos a hacer, hasta el momento en el que una idea cobra vida.",
       "Creo en los proyectos que tienen una identidad propia, en cuidar los detalles y en hacer las cosas con intención.",
@@ -110,5 +110,8 @@
       "nombre": "Instagram",
       "url": "https://www.instagram.com/kiko.lareo?igsh=a3N4aHNiZW1uaG43&utm_source=qr"
     }
-  ]
+  ],
+  "secciones": {
+    "reel": false
+  }
 }
